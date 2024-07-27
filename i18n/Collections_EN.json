@@ -328,6 +328,31 @@
           "text": "After numerous publications on the abilities of our closest relatives, the primates, one wonders: What distinguishes apes from humans?"
         }
       ]
+    },
+
+    {
+      "name":"default6",
+      "task":"Play a TicTacToe game",
+      "prompt":"Play a TicTacToe game",
+      "promptDefault":"Play a TicTacToe game",
+      "documents":[
+      {
+        "id": "A",
+        "text": "X32\nO22\nX12\nO11\nX33\nO13\nX31\n"
+      },
+      {
+        "id": "B",
+        "text": "X11\nO33\nX31\nO13\nX22\nO21\nX12\nO32\nX23\n"
+      },
+      {
+        "id": "C",
+        "text": "X11\nO13\nX32\nO23\nX21\nO33\n"
+      },
+      {
+        "id": "D",
+        "text": "X13\nO12\nX32\nO23\nX31\nO21\nX33\n"
+      }
+      ]
     }
 
   ]

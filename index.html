@@ -96,6 +96,15 @@
                 abc-Music-Player
               </md-button>
             </div>
+
+            <div ng-if="self.showTicTacToePlayer && self.input.length > 0 && !self.isGenerating" style="position: absolute; left: 0px; bottom: 0;">
+              <md-button ng-click="self.playABCTicTacToe($event)" style="text-transform: none;margin:0">
+                <ng-md-icon style="fill:black" icon="music_note"></ng-md-icon>
+                <ng-md-icon style="fill:black" icon="play_arrow"></ng-md-icon>
+                abc-TicTacToe-Player
+              </md-button>
+            </div>
+
           </div>
 
           <div ng-if="self.isManualMode && self.input.length > 0" style="padding:0.5em;padding-top:0;padding-right: 0;padding-left:0;user-select:none;-webkit-user-select:none" layout="row">
@@ -395,7 +404,13 @@
                     <md-tooltip md-direction="left">{{'INTELLIGENTAPES' | trans}}</md-tooltip>
                     <ng-md-icon class="rotate45" style="fill:white" icon="pets"></ng-md-icon>
                   </md-button>
-          
+
+                  <md-button aria-label="TicTacToe" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default6',$event)" style="background:#17b691;">
+                    <md-tooltip md-direction="left">{{'TICTACTOE' | trans}}</md-tooltip>
+                    <ng-md-icon class="rotate45" style="fill:white" icon="pets"></ng-md-icon>
+                  </md-button>
+
                 </md-fab-actions>
               </md-fab-speed-dial>
 
@@ -610,6 +625,15 @@
   </md-dialog-content>
 </md-dialog>
 </script> 
+
+<script type="text/ng-template" id="abcTicTacToePlayer.html">
+<md-dialog aria-label="ABC TicTacToe Player" style="min-width: 50%;max-width:80%;width:800px">
+  <md-dialog-content style="padding:16px">
+    <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
+    <div id="abcTicTacToeBoard"></div>
+  </md-dialog-content>
+</md-dialog>
+</script>
 
 <script type="text/ng-template" id="testBench.html">
 <md-dialog aria-label="Test Bench" style="min-width: 50%;max-width:80%;width:600px">
@@ -2628,7 +2652,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       prompt: self.prompt,
       promptDefault : self.promptDefault,
       task: self.task,
-      showMusicPlayer: self.showMusicPlayer
+      showMusicPlayer: self.showMusicPlayer,
+      showTicTacToePlayer: self.showTicTacToePlayer
     };
     self.saveLocalStorage("slm_settings",JSON.stringify(settings));
     self.saveLocalStorage("slm_input",JSON.stringify(self.input));
@@ -3273,6 +3298,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }else self.showngram = 3;
 
           self.showMusicPlayer = false;
+          self.showTicTacToePlayer = false;
 
           self.firstPrompt = true;
           self.isGenerating = false;
@@ -3359,6 +3385,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           self.isGenerating = false;
 
           self.showMusicPlayer = name == "default4"; // only for abc example
+          self.showTicTacToePlayer = name == "default6"; // only for TicTacToe
 
           deferred.resolve();
           $timeout(function() {
@@ -3381,6 +3408,55 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   };
 
   self.showMusicPlayer = false;
+  self.showTicTacToePlayer = false;
+
+  self.visualizeTicTacToeGame = function(abcContent) {
+    console.log('doing visualizeTicTacToeGame');
+    let TIMEBETWEENPLAYS = 1000;
+    let arrayOfTurns = abcContent.trim().split(/\s+/);
+    //console.log('arrayOfTurns = ', arrayOfTurns);
+    let n = arrayOfTurns.length;
+    for (let i = 0; i < n; i++) {
+      let turn = arrayOfTurns[i];
+      let player = turn[0];
+      let row = turn[1];
+      let col = turn[2];
+      let cellId = 'pos' + row + col;
+      let elt = document.getElementById(cellId);
+      if (!elt.firstChild) {
+        elt.appendChild = document.createTextNode('');
+      }
+      elt.firstChild.nodeValue += player;
+      document.getElementById('abcTicTacToeBoard').focus();
+      $timeout(function() { }, TIMEBETWEENPLAYS);
+    }
+  };
+
+  self.playABCTicTacToe = function(ev){
+    self.dialogOpen = true;
+    $mdDialog.show({
+      onRemoving: function (event, removePromise) {
+        self.dialogOpen = false;
+      },
+      controller: function ($scope, $mdDialog) {
+        // expand this to show visualizer
+        $scope.self = self;
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        $timeout(function(){
+          var abcContent = document.getElementById('inputBox').innerText;
+          document.querySelector("#abcTicTacToeBoard").innerHTML =
+            "<div><table><tr><td id=pos11> </td><td id=pos12> </td><td id=pos13> </td></tr> <tr><td id=pos21> </td><td id=pos22> </td><td id=pos23> </td></tr> <tr><td id=pos31> </td><td id=pos32> </td><td id=pos33> </td></tr></table></div>";
+          self.visualizeTicTacToeGame(abcContent);
+        }, 500);
+      },
+      templateUrl: 'abcTicTacToePlayer.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true
+    });
+  };
 
   self.playABCMusic = function(ev){
     self.dialogOpen = true;
