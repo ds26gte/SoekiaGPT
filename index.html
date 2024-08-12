@@ -630,7 +630,14 @@
 <md-dialog aria-label="ABC TicTacToe Player" style="min-width: 50%;max-width:80%;width:800px">
   <md-dialog-content style="padding:16px">
     <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
-    <div id="abcTicTacToeBoard"></div>
+    <div id="abcTicTacToeBoard">
+    <table>
+      <tr><td>{{board[0][0]}}</td><td>{{board[1][0]}}</td><td>{{board[2][0]}}</td></tr>
+      <tr><td>{{board[0][1]}}</td><td>{{board[1][1]}}</td><td>{{board[2][1]}}</td></tr>
+      <tr><td>{{board[0][2]}}</td><td>{{board[1][2]}}</td><td>{{board[2][2]}}</td></tr>
+    </table>
+    </div>
+    <md-button ng-click="replay()">Replay game</md-button>
   </md-dialog-content>
 </md-dialog>
 </script>
@@ -1272,6 +1279,13 @@ body.smallScreen .seeInsideBtn2 {
 .document_CX {background: #40E0D0CC !important; }
 .document_CY {background: #9932CCCC !important; }
 .document_CZ {background: #FF6347CC !important; }
+
+#abcTicTacToeBoard table { border: 1px solid black; }
+#abcTicTacToeBoard td {
+  border: 1px solid black;
+  width: 4em;
+  height: 2ex;
+}
 
 </style>
 <script src="node_modules/angular/angular.js"></script> 
@@ -3410,26 +3424,24 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.showMusicPlayer = false;
   self.showTicTacToePlayer = false;
 
-  self.visualizeTicTacToeGame = function(abcContent) {
+  self.visualizeTicTacToeGame = function(board) {
     console.log('doing visualizeTicTacToeGame');
+    let abcContent = document.getElementById('inputBox').innerText;
     let TIMEBETWEENPLAYS = 1000;
-    let arrayOfTurns = abcContent.trim().split(/\s+/);
-    //console.log('arrayOfTurns = ', arrayOfTurns);
-    let n = arrayOfTurns.length;
-    for (let i = 0; i < n; i++) {
-      let turn = arrayOfTurns[i];
+    let gameMoves = abcContent.trim().split(/\s+/);
+    function visualizeOneMove() {
+      let turn = gameMoves.shift();
+      console.log('turn =', turn);
       let player = turn[0];
-      let row = turn[1];
-      let col = turn[2];
-      let cellId = 'pos' + row + col;
-      let elt = document.getElementById(cellId);
-      if (!elt.firstChild) {
-        elt.appendChild = document.createTextNode('');
+      if (player !== 'X' && player !== 'O') { return; }
+      let row = parseInt(turn[1]) - 1;
+      let col = parseInt(turn[2]) - 1;
+      board[row][col] += player;
+      if (gameMoves.length > 0) {
+        $timeout(visualizeOneMove, TIMEBETWEENPLAYS);
       }
-      elt.firstChild.nodeValue += player;
-      document.getElementById('abcTicTacToeBoard').focus();
-      $timeout(function() { }, TIMEBETWEENPLAYS);
     }
+    visualizeOneMove();
   };
 
   self.playABCTicTacToe = function(ev){
@@ -3441,15 +3453,27 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       controller: function ($scope, $mdDialog) {
         // expand this to show visualizer
         $scope.self = self;
+        $scope.board = [];
+        for (let i = 0; i < 3; i++) {
+          $scope.board[i] = [];
+          for (let j = 0; j < 3; j++) {
+            $scope.board[i][j] = '';
+          }
+        }
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
-        $timeout(function(){
-          var abcContent = document.getElementById('inputBox').innerText;
-          document.querySelector("#abcTicTacToeBoard").innerHTML =
-            "<div><table><tr><td id=pos11> </td><td id=pos12> </td><td id=pos13> </td></tr> <tr><td id=pos21> </td><td id=pos22> </td><td id=pos23> </td></tr> <tr><td id=pos31> </td><td id=pos32> </td><td id=pos33> </td></tr></table></div>";
-          self.visualizeTicTacToeGame(abcContent);
-        }, 500);
+        $scope.visualize = function(){
+          $scope.board = [];
+          for (let i = 0; i < 3; i++) {
+            $scope.board[i] = [];
+            for (let j = 0; j < 3; j++) {
+              $scope.board[i][j] = '';
+            }
+          }
+          self.visualizeTicTacToeGame($scope.board);
+        };
+        $timeout($scope.visualize, 1000);
       },
       templateUrl: 'abcTicTacToePlayer.html',
       parent: angular.element(document.body),
