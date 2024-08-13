@@ -3425,13 +3425,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.showTicTacToePlayer = false;
 
   self.visualizeTicTacToeGame = function(board) {
-    console.log('doing visualizeTicTacToeGame');
     let abcContent = document.getElementById('inputBox').innerText;
     let TIMEBETWEENPLAYS = 1000;
     let gameMoves = abcContent.trim().split(/\s+/);
     function visualizeOneMove() {
       let turn = gameMoves.shift();
-      console.log('turn =', turn);
       let player = turn[0];
       if (player !== 'X' && player !== 'O') { return; }
       let row = parseInt(turn[1]) - 1;
