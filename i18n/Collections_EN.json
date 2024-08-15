@@ -109,102 +109,6 @@
       }
     ]},
     
-    {
-      "name": "default3",
-      "task": "Weather forecast",
-      "prompt":"How will be the weather?",
-      "promptDefault": "How will be the weather?",
-      "documents": [
-        {
-          "id": "A",
-          "text": "Showers are on the way towards the coast. In between, it stays dry with a sun-cloud mix. 6 to 11 degrees."
-        },
-        {
-          "id": "B",
-          "text": "Peter is in top form: he ensures sunny and warm weather in midsummer.\n\nThe mercury climbs to a pleasant 19 to 24 degrees."
-        },
-        {
-          "id": "C",
-          "text": "With cool and windy showers reminiscent of April, we will continue tomorrow.\n\nThe rain showers move quickly over the Oder to the east, and the initially strong wind subsides."
-        },
-        {
-          "id": "D",
-          "text": "Tomorrow, with the wind picking up, new low-pressure pans with rain will move across large parts of Germany. In between, there are loosening up here and there. \n\nIn addition, near the coast 5 to 9, otherwise 10 to 15 degrees."
-        },
-        {
-          "id": "E",
-          "text": "On Tuesday, slightly drier air will flow in in the east, so the high fog cover in the north can at least partially loosen up. In the south, apart from early morning fog, it is mostly sunny. 1 to 5 degrees.\n\nThe clouds will remain mostly dense in the north today and it can rain a little, especially north of the low mountain ranges. Glorious early autumn weather can be expected on Monday."
-        },
-        {
-          "id": "F",
-          "text": "In addition to intermittent rain, sometimes heavy showers, locally with lightning and thunder must be expected. Later, local rain showers must be expected again."
-        },
-        {
-          "id": "G",
-          "text": "In the afternoon, local rain showers are possible in the west, but mostly it will remain dry.\n\nA mostly sunny day is to be expected."
-        },
-        {
-          "id": "H",
-          "text": "The day starts quite sunny in large parts of Germany, fog fields are only to be expected in the Danube region, Lake Constance and Upper Franconia."
-        },
-        {
-          "id": "I",
-          "text": "On Wednesday morning, fog or high fog is to be expected again, but longer sunny periods are to be expected during the day.\n\nDry areas are most likely to be found in the northwest.\n\nIt is most likely to remain cloudy towards the coast and on the Danube."
-        },
-        {
-          "id": "J",
-          "text": "Sunny and cloudy sections are expected to alternate with short showers."
-        },
-        {
-          "id": "K",
-          "text": "The day begins quite sunny in large parts of Germany, fog fields are only to be expected in the Danube region, on Lake Constance and in Upper Franconia."
-        },
-        {
-          "id": "L",
-          "text": "Showers are on the way towards the coast.\n\nFrom the southwest, a rainy area moves on towards the Eifel and the Thuringian Forest.\n\nTowards the north, the tendency to showers decreases rapidly and it is often cloudy to sunny.\n\nPerfect, thunderstorm-free bathing and excursion weather. The sun shines, often for over 14 hours. Temperatures reach 26 to 31 degrees. Towards the south, source clouds are possible."
-        },
-        {
-          "id": "M",
-          "text": "Northeasterly to easterly winds will be fresh at times.\n\nOn Monday, it will be partly friendly in the east at first, but otherwise clouds and rain will increasingly move into the country from the west.\n\nIn the morning dense cloud fields will bring widespread rain showers. The afternoon will be increasingly dry and partly sunny with variable clouds.\n\nOn Sunday, dense clouds will predominate, as another rain area crosses us, whereby it can rain partly persistently and locally quite heavily."
-        },
-        {
-          "id": "N",
-          "text": "In the early morning hours it is dry with last brightening.\n\nAt the beginning of the new week, the cloudy and wet low-pressure weather continues.\n\nDuring the day, the clouds become thicker and thicker, and especially in the afternoon and evening there is a threat of sometimes violent heat thunderstorms.\n\nOn Monday, showers and thunderstorms will become more numerous in the western half."
-        },
-        {
-          "id": "O",
-          "text": "Towards the north, the tendency to showers decreases rapidly and the sunny periods become longer.\n\nAt the turn of the year it will be stormy again, partly wet.\n\nThe sun is most likely to be seen in the morning in the north-east of the country."
-        },
-        {
-          "id": "P",
-          "text": "Directly on the edge of the Alps and in the Alps, the last snowfalls are subsiding quickly today, and the clouds are loosening.\n\nAt noon and in the afternoon, the sun comes into its own quite well.\n\nIt rains mainly in the afternoon and evening, sometimes heavily.\n\nDuring the day it will be dry for a long time and partly sunny.\n\nTo the south, rain falls intermittently, in the southeast also persistent and sometimes quite productive."
-        },
-        {
-          "id": "Q",
-          "text": "Partly heavy and sometimes prolonged rain spreads from the west to the east today.\n\nIn the afternoon, showers will fall in the north, in the lowlands it will loosen up from time to time and the sun will show up, especially near the coast.\n\nTomorrow dense clouds will predominate, as another rain area crosses us, whereby it can rain partly persistently and locally quite heavily. During the day it will be dry for a long time and partly sunny. Later, local rain showers must be expected again.\n\nOn Sunday, there may be heavy precipitation in the northern reservoir of the Alps, which will initially fall as rain up to high altitudes, but later turn into snow.\n\nHere, the sun shines for a long time, so that the air can warm up well above 20 degrees."
-        },
-        {
-          "id": "R",
-          "text": "On Thursday, the sun will temporarily reappear in the morning, then rain showers will move in again from the northwest.\n\nAt times it will be friendly with sun and clouds - before showers and thunderstorms come up again in the afternoon and evening.\n\nTomorrow it will be sunny in the east and southeast, before showers increase in the afternoon.\n\nUntil around noon it will be partly sunny and dry. As a result, the clouds become thicker again. They bring some, sometimes heavy showers, on the Oder also thunderstorms. Before that, temperatures rise to 28 degrees.\n\nA weak cold front will bring clouds and scattered showers from west to east.\n\nUntil around noon it will be partly sunny and dry. As a result, the clouds become thicker again. They bring some, sometimes heavy showers, on the Oder also thunderstorms. Before that, temperatures rise to 28 degrees."
-        },
-        {
-          "id": "S",
-          "text": "Dense clouds predominate on Tuesday, as a rainy area is crossing us again, whereby it can rain partly persistently and locally quite heavily."
-        },
-        {
-          "id": "T",
-          "text": "Today, despite a few clouds, the weather will be quite sunny from morning to night – apart from somewhat thicker fog fields, which are most likely to last until just after noon in the valley of the Werra.\n\nApart from thunderstorm gusts, weak to moderate northeasterly to northerly winds will blow.\n\nThe temperature drops, but reaches 22 to 27 degrees in midsummer.\n\nThere will be weak to moderate, but strong gusty easterly to southeasterly winds.\n\nAs it progresses, clouds will form in some places, but it will remain mostly dry.\n\nOn Thursday dense clouds will predominate, as another rain area crosses us, whereby it can rain partly persistently and locally quite heavily. Nevertheless, the temperature rises to values of 10 to 15 degrees.\n\nOn Saturday, fog or high fog is to be expected again in the morning, but longer sunny periods are to be expected during the day."
-        },
-        {
-          "id": "u",
-          "text": "The flood situation remains tense: Today there is a mixture of sun and clouds and not too many showers or thunderstorms - but in the next few days there will be more episodes with heavy rain."
-        },
-        {
-          "id": "V",
-          "text": "It's getting a little warmer again. \n\nTomorrow even denser clouds with repeated showers will persist in the southeast.\n\nToday, despite a few clouds, the weather will be quite sunny from morning to night – apart from somewhat thicker fog fields, which are most likely to last until just after noon in the valley of the Werra.\n\nFrom today's point of view, Wednesday will be a bit friendlier again, only in the south and northeast there will be a few rain showers.\n\nFrom the Baltic Sea to Bavaria, it remains dry and friendly for a long time.\n\nOn Saturday, fog or high fog is to be expected again in the morning, but longer sunny periods are to be expected during the day. The temperature reaches 11 to 16 degrees, in North Frisia hardly more than 9 degrees.\n\nThe maximum temperatures are between 3 degrees on Fehmarn and 16 degrees on the Upper Rhine.\n\nThe maximum temperatures are between 17 degrees in Saarland and East Frisia and up to 23 degrees in the foothills of the Alps."
-        }
-      ]
-    },
 
    {"name":"default4",
     "task":"",
@@ -353,6 +257,40 @@
         "text": "X13\nO12\nX32\nO23\nX31\nO21\nX33\n"
       }
       ]
+    },
+
+    {
+      "name": "default7",
+      "task": "Play a chess game",
+      "prompt": "Play a chess game",
+      "promptDefault": "Play a chess game",
+      "documents": [
+        {
+          "id": "A",
+          "text": "e4 c5\nNc3 g6\nf4 Bg7\nNf3 d6\nBb5 Bd7\nBxd7 Qxd7\nO-O Nc6\nd3 Nf6\nQe1 O-O\nh3 Rab8\nQh4 b5\nf5 b4\nNe2 gxf5\nBh6 fxe4\nNg5 exd3\nBxg7 Kxg7\nRxf6 Kxf6\nRf1 Ke5\nQe4"
+        },
+        {
+          "id": "B",
+          "text": "e4 c5\nNf3 Nc6\nd4 g6\nBb5 cxd4\nBxc6 bxc6\nNxd4 Bg7\nNc3 e6\nO-O Qb6\nNf3 Ne7\nBe3 Qxb2\nBd4 Bxd4\nQxd4 O-O\nRab1 Qxc2\nRfc1 c5\nQf6 Qb2\nRxb2 d5\nQxe7"
+        },
+        {
+          "id": "C",
+          "text": "e4 e5\nNf3 d5\nexd5 Qxd5\nNc3 Qe6\nb3 Nc6\nBc4 Bd6\nBxe6 Bxe6\nO-O O-O-O\nBb2 f5\nNb5 Nf6\nNxd6 cxd6\nRe1 e4\nNd4 Nxd4\nBxd4 Kb8\nBxf6 gxf6\nd3 Rhg8\ndxe4 fxe4\nRxe4 Bf5\nRf4 Rg5\nh4 Rh5\nQxh5"
+        },
+        {
+          "id": "D",
+          "text": "d4 Nf6\nBg5 Ne4\nBf4 d5\ne3 e6\nBd3 Nf6\nNf3 c5\nc3 Nc6\nO-O Be7\nh3 O-O\nNbd2 c4\nBc2 b5\ne4 b4\ne5 Nd7\nh4 Ba6\nNg5 b3\nBxh7 Kh8\nQh5 Re8\nNxf7"
+        },
+        {
+          "id": "E",
+          "text": "e4 e6\nd4 d5\nNc3 c5\ndxc5 Bxc5\nexd5 Nf6\nBc4 Qb6\nQe2 O-O\nNa4 Qb4\nNc3 exd5\nBb5 Bd7\nBxd7 Nbxd7\nQf3 d4\na3 Qb6\nNa4 Qa5\nb4 Qxa4\nbxc5 Qxc2\nNh3 Rfe8\nBe3 Qc3\nKe2 d3"
+        },
+        {
+          "id": "F",
+          "text": "e4 d6\nd4 Nf6\nNc3 g6\nBe3 Bg7\nQd2 Ng4\nBf4 e5\nBg5 f6\nBe3 Nxe3\nQxe3 Nc6\nd5 Nd4\nQd2 O-O\nNge2 f5\nNxd4 exd4\nNe2 fxe4\nNxd4 Qf6\nNb3 Qxb2\nRd1 Bc3\nQxc3 Qxc3\nRd2 e3\nfxe3 Qxe3\nKd1 Bg4"
+        }
+      ]
+
     }
 
   ]

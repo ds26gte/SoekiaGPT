@@ -105,6 +105,14 @@
               </md-button>
             </div>
 
+            <div ng-if="self.showChessPlayer && self.input.length > 0 && !self.isGenerating" style="position: absolute; left: 0px; bottom: 0;">
+              <md-button ng-click="self.playABCChess($event)" style="text-transform: none;margin:0">
+                <ng-md-icon style="fill:black" icon="music_note"></ng-md-icon>
+                <ng-md-icon style="fill:black" icon="play_arrow"></ng-md-icon>
+                abc-Chess-Player
+              </md-button>
+            </div>
+
           </div>
 
           <div ng-if="self.isManualMode && self.input.length > 0" style="padding:0.5em;padding-top:0;padding-right: 0;padding-left:0;user-select:none;-webkit-user-select:none" layout="row">
@@ -408,7 +416,13 @@
                   <md-button aria-label="TicTacToe" class="md-fab md-raised md-mini md-accent documentsButton"
                              ng-click="self.loadPredefined('default6',$event)" style="background:#17b691;">
                     <md-tooltip md-direction="left">{{'TICTACTOE' | trans}}</md-tooltip>
-                    <ng-md-icon class="rotate45" style="fill:white" icon="pets"></ng-md-icon>
+                    <ng-md-icon class="rotate45" style="fill:white" icon="receipt"></ng-md-icon>
+                  </md-button>
+
+                  <md-button aria-label="Chess" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default7',$event)" style="background:#17b691;">
+                    <md-tooltip md-direction="left">{{'CHESS' | trans}}</md-tooltip>
+                    <ng-md-icon class="rotate45" style="fill:white" icon="picture_in_picture"></ng-md-icon>
                   </md-button>
 
                 </md-fab-actions>
@@ -635,6 +649,27 @@
       <tr><td>{{board[0][0]}}</td><td>{{board[1][0]}}</td><td>{{board[2][0]}}</td></tr>
       <tr><td>{{board[0][1]}}</td><td>{{board[1][1]}}</td><td>{{board[2][1]}}</td></tr>
       <tr><td>{{board[0][2]}}</td><td>{{board[1][2]}}</td><td>{{board[2][2]}}</td></tr>
+    </table>
+    </div>
+    <md-button ng-click="replay()">Replay game</md-button>
+  </md-dialog-content>
+</md-dialog>
+</script>
+
+<script type="text/ng-template" id="abcChessPlayer.html">
+<md-dialog aria-label="ABC Chess Player" style="min-width: 50%;max-width:80%;width:800px">
+  <md-dialog-content style="padding:16px">
+    <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
+    <div id="abcChessBoard">
+    <table>
+      <tr><td>{{board[0][7]}}</td><td>{{board[1][7]}}</td><td>{{board[2][7]}}</td><td>{{board[3][7]}}</td><td>{{board[4][7]}}<td>{{board[5][7]}}</td><td>{{board[6][7]}}</td><td>{{board[7][7]}}</td></tr>
+      <tr><td>{{board[0][6]}}</td><td>{{board[1][6]}}</td><td>{{board[2][6]}}</td><td>{{board[3][6]}}</td><td>{{board[4][6]}}<td>{{board[5][6]}}</td><td>{{board[6][6]}}</td><td>{{board[7][6]}}</td></tr>
+      <tr><td>{{board[0][5]}}</td><td>{{board[1][5]}}</td><td>{{board[2][5]}}</td><td>{{board[3][5]}}</td><td>{{board[4][5]}}<td>{{board[5][5]}}</td><td>{{board[6][5]}}</td><td>{{board[7][5]}}</td></tr>
+      <tr><td>{{board[0][4]}}</td><td>{{board[1][4]}}</td><td>{{board[2][4]}}</td><td>{{board[3][4]}}</td><td>{{board[4][4]}}<td>{{board[5][4]}}</td><td>{{board[6][4]}}</td><td>{{board[7][4]}}</td></tr>
+      <tr><td>{{board[0][3]}}</td><td>{{board[1][3]}}</td><td>{{board[2][3]}}</td><td>{{board[3][3]}}</td><td>{{board[4][3]}}<td>{{board[5][3]}}</td><td>{{board[6][3]}}</td><td>{{board[7][3]}}</td></tr>
+      <tr><td>{{board[0][2]}}</td><td>{{board[1][2]}}</td><td>{{board[2][2]}}</td><td>{{board[3][2]}}</td><td>{{board[4][2]}}<td>{{board[5][2]}}</td><td>{{board[6][2]}}</td><td>{{board[7][2]}}</td></tr>
+      <tr><td>{{board[0][1]}}</td><td>{{board[1][1]}}</td><td>{{board[2][1]}}</td><td>{{board[3][1]}}</td><td>{{board[4][1]}}<td>{{board[5][1]}}</td><td>{{board[6][1]}}</td><td>{{board[7][1]}}</td></tr>
+      <tr><td>{{board[0][0]}}</td><td>{{board[1][0]}}</td><td>{{board[2][0]}}</td><td>{{board[3][0]}}</td><td>{{board[4][0]}}<td>{{board[5][0]}}</td><td>{{board[6][0]}}</td><td>{{board[7][0]}}</td></tr>
     </table>
     </div>
     <md-button ng-click="replay()">Replay game</md-button>
@@ -1282,6 +1317,13 @@ body.smallScreen .seeInsideBtn2 {
 
 #abcTicTacToeBoard table { border: 1px solid black; }
 #abcTicTacToeBoard td {
+  border: 1px solid black;
+  width: 4em;
+  height: 2ex;
+}
+
+#abcChessBoard table { border: 1px solid black; }
+#abcChessBoard td {
   border: 1px solid black;
   width: 4em;
   height: 2ex;
@@ -2667,7 +2709,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       promptDefault : self.promptDefault,
       task: self.task,
       showMusicPlayer: self.showMusicPlayer,
-      showTicTacToePlayer: self.showTicTacToePlayer
+      showTicTacToePlayer: self.showTicTacToePlayer,
+      showChessPlayer: self.showChessPlayer
     };
     self.saveLocalStorage("slm_settings",JSON.stringify(settings));
     self.saveLocalStorage("slm_input",JSON.stringify(self.input));
@@ -3313,6 +3356,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
           self.showMusicPlayer = false;
           self.showTicTacToePlayer = false;
+          self.showChessPlayer = false;
 
           self.firstPrompt = true;
           self.isGenerating = false;
@@ -3344,6 +3388,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   };
 
   self.loadPredefined = function(name,ev){
+    // console.log('doing loadPredefined', name);
     var deferred = $q.defer();
     var confirm = $mdDialog.confirm()
           .title(self.trans('ASKLOADNEWCOLLECTION'))
@@ -3357,6 +3402,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       if(name == "Neu"){
         self.predefined.push({name:"Neu",documents:[],promptDefault:""});
       }
+      // console.log('self.predefined.length =', self.predefined.length);
+      // console.log('self.predefined =', self.predefined);
       for(var i=0; i < self.predefined.length; i++){
         if(self.predefined[i].name == name){
           self.documents = self.predefined[i].documents;
@@ -3400,6 +3447,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
           self.showMusicPlayer = name == "default4"; // only for abc example
           self.showTicTacToePlayer = name == "default6"; // only for TicTacToe
+          self.showChessPlayer = name == "default7"; // only for chess
+
 
           deferred.resolve();
           $timeout(function() {
@@ -3423,6 +3472,354 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
   self.showMusicPlayer = false;
   self.showTicTacToePlayer = false;
+  self.showChessPlayer = false;
+
+  self.visualizeChessGame = function(board) {
+    let abcContent = document.getElementById('inputBox').innerText;
+    let TIMEBETWEENPLAYS = 1000;
+
+    function integerizePos(s) {
+      let charCodeA = 97;
+      if (s.match(/^\d$/)) {
+        return parseInt(s) - 1;
+      } else if (s.match(/^[abcdefgh]$/)) {
+        return s.charCodeAt(0) - charCodeA;
+      } else {
+        return -1;
+      }
+    }
+
+    function findPiecePlaces(move) {
+      let places = [];
+      for (i = 0; i < 8; i++) {
+        for (j = 0; j < 8; j++) {
+          if (board[i][j] === move.piece) {
+            places.push([i, j]);
+          }
+        }
+      }
+      console.log('findPiecePlaces', move, 'is', places);
+      return places;
+    }
+
+    function onStraightPath(f1, r1, f2, r2) {
+      return ((f1 === f2) || (r1 === r2));
+    }
+
+    function onDiagPath(f1, r1, f2, r2) {
+      return (Math.abs(f1-f2) === Math.abs(r1-r2));
+    }
+
+    function onKnightPath(f1, r1, f2, r2) {
+      let fdiff = Math.abs(f1-f2);
+      let rdiff = Math.abs(r1-r2);
+      return (((fdiff == 2) && (rdiff == 1)) || ((fdiff == 1) && (rdiff == 2)));
+    }
+
+    function parseAllMoves(abcContent) {
+      // console.log('doing parseAllMoves', abcContent);
+      let listOfMovesOG = abcContent.trim().split(/\s+/);
+      let listOfMoves = [];
+      let player = 'w';
+      while (listOfMovesOG.length > 0) {
+        let moveOG = listOfMovesOG.shift();
+        let currPlayer = player;
+        let move = {
+          player: currPlayer,
+          piece: 'P',
+          capture: false,
+          tgtFile: false,
+          tgtRank: false,
+          srcFile: false,
+          srcRank: false,
+          impossibleMove: false
+        };
+        listOfMoves.push(move);
+        player = (currPlayer === 'w') ? 'b' : 'w';
+        if (moveOG.match('O')) {
+          // skip castling for now
+          move.impossibleMove = true;
+          continue;
+        }
+        if (moveOG.match('x')) {
+          moveOG = moveOG.replace('x', '');
+          move.capture = true;
+        }
+        let moveN = moveOG.length;
+        if (moveN >= 2) {
+          move.tgtRank = integerizePos(moveOG[moveN-1]);
+          move.tgtFile = integerizePos(moveOG[moveN-2]);
+          moveN -= 2;
+        } else {
+          continue;
+        }
+        if (moveN >= 1) {
+          move.piece = moveOG[0];
+          if (currPlayer === 'b') {
+            move.piece = move.piece.toLowerCase();
+          }
+        }
+        if (moveN >= 2) {
+          move.srcFile = integerizePos(moveOG[1]);
+        }
+        if (moveN >= 3) {
+          move.srcRank = integerizePos(moveOG[2]);
+        }
+      }
+      console.log('returning listOfMoves', listOfMoves);
+      return listOfMoves;
+    }
+
+    function pawnRankBefore(move) {
+      let x;
+      if (move.piece === 'p') {
+        x = move.tgtRank + 1;
+        if (x >= 8) { x = false; }
+      } else {
+        x = move.tgtRank - 1;
+        if (x < 0) { x = false; }
+      }
+      return x;
+    }
+
+    function pawnFileLeftBefore(move) {
+      let x = move.tgtFile - 1;
+      if (x < 0) { x = false; }
+      return x;
+    }
+
+    function pawnFileRightBefore(move) {
+      let x = move.tgtFile + 1;
+      if (x >= 8) { x = false; }
+      return x;
+    }
+
+    function pawnHalfWayP(move) {
+      if (move.piece === 'p') {
+        return (move.tgtRank === 4);
+      } else {
+        return (move.tgtRank === 3);
+      }
+    }
+
+    function setPrevPos(move) {
+      // console.log('doing setPrevPos', move);
+      if (!move.srcFile || !move.srcRank) {
+        // pawns
+        if (move.piece.match(/p/i)) {
+          if (move.capture) {
+            if (!move.srcRank) {
+              calcSrcRank = pawnRankBefore(move);
+              if (calcSrcRank) {
+                move.srcRank = calcSrcRank;
+              }
+            }
+            if (move.srcRank && !move.srcFile) {
+              let leftSrcFile = pawnFileLeftBefore(move);
+              let rightSrcFile = pawnFileRightBefore(move);
+              if (leftSrcFile && board[leftSrcFile][move.srcRank] === move.piece) {
+                move.srcFile = leftSrcFile;
+              } else if (rightSrcFile) {
+                move.srcFile = rightSrcFile;
+              }
+            }
+          } else if (pawnHalfWayP(move)) {
+            if (!move.srcFile) { move.srcFile = move.tgtFile; }
+            if (move.srcFile && !move.srcRank) {
+              let calcSrcRank = pawnRankBefore(move);
+              let calcSrcRank2 = (move.piece === 'p' ? calcSrcRank + 1 : calcSrcRank - 1);
+              if (calcSrcRank && board[move.srcFile][calcSrcRank] === move.piece) {
+                move.srcRank = calcSrcRank;
+              } else if (calcSrcRank && board[move.srcFile][calcSrcRank] === '') {
+                move.srcRank = calcSrcRank2;
+              }
+            }
+          } else {
+            if (!move.srcFile) { move.srcFile = move.tgtFile; }
+            if (move.srcFile && !move.srcRank) {
+              let calcSrcRank = pawnRankBefore(move);
+              if (calcSrcRank) {
+                move.srcRank = calcSrcRank;
+              }
+            }
+          }
+        } else if (move.piece.match(/q/i)) {
+          let queenPlace = findPiecePlaces(move)[0];
+          let calcSrcFile = queenPlace[0];
+          let calcSrcRank = queenPlace[1];
+          if (onDiagPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank) ||
+            onStraightPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank)) {
+            if (!move.srcRank) {
+              move.srcRank = calcSrcRank;
+            }
+            if (!move.srcFile) {
+              move.srcFile = calcSrcFile;
+            }
+          }
+        } else if (move.piece.match(/k/i)) {
+          let kingPlace = findPiecePlaces(move)[0];
+          if (!move.srcRank) {
+            move.srcRank = calcSrcRank;
+          }
+          if (!move.srcFile) {
+            move.srcFile = calcSrcFile;
+          }
+        } else if (move.piece.match(/b/i)) {
+          let bishopPlaces = findPiecePlaces(move);
+          for (let i = 0; i < bishopPlaces.length; i++) {
+            if (onDiagPath(bishopPlaces[i][0], bishopPlaces[i][1], move.tgtFile, move.tgtRank)) {
+              if (!move.srcRank) {
+                move.srcRank = bishopPlaces[i][1];
+              }
+              if (!move.srcFile) {
+                move.srcFile = bishopPlaces[i][0];
+              }
+              if (move.srcRank && move.srcFile) {
+                break;
+              }
+            }
+          }
+        } else if (move.piece.match(/n/i)) {
+          let knightPlaces = findPiecePlaces(move);
+          for (let i = 0; i < knightPlaces.length; i++) {
+            if (onKnightPath(knightPlaces[i][0], knightPlaces[i][1], move.tgtFile, move.tgtRank)) {
+              if (!move.srcRank) {
+                move.srcRank = knightPlaces[i][1];
+              }
+              if (!move.srcFile) {
+                move.srcFile = knightPlaces[i][0];
+              }
+              if (move.srcRank && move.srcFile) {
+                break;
+              }
+            }
+          }
+        } else if (move.piece.match(/r/i)) {
+          let rookPlaces = findPiecePlaces(move);
+          for (let i = 0; i < rookPlaces.length; i++) {
+            if (onStraightPath(rookPlaces[i][0], rookPlaces[i][1], move.tgtFile, move.tgtRank)) {
+              if (!move.srcRank) {
+                move.srcRank = rookPlaces[i][1];
+              }
+              if (!move.srcFile) {
+                move.srcFile = rookPlaces[i][0];
+              }
+              if (move.srcRank && move.srcFile) {
+                break;
+              }
+            }
+          }
+        }
+
+      }
+
+      if (move.srcFile && move.srcRank) {
+        if (board[move.srcFile][move.srcRank] !== move.piece) {
+          move.impossibleMove = true;
+        }
+      } else {
+        move.impossibleMove = true;
+      }
+    }
+
+    function showBoard() {
+      for (let i = 0; i < 8; i++) {
+        console.log(
+          board[i][0],
+          board[i][1],
+          board[i][2],
+          board[i][3],
+          board[i][4],
+          board[i][5],
+          board[i][6],
+          board[i][7]);
+      }
+    }
+
+    function performMove(move) {
+      // showBoard();
+      console.log('doing performMove', move);
+      if (move.impossibleMove) { return; }
+      board[move.srcFile][move.srcRank] = '';
+      board[move.tgtFile][move.tgtRank] = move.piece;
+      // showBoard();
+    }
+
+    let numMoves = 0;
+    const MAXMOVES = 5;
+
+    function visualizeOneMove() {
+      // numMoves++;
+      let move = gameMoves.shift();
+      setPrevPos(move);
+      performMove(move);
+      if (numMoves < MAXMOVES && gameMoves.length > 0) {
+        $timeout(visualizeOneMove, TIMEBETWEENPLAYS);
+      }
+    }
+
+    let gameMoves = parseAllMoves(abcContent);
+    visualizeOneMove();
+  };
+
+  self.playABCChess = function(ev){
+    // console.log('doing playABCChess');
+    self.dialogOpen = true;
+    $mdDialog.show({
+      onRemoving: function (event, removePromise) {
+        self.dialogOpen = false;
+      },
+      controller: function ($scope, $mdDialog) {
+        $scope.self = self;
+        function initializeBoard() {
+          $scope.board = [];
+          for (let i = 0; i < 8; i++) {
+            $scope.board[i] = [];
+            for (let j = 0; j < 8; j++) {
+              $scope.board[i][j] = '';
+            }
+          }
+          $scope.board[0][0] = 'R';
+          $scope.board[1][0] = 'N';
+          $scope.board[2][0] = 'B';
+          $scope.board[3][0] = 'Q';
+          $scope.board[4][0] = 'K';
+          $scope.board[5][0] = 'B';
+          $scope.board[6][0] = 'N';
+          $scope.board[7][0] = 'R';
+          //
+          $scope.board[0][7] = 'r';
+          $scope.board[1][7] = 'n';
+          $scope.board[2][7] = 'b';
+          $scope.board[3][7] = 'q';
+          $scope.board[4][7] = 'k';
+          $scope.board[5][7] = 'b';
+          $scope.board[6][7] = 'n';
+          $scope.board[7][7] = 'r';
+          //
+          for (let i = 0; i < 8; i++) {
+            $scope.board[i][1] = 'P';
+          }
+          //
+          for (let i = 0; i < 8; i++) {
+            $scope.board[i][6] = 'p';
+          }
+        }
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        $scope.replay = function(){
+          initializeBoard();
+          self.visualizeChessGame($scope.board);
+        };
+        $timeout($scope.replay, 1000);
+      },
+      templateUrl: 'abcChessPlayer.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true
+    });
+  };
 
   self.visualizeTicTacToeGame = function(board) {
     let abcContent = document.getElementById('inputBox').innerText;
@@ -3449,7 +3846,6 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         self.dialogOpen = false;
       },
       controller: function ($scope, $mdDialog) {
-        // expand this to show visualizer
         $scope.self = self;
         function initializeBoard() {
           $scope.board = [];

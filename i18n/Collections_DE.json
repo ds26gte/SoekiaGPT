@@ -113,100 +113,6 @@
     ]},
 
 
-   {"name":"default3",
-    "task":"Wettervorhersage",
-    "prompt":"Wie wird das Wetter?",
-    "promptDefault":"Wie wird das Wetter?",
-    "documents": [
-      {
-        "id": "A",
-        "text": "In Richtung Küste sind Schauer unterwegs. Dazwischen bleibt es bei einem SonneWolken-Mix trocken. 6 bis 11 Grad.\n\n"
-      },
-      {
-        "id": "B",
-        "text": "Petrus ist in Hochform: Er sorgt verbreitet für sonniges und hochsommerlich warmes Wetter.\n\nDas Quecksilber klettert auf angenehme 19 bis 24 Grad."
-      },
-      {
-        "id": "C",
-        "text": "Mit kühlem und windigem, an den April erinnernden Schauerwetter geht es Morgen weiter.\n\nDie Regenschauer ziehen rasch über die Oder nach Osten ab, und der anfangs noch starke Wind flaut ab."
-      },
-      {
-        "id": "D",
-        "text": "Morgen ziehen bei auffrischendem Wind neue Tiefausläufer mit Regen über weite Teile Deutschlands hinweg. Zwischendurch gibt es hier und da Auflockerungen. \n\nDazu in Küstennähe 5 bis 9, sonst 10 bis 15 Grad."
-      },
-      {
-        "id": "E",
-        "text": "Am Dienstag fliesst im Osten etwas trockenere Luft ein, somit kann die Hochnebeldecke im Norden zumindest teilweise auflockern. Im Süden ist es abgesehen von Frühnebel meist sonnig. 1 bis 5 Grad.\n\nDie Wolken bleiben heute im Norden meist dicht und vornehmlich nördlich der Mittelgebirge kann es etwas regnen. Prächtiges Frühherbstwetter darf man am Montag erwarten."
-      },
-      {
-        "id": "F",
-        "text": "Neben zeitweiligem Regen muss auch mit teils kräftigen Schauern, örtlich mit Blitz und Donner gerechnet werden. Später muss erneut mit lokalen Regenschauern gerechnet werden."
-      },
-      {
-        "id": "G",
-        "text": "Nachmittags sind im Westen lokale Regenschauer möglich, meist bleibt es aber trocken.\n\nEs ist ein überwiegend sonniger Tag zu erwarten."
-      },
-      {
-        "id": "H",
-        "text": "Der Tag beginnt in weiten Teilen Deutschlands recht sonnig, Nebelfelder sind nur im Donauraum, am Bodensee und in Oberfranken zu erwarten."
-      },
-      {
-        "id": "I",
-        "text": "Am Mittwoch ist vormittags erneut verbreitet mit Nebel oder Hochnebel zu rechnen, allerdings sind tagsüber auch längere sonnige Abschnitte zu erwarten.\n\nTrockene Gebiete gibt es am ehesten im Nordwesten.\n\nTrüb bleibt es am ehesten in Richtung Küste sowie an der Donau."
-      },
-      {
-        "id": "J",
-        "text": "Voraussichtlich wechseln sonnige und bewölkte Abschnitte mit kurzen Schauern.\n\nAm Alpenrand ist es mit leichtem Föhn voraussichtlich etwas freundlicher.\n\nMorgen ist es erneut überwiegend sonnig, am Nachmittag ziehen in der Westhälfte des Landes dichtere Wolken und eventuell einzelne Regenschauer auf.\n\nDie Wolken bleiben heute im Norden meist dicht und vornehmlich nördlich der Mittelgebirge kann es etwas regnen."
-      },
-      {
-        "id": "K",
-        "text": "Der Tag beginnt in weiten Teilen Deutschlands recht sonnig, Nebelfelder sind nur im Donauraum, am Bodensee und in Oberfranken zu erwarten.\n\nAm Freitag ist es in der Westhälfte bewölkt und allmählich kann es hier leicht regnen.\n\nRichtung Norden tut sich die Sonne schwer, dort kann es ab und zu auch regnen.\n\nZwischendurch gibt es hier und da Auflockerungen.\n\nAm dichtesten bleibt die Wolkendecke östlich der Elbe, wo es nachmittags leichten Regen geben kann.\n\nAm Mittwoch überwiegen dichte Wolken, da uns erneut ein Regengebiet überquert, wobei es zum Teil anhaltend und lokal recht kräftig regnen kann."
-      },
-      {
-        "id": "L",
-        "text": "In Richtung Küste sind Schauer unterwegs.\n\nAus Südwesten zieht ein Regengebiet weiter Richtung Eifel und Thüringer Wald.\n\nNach Norden hin nimmt die Schauerneigung rasch ab und häufig ist es locker bewölkt bis sonnig.\n\nPerfektes, gewitterfreies Bade- und Ausflugswetter. Die Sonne scheint, oft über 14 Stunden lang. Die Temperaturen erreichen 26 bis 31 Grad. Richtung Süden sind Quellwolken möglich."
-      },
-      {
-        "id": "M",
-        "text": "Der Nordost- bis Ostwind ist zeitweise frisch.\n\nAm Montag ist es im Osten anfangs noch teilweise freundlich, sonst ziehen aber von Westen her zunehmend Wolken und Regen ins Land.\n\nAm Vormittag bringen dichte Wolkenfelder verbreitet Regenschauer. Der Nachmittag wird zunehmend trocken und bei wechselnder Bewölkung zeitweise sonnig.\n\nAm Sonntag überwiegen dichte Wolken, da uns erneut ein Regengebiet überquert, wobei es zum Teil anhaltend und lokal recht kräftig regnen kann."
-      },
-      {
-        "id": "N",
-        "text": "In den frühen Morgenstunden ist es trocken mit letzten Aufhellungen.\n\nAuch zu Beginn der neuen Woche setzt sich das wolkenreiche und nasse Tiefdruckwetter fort.\n\nTagsüber werden die Quellwolken immer dicker, und vor allem zum Nachmittag und Abend drohen teils heftige Hitzegewitter.\n\nAm Montag werden die Schauer und Gewitter in der Westhälfte zahlreicher."
-      },
-      {
-        "id": "O",
-        "text": "Nach Norden hin nimmt die Schauerneigung rasch ab und die sonnigen Abschnitte werden länger.\n\nZum Jahreswechsel wird es erneut stürmisch, teils auch nass.\n\nAm ehesten bekommt man die Sonne vormittags im Nordosten des Landes zu Gesicht."
-      },
-      {
-        "id": "P",
-        "text": "Unmittelbar am Alpenrand und in den Alpen klingen heute auch die letzten Schneefälle rasch ab, und die Wolken lockern auf.\n\nMittags und nachmittags kommt die Sonne recht gut zum Zug.\n\nEs regnet vor allem nachmittags und abends teilweise kräftig.\n\nTagsüber ist es längere Zeit trocken und zeitweise sonnig.\n\nNach Süden hin fällt zeitweise Regen, im Südosten auch anhaltend und teils recht ergiebig."
-      },
-      {
-        "id": "Q",
-        "text": "Teils kräftiger und mitunter länger anhaltender Regen breitet sich heute von Westen weiter nach Osten aus.\n\nAm Nachmittag gehen im Norden Schauer nieder, im Flachland lockert es ab und zu auf und besonders in Küstennähe zeigt sich die Sonne.\n\nMorgen überwiegen dichte Wolken, da uns erneut ein Regengebiet überquert, wobei es zum Teil anhaltend und lokal recht kräftig regnen kann. Tagsüber ist es längere Zeit trocken und zeitweise sonnig. Später muss erneut mit lokalen Regenschauern gerechnet werden.\n\nAm Sonntag kann es im Nordstau der Alpen teils kräftige Niederschläge geben, die anfangs bis in hohe Lagen als Regen fallen, später aber in Schnee übergehen.\n\nHier scheint zuvor längere Zeit die Sonne, sodass sich die Luft gut über 20 Grad erwärmen kann."
-      },
-      {
-        "id": "R",
-        "text": "Am Donnerstag zeigt sich die Sonne am Vormittag vorübergehend wieder, dann ziehen aus Nordwesten erneut Regenschauer auf.\n\nZeitweise wird es freundlich mit Sonne und Wolken – ehe nachmittags und abends erneut Schauer und Gewitter aufziehen.\n\nMorgen ist es im Osten und Südosten anfangs sonnig, bevor die Schauerbereitschaft am Nachmittag zunimmt.\n\nBis um die Mittagszeit ist es teils sonnig und trocken. In der Folge werden die Wolken wieder dicker. Sie bringen einige, teils kräftige Schauer, an der Oder auch Gewitter. Davor steigen die Temperaturen auf 28 Grad an.\n\nEine schwache Kaltfront bringt von West nach Ost Wolken und einzelne Schauer.\n\nBis um die Mittagszeit ist es teils sonnig und trocken. In der Folge werden die Wolken wieder dicker. Sie bringen einige, teils kräftige Schauer, an der Oder auch Gewitter. Davor steigen die Temperaturen auf 28 Grad an."
-      },
-      {
-        "id": "S",
-        "text": "Am Dienstag überwiegen dichte Wolken, da uns erneut ein Regengebiet überquert, wobei es zum Teil anhaltend und lokal recht kräftig regnen kann.\n\nHier scheint zuvor längere Zeit die Sonne, sodass sich die Luft gut über 20 Grad erwärmen kann.\n\nDer Samstag zeigt sich im Süden und Osten trotz aufziehenden hohen Wolkenfeldern von der freundlichen Seite.\n\nDer Samstag gestaltet sich im Osten und Süden trotz aufziehenden Wolken freundlich."
-      },
-      {
-        "id": "T",
-        "text": "Heute herrscht trotz ein paar Wolken von früh bis spät verbreitet recht sonniges Wetter – abgesehen von etwas zäheren Nebelfeldern, die sich am ehesten im Tal der Werra bis knapp nach Mittag halten.\n\nAbgesehen von Gewitterböen weht schwacher bis mässiger Nordost- bis Nordwind.\n\nDie Temperatur geht zurück, erreicht aber hochsommerliche 22 bis 27 Grad.\n\nEs weht schwacher bis mässiger, jedoch stark böiger Ost- bis Südostwind.\n\nIm weiteren Verlauf bilden sich teilweise Quellwolken, doch bleibt es überwiegend trocken.\n\nAm Donnerstag überwiegen dichte Wolken, da uns erneut ein Regengebiet überquert, wobei es zum Teil anhaltend und lokal recht kräftig regnen kann. Die Temperatur steigt dennoch auf Werte von 10 bis 15 Grad.\n\nAm Samstag ist vormittags erneut verbreitet mit Nebel oder Hochnebel zu rechnen, allerdings sind tagsüber auch längere sonnige Abschnitte zu erwarten."
-      },
-      {
-        "id": "U",
-        "text": "Die Hochwassersituation bleibt angespannt: Heute gibt es zwar ein Sonne-WolkenGemisch und nicht all zu viele Schauer oder Gewitter – doch in den nächsten Tagen folgen weitere Schübe mit kräftigem Regen.\n\nAbgesehen von einzelnen dichten Frühnebelbänken startet der Sonntag zwar kühl (3 bis 8 Grad), aber oft schon sonnig. \n\nNach etwas Sonne bilden sich vor allem im Norden und Westen nachmittags zunehmend Schauer, nur von Brandenburg über Thüringen bis nach Sachsen bleibt es meist trocken.\n\nAm Freitag regnet es häufig, teils schauerartig Kräftiger, an der See und im Bergland stürmischer Südwestwind mit orkanartigen Böen verstärkt."
-      },
-      {
-        "id": "V",
-        "text": "Es wird wieder etwas wärmer. \n\nMorgen halten sich im Südosten noch dichtere Wolken mit wiederholten Schauern.\n\nHeute herrscht trotz ein paar Wolken von früh bis spät verbreitet recht sonniges Wetter – abgesehen von etwas zäheren Nebelfeldern, die sich am ehesten im Tal der Werra bis knapp nach Mittag halten.\n\nDer Mittwoch verläuft aus heutiger Sicht wieder etwas freundlicher, lediglich im Süden und Nordosten gehen noch ein paar Regenschauer nieder.\n\nVon der Ostsee bis nach Bayern bleibt es noch trocken und längere Zeit freundlich.\n\nAm Samstag ist vormittags erneut verbreitet mit Nebel oder Hochnebel zu rechnen, allerdings sind tagsüber auch längere sonnige Abschnitte zu erwarten. Die Temperatur erreicht 11 bis 16 Grad, in Nordfriesland kaum mehr als 9 Grad.\n\nDie Höchstwerte liegen zwischen 3 Grad auf Fehmarn und 16 Grad am Oberrhein.\n\nDie Höchsttemperaturen liegen zwischen 17 Grad im Saarland sowie in Ostfriesland und bis zu 23 Grad im Alpenvorland.\n"
-      }
-    ]},
 
    {"name":"default4",
     "task":"",
@@ -536,5 +442,39 @@
         "text": "X13\nO12\nX32\nO23\nX31\nO21\nX33\n"
       }
       ]
+    },
+
+    {
+      "name": "default7",
+      "task": "Play a chess game",
+      "prompt": "Play a chess game",
+      "promptDefault": "Play a chess game",
+      "documents": [
+        {
+          "id": "A",
+          "text": "e4 c5\nNc3 g6\nf4 Bg7\nNf3 d6\nBb5 Bd7\nBxd7 Qxd7\nO-O Nc6\nd3 Nf6\nQe1 O-O\nh3 Rab8\nQh4 b5\nf5 b4\nNe2 gxf5\nBh6 fxe4\nNg5 exd3\nBxg7 Kxg7\nRxf6 Kxf6\nRf1 Ke5\nQe4"
+        },
+        {
+          "id": "B",
+          "text": "e4 c5\nNf3 Nc6\nd4 g6\nBb5 cxd4\nBxc6 bxc6\nNxd4 Bg7\nNc3 e6\nO-O Qb6\nNf3 Ne7\nBe3 Qxb2\nBd4 Bxd4\nQxd4 O-O\nRab1 Qxc2\nRfc1 c5\nQf6 Qb2\nRxb2 d5\nQxe7"
+        },
+        {
+          "id": "C",
+          "text": "e4 e5\nNf3 d5\nexd5 Qxd5\nNc3 Qe6\nb3 Nc6\nBc4 Bd6\nBxe6 Bxe6\nO-O O-O-O\nBb2 f5\nNb5 Nf6\nNxd6 cxd6\nRe1 e4\nNd4 Nxd4\nBxd4 Kb8\nBxf6 gxf6\nd3 Rhg8\ndxe4 fxe4\nRxe4 Bf5\nRf4 Rg5\nh4 Rh5\nQxh5"
+        },
+        {
+          "id": "D",
+          "text": "d4 Nf6\nBg5 Ne4\nBf4 d5\ne3 e6\nBd3 Nf6\nNf3 c5\nc3 Nc6\nO-O Be7\nh3 O-O\nNbd2 c4\nBc2 b5\ne4 b4\ne5 Nd7\nh4 Ba6\nNg5 b3\nBxh7 Kh8\nQh5 Re8\nNxf7"
+        },
+        {
+          "id": "E",
+          "text": "e4 e6\nd4 d5\nNc3 c5\ndxc5 Bxc5\nexd5 Nf6\nBc4 Qb6\nQe2 O-O\nNa4 Qb4\nNc3 exd5\nBb5 Bd7\nBxd7 Nbxd7\nQf3 d4\na3 Qb6\nNa4 Qa5\nb4 Qxa4\nbxc5 Qxc2\nNh3 Rfe8\nBe3 Qc3\nKe2 d3"
+        },
+        {
+          "id": "F",
+          "text": "e4 d6\nd4 Nf6\nNc3 g6\nBe3 Bg7\nQd2 Ng4\nBf4 e5\nBg5 f6\nBe3 Nxe3\nQxe3 Nc6\nd5 Nd4\nQd2 O-O\nNge2 f5\nNxd4 exd4\nNe2 fxe4\nNxd4 Qf6\nNb3 Qxb2\nRd1 Bc3\nQxc3 Qxc3\nRd2 e3\nfxe3 Qxe3\nKd1 Bg4"
+        }
+      ]
+
     }
   ]
