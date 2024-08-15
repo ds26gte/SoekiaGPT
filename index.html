@@ -3451,17 +3451,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       controller: function ($scope, $mdDialog) {
         // expand this to show visualizer
         $scope.self = self;
-        $scope.board = [];
-        for (let i = 0; i < 3; i++) {
-          $scope.board[i] = [];
-          for (let j = 0; j < 3; j++) {
-            $scope.board[i][j] = '';
-          }
-        }
-        $scope.cancel = function() {
-          $mdDialog.cancel();
-        };
-        $scope.visualize = function(){
+        function initializeBoard() {
           $scope.board = [];
           for (let i = 0; i < 3; i++) {
             $scope.board[i] = [];
@@ -3469,9 +3459,16 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               $scope.board[i][j] = '';
             }
           }
+        }
+        initializeBoard();
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        $scope.replay = function(){
+          initializeBoard();
           self.visualizeTicTacToeGame($scope.board);
         };
-        $timeout($scope.visualize, 1000);
+        $timeout($scope.replay, 1000);
       },
       templateUrl: 'abcTicTacToePlayer.html',
       parent: angular.element(document.body),
