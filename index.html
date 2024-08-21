@@ -3474,6 +3474,20 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.showTicTacToePlayer = false;
   self.showChessPlayer = false;
 
+  const white_K = '♔';
+  const white_Q = '♕';
+  const white_R = '♖';
+  const white_B = '♗';
+  const white_N = '♘';
+  const white_P = '♙';
+  //
+  const black_k = '♚';
+  const black_q = '♛';
+  const black_r = '♜';
+  const black_b = '♝';
+  const black_n = '♞';
+  const black_p = '♟';
+
   self.visualizeChessGame = function(board) {
     let abcContent = document.getElementById('inputBox').innerText;
     let TIMEBETWEENPLAYS = 1000;
@@ -3498,7 +3512,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }
         }
       }
-      console.log('findPiecePlaces', move, 'is', places);
+      // console.log('findPiecePlaces', move, 'is', places);
       return places;
     }
 
@@ -3516,6 +3530,25 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       return (((fdiff == 2) && (rdiff == 1)) || ((fdiff == 1) && (rdiff == 2)));
     }
 
+
+    function pieceImage(x, player) {
+      if (player === 'w') {
+       if (x == 'K') { return white_K; }
+       if (x == 'Q') { return white_Q; }
+       if (x == 'R') { return white_R; }
+       if (x == 'B') { return white_B; }
+       if (x == 'N') { return white_N; }
+       if (x == 'P') { return white_P; }
+      } else {
+       if (x == 'K') { return black_k; }
+       if (x == 'Q') { return black_q; }
+       if (x == 'R') { return black_r; }
+       if (x == 'B') { return black_b; }
+       if (x == 'N') { return black_n; }
+       if (x == 'P') { return black_p; }
+      }
+    }
+
     function parseAllMoves(abcContent) {
       // console.log('doing parseAllMoves', abcContent);
       let listOfMovesOG = abcContent.trim().split(/\s+/);
@@ -3525,8 +3558,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         let moveOG = listOfMovesOG.shift();
         let currPlayer = player;
         let move = {
+          notation: moveOG,
           player: currPlayer,
-          piece: 'P',
+          piece: white_P,
           capture: false,
           tgtFile: false,
           tgtRank: false,
@@ -3554,10 +3588,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           continue;
         }
         if (moveN >= 1) {
-          move.piece = moveOG[0];
-          if (currPlayer === 'b') {
-            move.piece = move.piece.toLowerCase();
-          }
+          move.piece = pieceImage(moveOG[0], currPlayer);
         }
         if (moveN >= 2) {
           move.srcFile = integerizePos(moveOG[1]);
@@ -3566,13 +3597,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           move.srcRank = integerizePos(moveOG[2]);
         }
       }
-      console.log('returning listOfMoves', listOfMoves);
+      // console.log('returning listOfMoves', listOfMoves);
       return listOfMoves;
     }
 
     function pawnRankBefore(move) {
       let x;
-      if (move.piece === 'p') {
+      if (move.piece === black_p) {
         x = move.tgtRank + 1;
         if (x >= 8) { x = false; }
       } else {
@@ -3595,7 +3626,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
 
     function pawnHalfWayP(move) {
-      if (move.piece === 'p') {
+      if (move.piece === black_p) {
         return (move.tgtRank === 4);
       } else {
         return (move.tgtRank === 3);
@@ -3606,10 +3637,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       // console.log('doing setPrevPos', move);
       if (!move.srcFile || !move.srcRank) {
         // pawns
-        if (move.piece.match(/p/i)) {
+        if (move.piece === white_P || move.piece === black_p) { // i.e., a pawn
           if (move.capture) {
             if (!move.srcRank) {
-              calcSrcRank = pawnRankBefore(move);
+              let calcSrcRank = pawnRankBefore(move);
               if (calcSrcRank) {
                 move.srcRank = calcSrcRank;
               }
@@ -3627,11 +3658,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             if (!move.srcFile) { move.srcFile = move.tgtFile; }
             if (move.srcFile && !move.srcRank) {
               let calcSrcRank = pawnRankBefore(move);
-              let calcSrcRank2 = (move.piece === 'p' ? calcSrcRank + 1 : calcSrcRank - 1);
+              let calcSrcRank2 = (move.piece === black_p ? calcSrcRank + 1 : calcSrcRank - 1);
               if (calcSrcRank && board[move.srcFile][calcSrcRank] === move.piece) {
                 move.srcRank = calcSrcRank;
               } else if (calcSrcRank && board[move.srcFile][calcSrcRank] === '') {
-                move.srcRank = calcSrcRank2;
+                calcSrcRank = calcSrcRank2;
+                move.srcRank = calcSrcRank;
               }
             }
           } else {
@@ -3643,10 +3675,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               }
             }
           }
-        } else if (move.piece.match(/q/i)) {
+        } else if (move.piece === white_Q || move.piece === black_q) {
           let queenPlace = findPiecePlaces(move)[0];
-          let calcSrcFile = queenPlace[0];
-          let calcSrcRank = queenPlace[1];
+          calcSrcFile = queenPlace[0];
+          calcSrcRank = queenPlace[1];
           if (onDiagPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank) ||
             onStraightPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank)) {
             if (!move.srcRank) {
@@ -3656,7 +3688,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               move.srcFile = calcSrcFile;
             }
           }
-        } else if (move.piece.match(/k/i)) {
+        } else if (move.piece === white_K || move.piece === black_k) {
           let kingPlace = findPiecePlaces(move)[0];
           if (!move.srcRank) {
             move.srcRank = calcSrcRank;
@@ -3664,7 +3696,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           if (!move.srcFile) {
             move.srcFile = calcSrcFile;
           }
-        } else if (move.piece.match(/b/i)) {
+        } else if (move.piece === white_B || move.piece === black_b) {
           let bishopPlaces = findPiecePlaces(move);
           for (let i = 0; i < bishopPlaces.length; i++) {
             if (onDiagPath(bishopPlaces[i][0], bishopPlaces[i][1], move.tgtFile, move.tgtRank)) {
@@ -3679,7 +3711,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               }
             }
           }
-        } else if (move.piece.match(/n/i)) {
+        } else if (move.piece === white_N || move.piece === black_n) {
           let knightPlaces = findPiecePlaces(move);
           for (let i = 0; i < knightPlaces.length; i++) {
             if (onKnightPath(knightPlaces[i][0], knightPlaces[i][1], move.tgtFile, move.tgtRank)) {
@@ -3694,7 +3726,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               }
             }
           }
-        } else if (move.piece.match(/r/i)) {
+        } else if (move.piece === white_R || move.piece === black_r) {
           let rookPlaces = findPiecePlaces(move);
           for (let i = 0; i < rookPlaces.length; i++) {
             if (onStraightPath(rookPlaces[i][0], rookPlaces[i][1], move.tgtFile, move.tgtRank)) {
@@ -3710,7 +3742,6 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             }
           }
         }
-
       }
 
       if (move.srcFile && move.srcRank) {
@@ -3738,8 +3769,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
     function performMove(move) {
       // showBoard();
-      console.log('doing performMove', move);
-      if (move.impossibleMove) { return; }
+      let note = move.player + ' ' + move.notation;
+      if (move.impossibleMove) {
+        console.log(note, 'skipped');
+        return;
+      } else {
+        console.log(note, 'done');
+      }
       board[move.srcFile][move.srcRank] = '';
       board[move.tgtFile][move.tgtRank] = move.piece;
       // showBoard();
@@ -3751,6 +3787,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     function visualizeOneMove() {
       // numMoves++;
       let move = gameMoves.shift();
+      // console.log('doing move', move);
       setPrevPos(move);
       performMove(move);
       if (numMoves < MAXMOVES && gameMoves.length > 0) {
@@ -3771,7 +3808,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       },
       controller: function ($scope, $mdDialog) {
         $scope.self = self;
-        function initializeBoard() {
+        function initializeChessBoard() {
           $scope.board = [];
           for (let i = 0; i < 8; i++) {
             $scope.board[i] = [];
@@ -3779,37 +3816,37 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               $scope.board[i][j] = '';
             }
           }
-          $scope.board[0][0] = 'R';
-          $scope.board[1][0] = 'N';
-          $scope.board[2][0] = 'B';
-          $scope.board[3][0] = 'Q';
-          $scope.board[4][0] = 'K';
-          $scope.board[5][0] = 'B';
-          $scope.board[6][0] = 'N';
-          $scope.board[7][0] = 'R';
+          $scope.board[0][0] = white_R;
+          $scope.board[1][0] = white_N;
+          $scope.board[2][0] = white_B;
+          $scope.board[3][0] = white_Q;
+          $scope.board[4][0] = white_K;
+          $scope.board[5][0] = white_B;
+          $scope.board[6][0] = white_N;
+          $scope.board[7][0] = white_R;
           //
-          $scope.board[0][7] = 'r';
-          $scope.board[1][7] = 'n';
-          $scope.board[2][7] = 'b';
-          $scope.board[3][7] = 'q';
-          $scope.board[4][7] = 'k';
-          $scope.board[5][7] = 'b';
-          $scope.board[6][7] = 'n';
-          $scope.board[7][7] = 'r';
+          $scope.board[0][7] = black_r;
+          $scope.board[1][7] = black_n;
+          $scope.board[2][7] = black_b;
+          $scope.board[3][7] = black_q;
+          $scope.board[4][7] = black_k;
+          $scope.board[5][7] = black_b;
+          $scope.board[6][7] = black_n;
+          $scope.board[7][7] = black_r;
           //
           for (let i = 0; i < 8; i++) {
-            $scope.board[i][1] = 'P';
+            $scope.board[i][1] = white_P;
           }
           //
           for (let i = 0; i < 8; i++) {
-            $scope.board[i][6] = 'p';
+            $scope.board[i][6] =  black_p;
           }
         }
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
         $scope.replay = function(){
-          initializeBoard();
+          initializeChessBoard();
           self.visualizeChessGame($scope.board);
         };
         $timeout($scope.replay, 1000);
