@@ -3558,9 +3558,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         let moveOG = listOfMovesOG.shift();
         let currPlayer = player;
         let move = {
-          notation: moveOG,
+          notation: currPlayer + ' ' + moveOG,
           player: currPlayer,
-          piece: white_P,
+          piece: (currPlayer === 'w' ? white_P : black_p),
           capture: false,
           tgtFile: false,
           tgtRank: false,
@@ -3626,6 +3626,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
 
     function pawnHalfWayP(move) {
+      // console.log('doing pawnHalfWayP', move.piece, move.tgtFile, move.tgtRank);
       if (move.piece === black_p) {
         return (move.tgtRank === 4);
       } else {
@@ -3655,6 +3656,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               }
             }
           } else if (pawnHalfWayP(move)) {
+            // console.log('yes pawn half way', move.tgtFile, move.tgtRank);
             if (!move.srcFile) { move.srcFile = move.tgtFile; }
             if (move.srcFile && !move.srcRank) {
               let calcSrcRank = pawnRankBefore(move);
@@ -3767,14 +3769,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     }
 
-    function performMove(move) {
+    function performChessMove(move) {
       // showBoard();
-      let note = move.player + ' ' + move.notation;
       if (move.impossibleMove) {
-        console.log(note, 'skipped');
+        console.log(move.notation, 'skipped');
         return;
       } else {
-        console.log(note, 'done');
+        console.log(move.notation, 'done');
       }
       board[move.srcFile][move.srcRank] = '';
       board[move.tgtFile][move.tgtRank] = move.piece;
@@ -3784,19 +3785,19 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     let numMoves = 0;
     const MAXMOVES = 5;
 
-    function visualizeOneMove() {
+    function visualizeOneChessMove() {
       // numMoves++;
       let move = gameMoves.shift();
       // console.log('doing move', move);
       setPrevPos(move);
-      performMove(move);
+      performChessMove(move);
       if (numMoves < MAXMOVES && gameMoves.length > 0) {
-        $timeout(visualizeOneMove, TIMEBETWEENPLAYS);
+        $timeout(visualizeOneChessMove, TIMEBETWEENPLAYS);
       }
     }
 
     let gameMoves = parseAllMoves(abcContent);
-    visualizeOneMove();
+    visualizeOneChessMove();
   };
 
   self.playABCChess = function(ev){
