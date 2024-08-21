@@ -3525,6 +3525,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
 
     function onKnightPath(f1, r1, f2, r2) {
+      // console.log('doing onKnightPath', f1, r1, f2, r2);
       let fdiff = Math.abs(f1-f2);
       let rdiff = Math.abs(r1-r2);
       return (((fdiff == 2) && (rdiff == 1)) || ((fdiff == 1) && (rdiff == 2)));
@@ -3657,121 +3658,131 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         return;
       }
       //
-      if (!move.srcFile || !move.srcRank) {
-        // pawns
-        if (move.piece === white_P || move.piece === black_p) { // i.e., a pawn
+      if (move.srcFile === false || move.srcRank === false) {
+        if (move.piece === white_P || move.piece === black_p) { 
+          // pawns
           if (move.capture) {
-            if (!move.srcRank) {
+            if (move.srcRank === false) {
               let calcSrcRank = pawnRankBefore(move);
               if (calcSrcRank) {
                 move.srcRank = calcSrcRank;
               }
             }
-            if (move.srcRank && !move.srcFile) {
+            if (move.srcRank !== false && move.srcFile === false) {
               let leftSrcFile = pawnFileLeftBefore(move);
               let rightSrcFile = pawnFileRightBefore(move);
-              if (leftSrcFile && board[leftSrcFile][move.srcRank] === move.piece) {
+              if (leftSrcFile !== false && board[leftSrcFile][move.srcRank] === move.piece) {
                 move.srcFile = leftSrcFile;
-              } else if (rightSrcFile) {
+              } else if (rightSrcFile !== false) {
                 move.srcFile = rightSrcFile;
               }
             }
           } else if (pawnHalfWayP(move)) {
             // console.log('yes pawn half way', move.tgtFile, move.tgtRank);
-            if (!move.srcFile) { move.srcFile = move.tgtFile; }
-            if (move.srcFile && !move.srcRank) {
+            if (move.srcFile === false) { move.srcFile = move.tgtFile; }
+            if (move.srcFile !== false && move.srcRank === false) {
               let calcSrcRank = pawnRankBefore(move);
-              let calcSrcRank2 = (move.piece === black_p ? calcSrcRank + 1 : calcSrcRank - 1);
-              if (calcSrcRank && board[move.srcFile][calcSrcRank] === move.piece) {
+              let calcSrcRank2 = false;
+              if (calcSrcRank !== false) {
+                calcSrcRank2 = (move.piece === black_p ? calcSrcRank + 1 : calcSrcRank - 1);
+                if (calcSrcRank2 < 0 || calcSrcRank2 > 7) {
+                  calcSrcRank2 = false;
+                }
+              }
+              if (calcSrcRank !== false && board[move.srcFile][calcSrcRank] === move.piece) {
                 move.srcRank = calcSrcRank;
-              } else if (calcSrcRank && board[move.srcFile][calcSrcRank] === '') {
+              } else if (calcSrcRank2 !== false && calcSrcRank2 !== false && board[move.srcFile][calcSrcRank] === '') {
                 calcSrcRank = calcSrcRank2;
                 move.srcRank = calcSrcRank;
               }
             }
           } else {
-            if (!move.srcFile) { move.srcFile = move.tgtFile; }
-            if (move.srcFile && !move.srcRank) {
+            if (move.srcFile === false) { move.srcFile = move.tgtFile; }
+            if (move.srcFile !== false && move.srcRank === false) {
               let calcSrcRank = pawnRankBefore(move);
-              if (calcSrcRank) {
+              if (calcSrcRank !== false) {
                 move.srcRank = calcSrcRank;
               }
             }
           }
         } else if (move.piece === white_Q || move.piece === black_q) {
+          // queens
           let queenPlace = findPiecePlaces(move)[0];
           calcSrcFile = queenPlace[0];
           calcSrcRank = queenPlace[1];
           if (onDiagPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank) ||
             onStraightPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank)) {
-            if (!move.srcRank) {
+            if (move.srcRank === false) {
               move.srcRank = calcSrcRank;
             }
-            if (!move.srcFile) {
+            if (move.srcFile === false) {
               move.srcFile = calcSrcFile;
             }
           }
         } else if (move.piece === white_K || move.piece === black_k) {
+          // kings
           let kingPlace = findPiecePlaces(move)[0];
-          if (!move.srcRank) {
+          if (move.srcRank === false) {
             move.srcRank = calcSrcRank;
           }
-          if (!move.srcFile) {
+          if (move.srcFile === false) {
             move.srcFile = calcSrcFile;
           }
         } else if (move.piece === white_B || move.piece === black_b) {
+          // bishops
           let bishopPlaces = findPiecePlaces(move);
           for (let i = 0; i < bishopPlaces.length; i++) {
             if (onDiagPath(bishopPlaces[i][0], bishopPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (!move.srcRank) {
+              if (move.srcRank === false) {
                 move.srcRank = bishopPlaces[i][1];
               }
-              if (!move.srcFile) {
+              if (move.srcFile === false) {
                 move.srcFile = bishopPlaces[i][0];
-              }
-              if (move.srcRank && move.srcFile) {
-                break;
               }
             }
           }
         } else if (move.piece === white_N || move.piece === black_n) {
+          // knights
           let knightPlaces = findPiecePlaces(move);
+          // console.log('knightPlaces =', knightPlaces);
           for (let i = 0; i < knightPlaces.length; i++) {
             if (onKnightPath(knightPlaces[i][0], knightPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (!move.srcRank) {
+              // console.log('knight path confirmed', knightPlaces[i][0], knightPlaces[i][1]);
+              if (move.srcRank === false) {
+                // console.log('setting srcRank');
                 move.srcRank = knightPlaces[i][1];
               }
-              if (!move.srcFile) {
+              if (move.srcFile === false) {
+                // console.log('setting srcFile');
                 move.srcFile = knightPlaces[i][0];
               }
-              if (move.srcRank && move.srcFile) {
-                break;
-              }
+              // console.log('move.piece =', move.piece);
             }
           }
         } else if (move.piece === white_R || move.piece === black_r) {
+          // rooks
           let rookPlaces = findPiecePlaces(move);
           for (let i = 0; i < rookPlaces.length; i++) {
             if (onStraightPath(rookPlaces[i][0], rookPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (!move.srcRank) {
+              if (move.srcRank === false) {
                 move.srcRank = rookPlaces[i][1];
               }
-              if (!move.srcFile) {
+              if (move.srcFile === false) {
                 move.srcFile = rookPlaces[i][0];
-              }
-              if (move.srcRank && move.srcFile) {
-                break;
               }
             }
           }
         }
       }
 
-      if (move.srcFile && move.srcRank) {
+      // console.log('src =', move.piece, move.srcFile, move.srcRank);
+      if (move.srcFile !== false && move.srcRank !== false) {
         if (board[move.srcFile][move.srcRank] !== move.piece) {
+          // console.log('setting imposs move i');
           move.impossibleMove = true;
         }
       } else {
+        // console.log('setting imposs move ii');
         move.impossibleMove = true;
       }
     }
