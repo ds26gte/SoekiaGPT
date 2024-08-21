@@ -3566,13 +3566,19 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           tgtRank: false,
           srcFile: false,
           srcRank: false,
+          castle: false,
           impossibleMove: false
         };
         listOfMoves.push(move);
         player = (currPlayer === 'w') ? 'b' : 'w';
-        if (moveOG.match('O')) {
-          // skip castling for now
-          move.impossibleMove = true;
+        if (moveOG.match('O-O')) {
+          move.piece = (currPlayer === 'w') ? white_R : black_r;
+          let queenside_p = moveOG.match('O-O-O');
+          let castle_rank = (currPlayer === 'w') ? integerizePos('1') : integerizePos('8');
+          move.castle = {
+            rank: castle_rank,
+            queenside: queenside_p,
+          };
           continue;
         }
         if (moveOG.match('x')) {
@@ -3636,6 +3642,21 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
     function setPrevPos(move) {
       // console.log('doing setPrevPos', move);
+      if (move.castle) {
+        let rook = move.piece;
+        let king = (rook === white_R) ? white_K : black_k;
+        let rookFile = (move.castle.queenside) ? integerizePos('a') : integerizePos('h');
+        let kingFile = integerizePos('e');
+        if ((board[rookFile][move.castle.rank] === rook) &&
+          (board[kingFile][move.castle.rank] === king) &&
+          onStraightPath(rookFile, move.castle.rank, kingFile, move.castle.rank)) {
+          ;
+        } else {
+          move.impossibleMove = true;
+        }
+        return;
+      }
+      //
       if (!move.srcFile || !move.srcRank) {
         // pawns
         if (move.piece === white_P || move.piece === black_p) { // i.e., a pawn
@@ -3769,6 +3790,21 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     }
 
+    function performCastle(move) {
+      let rook = move.piece;
+      let king = (rook === white_R) ? white_K : black_k;
+      board[integerizePos('e')][move.castle.rank] = '';
+      if (move.castle.queenside) {
+        board[integerizePos('c')][move.castle.rank] = king;
+        board[integerizePos('a')][move.castle.rank] = '';
+        board[integerizePos('d')][move.castle.rank] = rook;
+      } else {
+        board[integerizePos('g')][move.castle.rank] = king;
+        board[integerizePos('h')][move.castle.rank] = '';
+        board[integerizePos('f')][move.castle.rank] = rook;
+      }
+    }
+
     function performChessMove(move) {
       // showBoard();
       if (move.impossibleMove) {
@@ -3777,8 +3813,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       } else {
         console.log(move.notation, 'done');
       }
-      board[move.srcFile][move.srcRank] = '';
-      board[move.tgtFile][move.tgtRank] = move.piece;
+      if (move.castle) {
+        performCastle(move);
+      } else {
+        board[move.srcFile][move.srcRank] = '';
+        board[move.tgtFile][move.tgtRank] = move.piece;
+      }
       // showBoard();
     }
 
