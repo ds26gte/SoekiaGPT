@@ -1327,6 +1327,8 @@ body.smallScreen .seeInsideBtn2 {
   border: 1px solid black;
   width: 4em;
   height: 2ex;
+  text-align: center;
+  font-size: 161.8%;
 }
 
 </style>
@@ -3490,7 +3492,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
   self.visualizeChessGame = function(board) {
     let abcContent = document.getElementById('inputBox').innerText;
-    let TIMEBETWEENPLAYS = 1000;
+    let TIMEBETWEENCHESSMOVES = 3500;
 
     function integerizePos(s) {
       let charCodeA = 97;
@@ -3516,11 +3518,40 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       return places;
     }
 
+    function lineOfSight(f1,r1, f2,r2) {
+      if (f1 === f2) {
+        if (r1 === r2) return true; // or false? doesn't matter?
+        let inc = 1;
+        if (r2 < r1) inc = -1;
+        for (let i = r1 + inc; i !== r2; i += inc) {
+          if (board[f1][i] !== '') return false;
+        }
+      } else if (r1 === r2) {
+        let inc = 1;
+        if (f2 < f1) inc = -1;
+        for (let i = f1 + inc; i !== f2; i += inc) {
+          if (board[i][f1] !== '') return false;
+        }
+      } else {
+        let finc = 1, rinc = 1;
+        if (f2 < f1) finc = -1;
+        if (r2 < r1) rinc = -1;
+        for (let i = f1 + finc; i !== f2; i += finc) {
+          for (let j = r1 + rinc; j !== r2; j += rinc) {
+            if (board[i][j] !== '') return false;
+          }
+        }
+      }
+      return true;
+    }
+
     function onStraightPath(f1, r1, f2, r2) {
+      // if we care of line-of-sight, use lineOfSight(f1,r1,f2,r2) also
       return ((f1 === f2) || (r1 === r2));
     }
 
     function onDiagPath(f1, r1, f2, r2) {
+      // if we care of line-of-sight, use lineOfSight(f1,r1,f2,r2) also
       return (Math.abs(f1-f2) === Math.abs(r1-r2));
     }
 
@@ -3530,7 +3561,6 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       let rdiff = Math.abs(r1-r2);
       return (((fdiff == 2) && (rdiff == 1)) || ((fdiff == 1) && (rdiff == 2)));
     }
-
 
     function pieceImage(x, player) {
       if (player === 'w') {
@@ -3650,7 +3680,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         let kingFile = integerizePos('e');
         if ((board[rookFile][move.castle.rank] === rook) &&
           (board[kingFile][move.castle.rank] === king) &&
-          onStraightPath(rookFile, move.castle.rank, kingFile, move.castle.rank)) {
+          onStraightPath(rookFile, move.castle.rank, kingFile, move.castle.rank) &&
+          lineOfSight(rookFile, move.castle.rank, kingFile, move.castle.rank)) {
           ;
         } else {
           move.impossibleMove = true;
@@ -3681,19 +3712,21 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             // console.log('yes pawn half way', move.tgtFile, move.tgtRank);
             if (move.srcFile === false) { move.srcFile = move.tgtFile; }
             if (move.srcFile !== false && move.srcRank === false) {
-              let calcSrcRank = pawnRankBefore(move);
-              let calcSrcRank2 = false;
+              let calcSrcRank = pawnRankBefore(move), calcSrcRank2 = false;
               if (calcSrcRank !== false) {
-                calcSrcRank2 = (move.piece === black_p ? calcSrcRank + 1 : calcSrcRank - 1);
+                calcSrcRank2 = (move.piece === black_p ? calcSrcRank + 1 :
+                  calcSrcRank - 1);
                 if (calcSrcRank2 < 0 || calcSrcRank2 > 7) {
                   calcSrcRank2 = false;
                 }
               }
-              if (calcSrcRank !== false && board[move.srcFile][calcSrcRank] === move.piece) {
+              if (calcSrcRank !== false &&
+                board[move.srcFile][calcSrcRank] === move.piece) {
                 move.srcRank = calcSrcRank;
-              } else if (calcSrcRank2 !== false && calcSrcRank2 !== false && board[move.srcFile][calcSrcRank] === '') {
-                calcSrcRank = calcSrcRank2;
-                move.srcRank = calcSrcRank;
+              } else if (calcSrcRank2 !== false &&
+                board[move.srcFile][calcSrcRank2] === move.piece &&
+                lineOfSight(move.srcFile,calcSrcRank2, move.tgtFile,move.tgtRank)) {
+                move.srcRank = calcSrcRank2;
               }
             }
           } else {
@@ -3712,32 +3745,32 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           calcSrcRank = queenPlace[1];
           if (onDiagPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank) ||
             onStraightPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank)) {
-            if (move.srcRank === false) {
-              move.srcRank = calcSrcRank;
-            }
             if (move.srcFile === false) {
               move.srcFile = calcSrcFile;
+            }
+            if (move.srcRank === false) {
+              move.srcRank = calcSrcRank;
             }
           }
         } else if (move.piece === white_K || move.piece === black_k) {
           // kings
           let kingPlace = findPiecePlaces(move)[0];
-          if (move.srcRank === false) {
-            move.srcRank = calcSrcRank;
-          }
           if (move.srcFile === false) {
             move.srcFile = calcSrcFile;
+          }
+          if (move.srcRank === false) {
+            move.srcRank = calcSrcRank;
           }
         } else if (move.piece === white_B || move.piece === black_b) {
           // bishops
           let bishopPlaces = findPiecePlaces(move);
           for (let i = 0; i < bishopPlaces.length; i++) {
             if (onDiagPath(bishopPlaces[i][0], bishopPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (move.srcRank === false) {
-                move.srcRank = bishopPlaces[i][1];
-              }
               if (move.srcFile === false) {
                 move.srcFile = bishopPlaces[i][0];
+              }
+              if (move.srcRank === false) {
+                move.srcRank = bishopPlaces[i][1];
               }
             }
           }
@@ -3748,13 +3781,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           for (let i = 0; i < knightPlaces.length; i++) {
             if (onKnightPath(knightPlaces[i][0], knightPlaces[i][1], move.tgtFile, move.tgtRank)) {
               // console.log('knight path confirmed', knightPlaces[i][0], knightPlaces[i][1]);
-              if (move.srcRank === false) {
-                // console.log('setting srcRank');
-                move.srcRank = knightPlaces[i][1];
-              }
               if (move.srcFile === false) {
                 // console.log('setting srcFile');
                 move.srcFile = knightPlaces[i][0];
+              }
+              if (move.srcRank === false) {
+                // console.log('setting srcRank');
+                move.srcRank = knightPlaces[i][1];
               }
               // console.log('move.piece =', move.piece);
             }
@@ -3764,11 +3797,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           let rookPlaces = findPiecePlaces(move);
           for (let i = 0; i < rookPlaces.length; i++) {
             if (onStraightPath(rookPlaces[i][0], rookPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (move.srcRank === false) {
-                move.srcRank = rookPlaces[i][1];
-              }
               if (move.srcFile === false) {
                 move.srcFile = rookPlaces[i][0];
+              }
+              if (move.srcRank === false) {
+                move.srcRank = rookPlaces[i][1];
               }
             }
           }
@@ -3837,13 +3870,14 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     const MAXMOVES = 5;
 
     function visualizeOneChessMove() {
+      // uncomment following if limiting to first MAXMOVES moves
       // numMoves++;
       let move = gameMoves.shift();
       // console.log('doing move', move);
       setPrevPos(move);
       performChessMove(move);
       if (numMoves < MAXMOVES && gameMoves.length > 0) {
-        $timeout(visualizeOneChessMove, TIMEBETWEENPLAYS);
+        $timeout(visualizeOneChessMove, TIMEBETWEENCHESSMOVES);
       }
     }
 
