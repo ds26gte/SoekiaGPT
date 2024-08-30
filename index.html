@@ -1339,6 +1339,7 @@ body.smallScreen .seeInsideBtn2 {
 <script src="node_modules/angular-material-icons/angular-material-icons.js"></script> 
 <script src="node_modules/FileSaver/FileSaver.js"></script>
 <script src="node_modules/abcjs-basic-min.js"></script>
+<script src="chess-config.js"></script>
 <link rel="stylesheet" href="node_modules/abcjs-audio.css ">
 
 <script>
@@ -3489,10 +3490,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   const black_b = '♝';
   const black_n = '♞';
   const black_p = '♟';
+  //
+  const whitePieces = [ white_K, white_Q, white_B, white_N, white_R, white_P ];
+  const blackPieces = [ black_k, black_q, black_b, black_n, black_r, black_p ];
 
   self.visualizeChessGame = function(board) {
     let abcContent = document.getElementById('inputBox').innerText;
-    let TIMEBETWEENCHESSMOVES = 3500;
 
     function integerizePos(s) {
       let charCodeA = 97;
@@ -3509,16 +3512,20 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       let places = [];
       for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
-          if (board[i][j] === move.piece) {
+          if (board[i][j].match(move.piece)) {
             places.push([i, j]);
           }
         }
       }
-      // console.log('findPiecePlaces', move, 'is', places);
       return places;
     }
 
-    function lineOfSight(f1,r1, f2,r2) {
+    function lineOfSight(f1,r1, f2,r2, ignoreP) {
+      // they must already be checked for being on a line
+      // all this does is check the intervening squares are empty
+      if (ignoreP) return true; // not using this for now but may later
+      if (CHESS_MOVE_THROUGH_PIECES) return true;
+      // check that all squares between f1,r1 and f2,r2 (excl) are unoccupied
       if (f1 === f2) {
         if (r1 === r2) return true; // or false? doesn't matter?
         let inc = 1;
@@ -3546,13 +3553,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
 
     function onStraightPath(f1, r1, f2, r2) {
-      // if we care of line-of-sight, use lineOfSight(f1,r1,f2,r2) also
-      return ((f1 === f2) || (r1 === r2));
+      return ((f1 === f2) || (r1 === r2)) &&
+        lineOfSight(f1,r1, f2,r2);
     }
 
     function onDiagPath(f1, r1, f2, r2) {
-      // if we care of line-of-sight, use lineOfSight(f1,r1,f2,r2) also
-      return (Math.abs(f1-f2) === Math.abs(r1-r2));
+      return (Math.abs(f1-f2) === Math.abs(r1-r2)) &&
+        lineOfSight(f1,r1, f2,r2);
     }
 
     function onKnightPath(f1, r1, f2, r2) {
@@ -3624,14 +3631,28 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         } else {
           continue;
         }
-        if (moveN >= 1) {
-          move.piece = pieceImage(moveOG[0], currPlayer);
+        if (moveN == 1) {
+          if (moveOG[0].match(/[a-h]/)) {
+            move.srcFile = integerizePos(moveOG[0]);
+          } else {
+            move.piece = pieceImage(moveOG[0], currPlayer);
+          }
         }
-        if (moveN >= 2) {
-          move.srcFile = integerizePos(moveOG[1]);
+        if (moveN == 2) {
+          if (moveOG[1].match(/[a-h]/)) {
+            move.piece = pieceImage(moveOG[0], currPlayer);
+            move.srcFile = integerizePos(moveOG[1]);
+          } else if (moveOG[0].match(/[a-h]/) && moveOG[1].match(/[1-8]/)) {
+            move.srcFile = integerizePos(moveOG[0]);
+            move.srcRank = integerizePos(moveOG[1]);
+          }
         }
-        if (moveN >= 3) {
-          move.srcRank = integerizePos(moveOG[2]);
+        if (moveN == 3) {
+          if (moveOG[1].match(/[a-h]/) && moveOG[2].match(/[1-8]/)) {
+            move.piece = pieceImage(moveOG[0], currPlayer);
+            move.srcFile = integerizePos(moveOG[1]);
+            move.srcRank = integerizePos(moveOG[2]);
+          }
         }
       }
       // console.log('returning listOfMoves', listOfMoves);
@@ -3671,16 +3692,30 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     }
 
+    function showBoard() {
+      for (let i = 0; i < 8; i++) {
+        console.log(
+          board[i][0],
+          board[i][1],
+          board[i][2],
+          board[i][3],
+          board[i][4],
+          board[i][5],
+          board[i][6],
+          board[i][7]);
+      }
+    }
+
     function setPrevPos(move) {
       // console.log('doing setPrevPos', move);
       if (move.castle) {
         let rook = move.piece;
         let king = (rook === white_R) ? white_K : black_k;
-        let rookFile = (move.castle.queenside) ? integerizePos('a') : integerizePos('h');
+        let rookFile = (move.castle.queenside) ? integerizePos('a') :
+          integerizePos('h');
         let kingFile = integerizePos('e');
-        if ((board[rookFile][move.castle.rank] === rook) &&
-          (board[kingFile][move.castle.rank] === king) &&
-          onStraightPath(rookFile, move.castle.rank, kingFile, move.castle.rank) &&
+        if ((board[rookFile][move.castle.rank].match(rook)) &&
+          (board[kingFile][move.castle.rank].match(king)) &&
           lineOfSight(rookFile, move.castle.rank, kingFile, move.castle.rank)) {
           ;
         } else {
@@ -3729,7 +3764,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
                 move.srcRank = calcSrcRank2;
               }
             }
-          } else {
+          } else { // ordinary pawn advance
             if (move.srcFile === false) { move.srcFile = move.tgtFile; }
             if (move.srcFile !== false && move.srcRank === false) {
               let calcSrcRank = pawnRankBefore(move);
@@ -3738,39 +3773,46 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               }
             }
           }
-        } else if (move.piece === white_Q || move.piece === black_q) {
-          // queens
-          let queenPlace = findPiecePlaces(move)[0];
-          calcSrcFile = queenPlace[0];
-          calcSrcRank = queenPlace[1];
-          if (onDiagPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank) ||
-            onStraightPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank)) {
-            if (move.srcFile === false) {
-              move.srcFile = calcSrcFile;
-            }
-            if (move.srcRank === false) {
-              move.srcRank = calcSrcRank;
-            }
-          }
         } else if (move.piece === white_K || move.piece === black_k) {
           // kings
-          let kingPlace = findPiecePlaces(move)[0];
-          if (move.srcFile === false) {
-            move.srcFile = calcSrcFile;
+          let kingPlaces = findPiecePlaces(move);
+          for (let i = 0; i < kingPlaces.length; i++) {
+            let kingPlace = kingPlaces[i];
+            let calcSrcFile = kingPlace[0];
+            let calcSrcRank = kingPlace[1];
+            if (move.srcFile === false || move.srcRank === false) {
+              move.srcFile = calcSrcFile;
+              move.srcRank = calcSrcRank;
+              break;
+            }
           }
-          if (move.srcRank === false) {
-            move.srcRank = calcSrcRank;
+        } else if (move.piece === white_Q || move.piece === black_q) {
+          // queens
+          let queenPlaces = findPiecePlaces(move);
+          for (let i = 0; i < queenPlaces.length; i++) {
+            let queenPlace = queenPlaces[0];
+            let calcSrcFile = queenPlace[0];
+            let calcSrcRank = queenPlace[1];
+            if (onDiagPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank) ||
+              onStraightPath(calcSrcFile, calcSrcRank, move.tgtFile, move.tgtRank)) {
+              if (move.srcFile === false || move.srcRank) {
+                move.srcFile = calcSrcFile;
+                move.srcRank = calcSrcRank;
+                break;
+              }
+            }
           }
         } else if (move.piece === white_B || move.piece === black_b) {
           // bishops
           let bishopPlaces = findPiecePlaces(move);
           for (let i = 0; i < bishopPlaces.length; i++) {
-            if (onDiagPath(bishopPlaces[i][0], bishopPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (move.srcFile === false) {
-                move.srcFile = bishopPlaces[i][0];
-              }
-              if (move.srcRank === false) {
-                move.srcRank = bishopPlaces[i][1];
+            let bishopPlace = bishopPlaces[i];
+            if (onDiagPath(bishopPlace[0], bishopPlace[1],
+              move.tgtFile, move.tgtRank)) {
+              if (move.srcFile === false || move.srcRank === false) {
+                move.srcFile = bishopPlace[0];
+                move.srcRank = bishopPlace[1];
+                break;
               }
             }
           }
@@ -3779,15 +3821,14 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           let knightPlaces = findPiecePlaces(move);
           // console.log('knightPlaces =', knightPlaces);
           for (let i = 0; i < knightPlaces.length; i++) {
-            if (onKnightPath(knightPlaces[i][0], knightPlaces[i][1], move.tgtFile, move.tgtRank)) {
+            let knightPlace = knightPlaces[i];
+            if (onKnightPath(knightPlace[0], knightPlace[1],
+              move.tgtFile, move.tgtRank)) {
               // console.log('knight path confirmed', knightPlaces[i][0], knightPlaces[i][1]);
-              if (move.srcFile === false) {
-                // console.log('setting srcFile');
-                move.srcFile = knightPlaces[i][0];
-              }
-              if (move.srcRank === false) {
-                // console.log('setting srcRank');
-                move.srcRank = knightPlaces[i][1];
+              if (move.srcFile === false || move.srcRank === false) {
+                move.srcFile = knightPlace[0];
+                move.srcRank = knightPlace[1];
+                break;
               }
               // console.log('move.piece =', move.piece);
             }
@@ -3796,12 +3837,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           // rooks
           let rookPlaces = findPiecePlaces(move);
           for (let i = 0; i < rookPlaces.length; i++) {
-            if (onStraightPath(rookPlaces[i][0], rookPlaces[i][1], move.tgtFile, move.tgtRank)) {
-              if (move.srcFile === false) {
-                move.srcFile = rookPlaces[i][0];
-              }
-              if (move.srcRank === false) {
-                move.srcRank = rookPlaces[i][1];
+            let rookPlace = rookPlaces[i];
+            if (onStraightPath(rookPlace[0], rookPlace[1],
+              move.tgtFile, move.tgtRank)) {
+              if (move.srcFile === false || move.srcRank === false) {
+                move.srcFile = rookPlace[0];
+                move.srcRank = rookPlace[1];
+                break;
               }
             }
           }
@@ -3809,47 +3851,33 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
 
       // console.log('src =', move.piece, move.srcFile, move.srcRank);
-      if (move.srcFile !== false && move.srcRank !== false) {
-        if (board[move.srcFile][move.srcRank] !== move.piece) {
-          // console.log('setting imposs move i');
+      if (!CHESS_ALLOW_NEW_PIECES) {
+        if (move.srcFile !== false && move.srcRank !== false) {
+          if (board[move.srcFile][move.srcRank] !== move.piece) {
+            // console.log('setting imposs move i');
+            move.impossibleMove = true;
+          }
+        } else {
+          // console.log('setting imposs move ii');
           move.impossibleMove = true;
         }
-      } else {
-        // console.log('setting imposs move ii');
-        move.impossibleMove = true;
       }
     }
 
-    function showBoard() {
-      for (let i = 0; i < 8; i++) {
-        console.log(
-          board[i][0],
-          board[i][1],
-          board[i][2],
-          board[i][3],
-          board[i][4],
-          board[i][5],
-          board[i][6],
-          board[i][7]);
-      }
-    }
-
-    function performCastle(move) {
-      let rook = move.piece;
-      let king = (rook === white_R) ? white_K : black_k;
-      board[integerizePos('e')][move.castle.rank] = '';
-      if (move.castle.queenside) {
-        board[integerizePos('c')][move.castle.rank] = king;
-        board[integerizePos('a')][move.castle.rank] = '';
-        board[integerizePos('d')][move.castle.rank] = rook;
-      } else {
-        board[integerizePos('g')][move.castle.rank] = king;
-        board[integerizePos('h')][move.castle.rank] = '';
-        board[integerizePos('f')][move.castle.rank] = rook;
+    function captureEnemyPieces(move) {
+      // console.log('doing captureEnemyPieces');
+      let x = board[move.tgtFile][move.tgtRank];
+      let pcs = whitePieces;
+      if (move.player == 'w') pcs = blackPieces;
+      for (let i = 0; i < pcs.length; i++) {
+        let pc = pcs[i];
+        let x = board[move.tgtFile][move.tgtRank];
+        board[move.tgtFile][move.tgtRank] = x.replaceAll(pc, '');
       }
     }
 
     function performChessMove(move) {
+      // console.log('moving', move.piece, move);
       // showBoard();
       if (move.impossibleMove) {
         console.log(move.notation, 'skipped');
@@ -3860,10 +3888,53 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       if (move.castle) {
         performCastle(move);
       } else {
-        board[move.srcFile][move.srcRank] = '';
-        board[move.tgtFile][move.tgtRank] = move.piece;
+        if (move.srcFile !== false && move.srcRank !== false &&
+          board[move.srcFile][move.srcRank].match(move.piece)) {
+          let sq = board[move.srcFile][move.srcRank];
+          board[move.srcFile][move.srcRank] = sq.replace(move.piece, '');
+        }
+        if (move.capture) captureEnemyPieces(move);
+        if (CHESS_ALLOW_MANY_PIECES_ON_SQUARE) {
+          board[move.tgtFile][move.tgtRank] += move.piece;
+        } else {
+          board[move.tgtFile][move.tgtRank] = move.piece;
+        }
       }
       // showBoard();
+    }
+
+    function performCastle(move) {
+      let rook = move.piece;
+      let king = (rook === white_R) ? white_K : black_k;
+      let x = board[integerizePos('e')][move.castle.rank];
+      board[integerizePos('e')][move.castle.rank] = x.replace(king, '');
+      if (move.castle.queenside) {
+        if (CHESS_ALLOW_MANY_PIECES_ON_SQUARE) {
+          board[integerizePos('c')][move.castle.rank] += king;
+        } else {
+          board[integerizePos('c')][move.castle.rank] = king;
+        }
+        x = board[integerizePos('a')][move.castle.rank];
+        board[integerizePos('a')][move.castle.rank] = x.replace(rook, '');
+        if (CHESS_ALLOW_MANY_PIECES_ON_SQUARE) {
+          board[integerizePos('d')][move.castle.rank] += rook;
+        } else {
+          board[integerizePos('d')][move.castle.rank] = rook;
+        }
+      } else {
+        if (CHESS_ALLOW_MANY_PIECES_ON_SQUARE) {
+          board[integerizePos('g')][move.castle.rank] += king;
+        } else {
+          board[integerizePos('g')][move.castle.rank] = king;
+        }
+        x = board[integerizePos('h')][move.castle.rank];
+        board[integerizePos('h')][move.castle.rank] = x.replace(rook, '');
+        if (CHESS_ALLOW_MANY_PIECES_ON_SQUARE) {
+          board[integerizePos('f')][move.castle.rank] += rook;
+        } else {
+          board[integerizePos('f')][move.castle.rank] = rook;
+        }
+      }
     }
 
     let numMoves = 0;
@@ -3877,12 +3948,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       setPrevPos(move);
       performChessMove(move);
       if (numMoves < MAXMOVES && gameMoves.length > 0) {
-        $timeout(visualizeOneChessMove, TIMEBETWEENCHESSMOVES);
+        $timeout(visualizeOneChessMove, CHESS_TIME_BETWEEN_MOVES);
       }
     }
 
     let gameMoves = parseAllMoves(abcContent);
-    visualizeOneChessMove();
+    $timeout(visualizeOneChessMove, CHESS_TIME_BETWEEN_MOVES);
   };
 
   self.playABCChess = function(ev){
