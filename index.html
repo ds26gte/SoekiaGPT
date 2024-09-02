@@ -51,7 +51,7 @@
 
       <div style="padding:1em;padding-bottom:5em;overflow:auto;width:100%;box-sizing: border-box;" fill-layout>
 
-        <div style="text-align:center;user-select:none;-webkit-user-select:none"><img src="../soekiaGPT.png" style="max-width:50%;margin:1em" draggable="false" alt="Soekia GPT"/></div>
+        <div style="text-align:center;user-select:none;-webkit-user-select:none"><img src="https://www.soekia.ch/soekiaGPT.png" style="max-width:50%;margin:1em" draggable="false" alt="Soekia GPT"/></div>
  
         <div style="max-width: 600px;margin-left: auto;margin-right: auto;">
           <div style="position:relative; margin-bottom:1em;background:#f0f2fc;border-radius:8px;padding:1em;" id="TaskBox" ng-if="!self.firstPrompt">
@@ -1373,7 +1373,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   $scope.$mdMedia = $mdMedia;
   var self = this;
 
-  app.currentLanguage = "DE";
+  app.currentLanguage = "EN";
   var urlParams = new URLSearchParams(window.location.search);
   var paramLang = urlParams.get('lang');
   if(paramLang && paramLang.toUpperCase) paramLang = paramLang.toUpperCase();
@@ -1436,7 +1436,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     $http.get("i18n/Collections_"+app.currentLanguage+".json?v1").then(function(response) {
       self.predefined = response.data;
       if(self.documents.length == 0){
-        self.loadPredefined("default");
+        self.loadPredefined("default7");
       }
     });
 
