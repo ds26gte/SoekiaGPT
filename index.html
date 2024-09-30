@@ -214,7 +214,7 @@
             <div class="md-list-item-text" layout="column">                        
               <div style="position:relative;padding-left:1em;margin-top: 10px;margin-bottom: 10px;" ng-class="{'selected':self.isSelected(item), 'picked':self.pickedNextWord == item}">
                 <h3 style="white-space: normal;" layout="row" layout-align="start center">
-                  <span style="background: #f3a000;color:white; padding: 0.2em; display: inline-block;font-weight: 400; font-size: 14px; border-radius: 4px;">{{item.n}}er</span>
+                  <span style="background: #f3a000;color:white; padding: 0.2em; display: inline-block;font-weight: 400; font-size: 14px; border-radius: 4px;">{{'ORD' + item.n | trans}}</span>
                   <span style="margin-left: 0.25em;" ng-bind-html="self.getTokenString(item)">
                   </span>
                 </h3>
@@ -297,12 +297,12 @@
 
         </md-toolbar>
         <div layout="row" layout-align="center center" layout-wrap style="background: #fffef0;margin-right: -1em">
-          <md-button ng-if="self.ngram > 0" ng-click="self.showngram = 1; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 1}" style="margin-left:0;min-width: 2em;    text-transform: none;">1er<md-tooltip>{{self.wordList[1].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
-          <md-button ng-if="self.ngram > 1" ng-click="self.showngram = 2; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 2}" style="margin-left:0;min-width: 2em;    text-transform: none;">2er<md-tooltip>{{self.wordList[2].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
-          <md-button ng-if="self.ngram > 2" ng-click="self.showngram = 3; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 3}" style="margin-left:0;min-width: 2em;    text-transform: none;">3er<md-tooltip>{{self.wordList[3].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
-          <md-button ng-if="self.ngram > 3" ng-click="self.showngram = 4; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 4}" style="margin-left:0;min-width: 2em;    text-transform: none;">4er<md-tooltip>{{self.wordList[4].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
-          <md-button ng-if="self.ngram > 4" ng-click="self.showngram = 5; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 5}" style="margin-left:0;min-width: 2em;    text-transform: none;">5er<md-tooltip>{{self.wordList[5].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
-          <md-button ng-if="self.ngram > 5" ng-click="self.showngram = 6; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 6}" style="margin-left:0;min-width: 2em;    text-transform: none;">6er<md-tooltip>{{self.wordList[6].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
+          <md-button ng-if="self.ngram > 0" ng-click="self.showngram = 1; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 1}" style="margin-left:0;min-width: 2em;    text-transform: none;">{{'ORD1' | trans }}<md-tooltip>{{self.wordList[1].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
+          <md-button ng-if="self.ngram > 1" ng-click="self.showngram = 2; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 2}" style="margin-left:0;min-width: 2em;    text-transform: none;">{{'ORD2' | trans }}<md-tooltip>{{self.wordList[2].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
+          <md-button ng-if="self.ngram > 2" ng-click="self.showngram = 3; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 3}" style="margin-left:0;min-width: 2em;    text-transform: none;">{{'ORD3' | trans }}<md-tooltip>{{self.wordList[3].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
+          <md-button ng-if="self.ngram > 3" ng-click="self.showngram = 4; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 4}" style="margin-left:0;min-width: 2em;    text-transform: none;">{{'ORD4' | trans }}<md-tooltip>{{self.wordList[4].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
+          <md-button ng-if="self.ngram > 4" ng-click="self.showngram = 5; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 5}" style="margin-left:0;min-width: 2em;    text-transform: none;">{{'ORD5' | trans }}<md-tooltip>{{self.wordList[5].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
+          <md-button ng-if="self.ngram > 5" ng-click="self.showngram = 6; self.rebuildMatchList()" ng-class="{'md-yellow md-hue-0 md-raised':self.showngram == 6}" style="margin-left:0;min-width: 2em;    text-transform: none;">{{'ORD6' | trans }}<md-tooltip>{{self.wordList[6].length}} {{'ENTRIES' | trans}}</md-tooltip></md-button>
 
         </div>
         <md-list md-virtual-repeat-container id="nGramList" flex style="padding:0;overflow-y:hidden; overflow-x: hidden;background:#fffef0" >

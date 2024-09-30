@@ -56,5 +56,11 @@
   "HINT": "Indice",
   "COPIEDTOCLIPBOARD": "Le texte a été copié dans le Presse-papiers.",
   "ERRORLOADINGFILE": "Le fichier n’a pas pu être chargé. Est-ce vraiment un fichier Soekia ?",
-  "ERROR": "Erreur"
+  "ERROR": "Erreur",
+  "ORD1": "1er",
+  "ORD2": "2er",
+  "ORD3": "3er",
+  "ORD4": "4er",
+  "ORD5": "5er",
+  "ORD6": "6er"
 }

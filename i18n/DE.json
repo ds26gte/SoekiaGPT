@@ -77,5 +77,11 @@
 	"DOCUMENTCONTEXT":"Prompt-Passung (%COUNT%)",
   "ERRORLOADINGFILE":"Datei konnte nicht geladen werden. Handelt es sich wirklich um eine Soekia-Datei?",
   "ERRORTOMANYDOCUMENTS":"Diese Kollektion ist bereits voll und es können keine weiteren Dokumente mehr hinzugefügt werden.",
-  "ERROR":"Fehler"  
+  "ERROR":"Fehler",  
+  "ORD1": "1er",
+  "ORD2": "2er",
+  "ORD3": "3er",
+  "ORD4": "4er",
+  "ORD5": "5er",
+  "ORD6": "6er"
 }
