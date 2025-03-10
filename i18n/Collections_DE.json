@@ -440,6 +440,94 @@
       {
         "id": "D",
         "text": "X13\nO12\nX32\nO23\nX31\nO21\nX33\n"
+      },
+      {
+        "id": "E",
+        "text": "X32\nO31\nX12\nO21\nX22\n"
+      },
+      {
+        "id": "F",
+        "text": "X32\nO22\nX23\nO33\nX13\nO12\nX31\nO21\nX11\n"
+      },
+      {
+        "id": "G",
+        "text": "X11\nO22\nX12\nO13\nX31\nO21\nX23\nO32\nX33\n"
+      },
+      {
+        "id": "H",
+        "text": "X11\nO12\nX21\nO22\nX23\nO13\nX33\nO32\n"
+      },
+      {
+        "id": "I",
+        "text": "X31\nO33\nX32\nO11\nX22\nO12\nX23\nO13\n"
+      },
+      {
+        "id": "J",
+        "text": "X13\nO31\nX12\nO32\nX21\nO33\n"
+      },
+      {
+        "id": "K",
+        "text": "X22\nO32\nX12\nO31\nX21\nO23\nX13\nO33\n"
+      },
+      {
+        "id": "L",
+        "text": "X13\nO22\nX23\nO31\nX12\nO32\nX33\n"
+      },
+      {
+        "id": "M",
+        "text": "X13\nO32\nX33\nO12\nX21\nO22\n"
+      },
+      {
+        "id": "N",
+        "text": "X32\nO23\nX21\nO11\nX12\nO22\nX31\nO33\n"
+      },
+      {
+        "id": "O",
+        "text": "X12\nO11\nX33\nO23\nX13\nO21\nX22\nO32\nX31\n"
+      },
+      {
+        "id": "P",
+        "text": "X21\nO31\nX12\nO11\nX32\nO23\nX33\nO22\nX13\n"
+      },
+      {
+        "id": "Q",
+        "text": "X11\nO31\nX13\nO21\nX33\nO12\nX23\n"
+      },
+      {
+        "id": "R",
+        "text": "X23\nO21\nX22\nO32\nX13\nO12\nX31\n"
+      },
+      {
+        "id": "S",
+        "text": "X31\nO11\nX21\nO12\nX22\nO23\nX33\nO32\nX13\n"
+      },
+      {
+        "id": "T",
+        "text": "X23\nO13\nX21\nO22\nX33\nO31\n"
+      },
+      {
+        "id": "U",
+        "text": "X11\nO13\nX31\nO21\nX12\nO23\nX22\nO33\n"
+      },
+      {
+        "id": "V",
+        "text": "X32\nO12\nX21\nO11\nX33\nO22\nX23\nO31\nX13\n"
+      },
+      {
+        "id": "W",
+        "text": "X11\nO21\nX32\nO22\nX23\nO33\nX31\nO12\nX13\n"
+      },
+      {
+        "id": "X",
+        "text": "X31\nO11\nX13\nO32\nX23\nO12\nX21\nO22\n"
+      },
+      {
+        "id": "Y",
+        "text": "X33\nO11\nX13\nO22\nX21\nO12\nX32\nO31\nX23\n"
+      },
+      {
+        "id": "Z",
+        "text": "X32\nO21\nX23\nO12\nX22\nO31\nX13\nO33\nX11\n"
       }
       ]
     },
