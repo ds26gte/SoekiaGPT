@@ -46,6 +46,7 @@
   "HIGH": "high",
   "TEMPERATUREDESC": "At a low temperature, word suggestions that occur frequently are selected. The higher the temperature, the more randomly the word suggestions are selected.",
   "ASKDELETE": "Really delete?",
+  "ASKLOADNEWCOLLECTION": "Load new collection?",
   "CONFIRMDELDOC": "Do you want to permanently delete the document %ID%?",
   "CONFIRMDELCOL": "Your existing documents will be irrevocably deleted. Do you want to continue?",
   "DELETE": "Delete",
