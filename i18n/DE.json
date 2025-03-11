@@ -34,6 +34,8 @@
 	"WEATHER":"Wettervorhersage",
 	"MUSICABC":"Musik in ABC-Notation",
 	"INTELLIGENTAPES":"Tiergeschichten und -beschreibungen",
+        "TICTACTOE": "Tic Tac Toe",
+        "CHESS": "Schach",
 	"DOWNLOADCOLLECTION":"Soekia-Datei herunterladen",
   "UPLOADCOLLECTION":"Soekia-Datei hochladen",
   "DELETECOLLECTION":"Neue Kollektion",
