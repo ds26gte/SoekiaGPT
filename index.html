@@ -3208,17 +3208,24 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         self.generatedWords = 0;        
       }else{
         function pickNext(){
-          var picked = n[0];
+          var topIndex = 0;
+          var picked = n[topIndex];
+
+          if (picked.matches === 0 && picked.calc === 100 && n.length >= 1 && self.showChessPlayer) {
+            // this is almost always a wrong pick, at least for chess
+            topIndex = 1;
+            picked = n[topIndex];
+          }
+
           // if there are multiple top items with same percent value, choose random
 
           var upToIndex = 0;
-          for(var i=1; i < n.length; i++){
-            if(n[i].matches == n[0].matches && n[i].calc == n[0].calc) upToIndex = i; else break;
+          for(var i=topIndex + 1; i < n.length; i++){
+            if(n[i].matches == n[topIndex].matches && n[i].calc == n[topIndex].calc) upToIndex = i; else break;
           }
           if(self.temp > 0){
-            picked = n[Math.floor(Math.random()*(upToIndex+1))];            
+            picked = n[topIndex + Math.floor(Math.random()*(upToIndex-topIndex+1))];
           }
-          
 
           for(var i=0; i < self.sortedMatching.sorted.length; i++){
             var tn = self.sortedMatching.sorted[i].tokens;
