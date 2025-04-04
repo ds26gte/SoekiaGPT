@@ -1,9 +1,9 @@
 [
    
    {"name":"default",
-    "task":"Write me a fairy tale.",
-    "prompt":"Write me a fairy tale.",
-    "promptDefault":"There was once",
+    "task":"There was once...",
+    "prompt":"There was once...",
+    "promptDefault":"There was once...",
     "documents": [
       {
         "id": "A",
