@@ -376,6 +376,46 @@
         {
           "id": "F",
           "text": "e4 d6\nd4 Nf6\nNc3 g6\nBe3 Bg7\nQd2 Ng4\nBf4 e5\nBg5 f6\nBe3 Nxe3\nQxe3 Nc6\nd5 Nd4\nQd2 O-O\nNge2 f5\nNxd4 exd4\nNe2 fxe4\nNxd4 Qf6\nNb3 Qxb2\nRd1 Bc3\nQxc3 Qxc3\nRd2 e3\nfxe3 Qxe3\nKd1 Bg4"
+        },
+        {
+          "id": "G",
+          "text": "d4 Nf6\nNd2 e5\ndxe5 Ng4\nH3 Ne3\n"
+        },
+        {
+          "id": "H",
+          "text": "e4 e5\nNf3 Nc6\nNc3 f5\nD4 fxe4\nNxe5 Nf6\nBc4 d5\nNxd5 Nxd5\nQh5 g6\nNxg6 Nf6\nBf7\n"
+        },
+        {
+          "id": "I",
+          "text": "D4 d5\nc4 dxc4\nNc3 e6\ne3 c5\nNf3 a6\nBxc 4Nf6\nO-O b5\nBe2 Nc6\ndxc5 Qc7\nNd4 Bxc5\nNxc6 Bb7\nNd4 Rd8\nQb3 Bxd4\nexd4 Rxd4\nNd1 O-O\nQg3 e5\nBh6 Ne8\nRc1 Qe7\nBe3 Rd5\nNc3 Rd7\nRfd1 Rc7\nNd5 Bxd5\nRxd5 Rxc1\nBxc1 Qc7\nQc3 f6\nQxc7 Nxc7\nRd6 Re8\nBe3 Re6\nRxe6\n"
+        },
+        {
+          "id": "J",
+          "text": "f4 e5\nfxe5 d6\nNf3 Nc6\nexd6 Bxd6\ne4 g5\nBb5 g4\nBxc6 bxc6\ne5 gxf3\nexd6 Qh4\nKf1 fxg2\nKxg2 Bh3\nKg1 Qd4\n"
+        },
+        {
+          "id": "K",
+          "text": "e4 e5\nNf3 Nc6\nd4 exd4\nNxd4 Qh4\nNc3 Bb4\nQd3 Nf6\nNxc6 dxc6\nBd2 Bxc3\nBxc3 Nxe41\nQd4 Qe7\nO-O-O Qg5\nf4 Qxf4\nBd2 Qg4\nQd8 Kxd8\nBg5\n"
+        },
+        {
+          "id": "L",
+          "text": "e4 e5\nf4 exf4\nBc4 Qh4\nKf1 g5\nNf3 Qh5\nh4 d5\nBxd5 Nf6\nNc3 Nc6\nBxc6 bxc6\nd4 Ba6\nKg1 g4\nNe5 Qxe5\ndxe5 Bc5\nKh2 g3\nKh3 Bc8\nQg4 Bxg4\n"
+        },
+        {
+          "id": "M",
+          "text": "e4 e5\nNf3 Nc6\nNc3 d6\nd4 Bg4\nBe3 f5\nd5 fxe4\nNxe4 Nce7\nc4 Nf6\nNxf6 gxf6\nh3 Bd7\nNh4 Ng6\nBd3 Nxh4\nQh5 Ng6\nBxg6 Ke7\nQxe5\n"
+        },
+        {
+          "id": "N",
+          "text": "e4 e5\nNf3 d6\nd4 exd4\nNxd4 Bd7\nNc3 g6\nBc4 Nc6\nNd5 Bg7\nBe3 Nge7\nBg5 Bxd4\nQxd4 O-O\nNf6 Kh8\nNg4 Nxd4\nBf6 Kg8\nNh6\n"
+        },
+        {
+          "id": "O",
+          "text": "d4 d5\nc4 e6\nNc3 c5\nBf4 cxd4\nBxb8 dxc3\nBe5 cxb2\n"
+        },
+        {
+          "id": "P",
+          "text": "E4 e5\nBc4 d6\nNf3 Nc6\nNc3 Bg4\nNxe5 Bxd1\nBxf7 Ke7\nNd5\n"
         }
       ]
 
