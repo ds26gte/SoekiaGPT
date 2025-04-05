@@ -3602,6 +3602,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
     function parseAllMoves(abcContent) {
       // console.log('doing parseAllMoves', abcContent);
+      abcContent = abcContent.replace(/\.\s+$/, '');
       let listOfMovesOG = abcContent.trim().split(/\s+/);
       let listOfMoves = [];
       let player = 'w';
