@@ -3878,7 +3878,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
 
     function captureEnemyPieces(move) {
-      // console.log('doing captureEnemyPieces');
+      // console.log('doing captureEnemyPieces', move);
       let x = board[move.tgtFile][move.tgtRank];
       let pcs = whitePieces;
       if (move.player == 'w') pcs = blackPieces;

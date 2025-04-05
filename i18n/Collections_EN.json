@@ -383,11 +383,11 @@
         },
         {
           "id": "H",
-          "text": "e4 e5\nNf3 Nc6\nNc3 f5\nD4 fxe4\nNxe5 Nf6\nBc4 d5\nNxd5 Nxd5\nQh5 g6\nNxg6 Nf6\nBf7\n"
+          "text": "e4 e5\nNf3 Nc6\nNc3 f5\nd4 fxe4\nNxe5 Nf6\nBc4 d5\nNxd5 Nxd5\nQh5 g6\nNxg6 Nf6\nBf7\n"
         },
         {
           "id": "I",
-          "text": "D4 d5\nc4 dxc4\nNc3 e6\ne3 c5\nNf3 a6\nBxc 4Nf6\nO-O b5\nBe2 Nc6\ndxc5 Qc7\nNd4 Bxc5\nNxc6 Bb7\nNd4 Rd8\nQb3 Bxd4\nexd4 Rxd4\nNd1 O-O\nQg3 e5\nBh6 Ne8\nRc1 Qe7\nBe3 Rd5\nNc3 Rd7\nRfd1 Rc7\nNd5 Bxd5\nRxd5 Rxc1\nBxc1 Qc7\nQc3 f6\nQxc7 Nxc7\nRd6 Re8\nBe3 Re6\nRxe6\n"
+          "text": "d4 d5\nc4 dxc4\nNc3 e6\ne3 c5\nNf3 a6\nBxc 4Nf6\nO-O b5\nBe2 Nc6\ndxc5 Qc7\nNd4 Bxc5\nNxc6 Bb7\nNd4 Rd8\nQb3 Bxd4\nexd4 Rxd4\nNd1 O-O\nQg3 e5\nBh6 Ne8\nRc1 Qe7\nBe3 Rd5\nNc3 Rd7\nRfd1 Rc7\nNd5 Bxd5\nRxd5 Rxc1\nBxc1 Qc7\nQc3 f6\nQxc7 Nxc7\nRd6 Re8\nBe3 Re6\nRxe6\n"
         },
         {
           "id": "J",
@@ -415,7 +415,7 @@
         },
         {
           "id": "P",
-          "text": "E4 e5\nBc4 d6\nNf3 Nc6\nNc3 Bg4\nNxe5 Bxd1\nBxf7 Ke7\nNd5\n"
+          "text": "e4 e5\nBc4 d6\nNf3 Nc6\nNc3 Bg4\nNxe5 Bxd1\nBxf7 Ke7\nNd5\n"
         }
       ]
 
