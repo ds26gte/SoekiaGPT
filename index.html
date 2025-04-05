@@ -3211,9 +3211,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           var topIndex = 0;
           var picked = n[topIndex];
 
-          if (picked.matches === 0 && picked.calc === 100 && n.length >= 1 && self.showChessPlayer) {
-            // this is almost always a wrong pick, at least for chess
-            topIndex = 1;
+          if (picked.matches === 0 && CHESS_DONT_LET_SINGLE_MOVE_MONOPOLIZE && n.length >= 1 && self.showChessPlayer) {
+            // n[0] is always a wrong pick, at least for chess,
+            // because the most frequent move will always win, and, worse, it
+            // will keep winning, choking out all other moves;
+            // so give something else (including itself) a fighting chance
+            topIndex = Math.floor(Math.random()*(n.length));
             picked = n[topIndex];
           }
 
@@ -3534,7 +3537,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       // all this does is check the intervening squares are empty
       if (ignoreP) return true; // not using this for now but may later
       if (CHESS_MOVE_THROUGH_PIECES) return true;
-      // check that all squares between f1,r1 and f2,r2 (excl) are unoccupied
+      // check that all squares between f1,r1 and f2,r2 (excl) are unoccupied.
+      // check for correctness, but we're not using this in our scenario for now
       if (f1 === f2) {
         if (r1 === r2) return true; // or false? doesn't matter?
         let inc = 1;
