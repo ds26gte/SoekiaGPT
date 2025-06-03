@@ -322,7 +322,7 @@
                   <md-menu-item layout="column" style="height: auto;padding-bottom:6px">
                     <div style="padding-left:16px;margin-bottom:4px"><b>{{item.text}}</b></div>
 
-                    <div style="padding-left:16px;margin-bottom:4px;margin-top:4px">{{item.totalCount}} x gefunden.</div>
+                    <div style="padding-left:16px;margin-bottom:4px;margin-top:4px">{{'FOUNDTIMES" | trans:item.totalCount}}.</div>
                     <div ng-repeat="(key,value) in item.refs track by key" style="font-size:80%">
                       {{value}}{{'TIMESIN' | trans}} <b>{{'DOCUMENT' | trans}} {{key+ (!$last?', ':'')}}</b>
                     </div>
