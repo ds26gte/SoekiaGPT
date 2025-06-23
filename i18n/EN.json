@@ -63,10 +63,10 @@
   "COPIEDTOCLIPBOARD": "The text has been copied to the clipboard.",
   "ERRORLOADINGFILE": "File could not be loaded. Is it really a Soekia file?",
   "ERROR": "Error",
-  "ORD1": "1st",
-  "ORD2": "2nd",
-  "ORD3": "3rd",
-  "ORD4": "4th",
-  "ORD5": "5th",
-  "ORD6": "6th"
+  "ORD1": "1",
+  "ORD2": "2",
+  "ORD3": "3",
+  "ORD4": "4",
+  "ORD5": "5",
+  "ORD6": "6"
 }
