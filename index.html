@@ -1420,6 +1420,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   }
 
   self.reloadTranslationContent = function(){
+    // console.log('doing reloadTranslationContent');
     // from here we can call self.trans as language file is loaded
     self.trans = function(input, data, data2, data3){
       return $filter('trans')(input, data, data2, data3);
@@ -1437,9 +1438,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     });
     $http.get("i18n/Collections_"+app.currentLanguage+".json?v1").then(function(response) {
       self.predefined = response.data;
-      if(self.documents.length == 0){
-        self.loadPredefined("default");
+      if(self.documents.length != 0) {
+        self.noconfirm = true;
       }
+      self.loadPredefined('default');
     });
 
   }
@@ -2723,6 +2725,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   }
 
   self.loadSettings = function(){
+    // console.log('doing loadSettings');
     if(localStorage.getItem("slm_input")){
       self.input = JSON.parse(localStorage.getItem("slm_input"));
       if(self.input.length > 0) self.firstPrompt = false;
@@ -3477,11 +3480,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     };
 
-    if(self.documents.length > 0)
+    if(self.documents.length > 0 && !self.noconfirm)
       $mdDialog.show(confirm).then(load,function(){});
     else 
       load();
     
+    self.noconfirm = false;
 
     return deferred.promise;
   };
