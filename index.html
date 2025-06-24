@@ -495,10 +495,12 @@
               <div flex style="overflow:hidden;font-size:70%" ng-bind-html="d.content">
               </div>
 
+              <!--
               <div ng-if="!self.firstPrompt && self.documentContext && self.documentContext[d.id]" ng-click="clicked = !clicked">
                 <md-progress-linear style="height:8px; overflow:hidden; margin-top: 8px" class="md-accent" md-mode="determinate" ng-value="self.documentContext[d.id]"></md-progress-linear>
                 <md-tooltip md-autohide md-visible="clicked">{{'DOCUMENTCONTEXT' | trans:(self.documentContext[d.id] == 1 ? 0 : self.documentContext[d.id])+'%'}}<br>{{self.getDocumentContextString(d.id)}}</md-tooltip>
               </div>
+              -->
             
             </md-card>          
             <div style="clear:both;height:2em"></div>
