@@ -1522,8 +1522,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     var text = input;
     text = text.replace(/\r/g,"");  // remove line feeds
     text = text.replace(/\t/g," ");  // remove line feeds
-    text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
-    text = text.replace(/\n/g," "); // single newlines to spaces
+    // text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
+    // text = text.replace(/\n/g," "); // single newlines to spaces
+    text = text.replace(/\n+/g," "); // newlines to single space
     text = text.replace(/❯+/g,"❯"); // remove double ❯
 
     // special case for Test-Word as one Word
