@@ -2769,7 +2769,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
   self.updateDocuments = function(){
     self.documents.map(function(d){
-      d.words = self.splitWords("❯"+d.text);
+      // d.words = self.splitWords("❯"+d.text);
+      d.words = self.splitWords(d.text);
       
       d.content = $sce.trustAsHtml(d.text.replace(/\n/g,"<br>"));
 
