@@ -111,9 +111,9 @@
     
 
    {"name":"default4",
-    "task":"",
-    "prompt":"Write me some music",
-    "promptDefault": "T:My Music Score\n",
+    "task":"Write me a song",
+    "prompt":"Write me a song",
+    "promptDefault": "Write me a song",
     "temp": 90,
     "maxNext": 12,
     "ngram": 5,
