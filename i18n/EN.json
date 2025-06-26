@@ -50,7 +50,7 @@
   "ASKDELETE": "Really delete?",
   "ASKLOADNEWCOLLECTION": "Load new collection?",
   "CONFIRMDELDOC": "Do you want to permanently delete the document %ID%?",
-  "CONFIRMDELCOL": "Your existing documents will be irrevocably deleted. Do you want to continue?",
+  "CONFIRMDELCOL": "Modifications you've made to these documents will be irrevocably deleted. Do you want to continue?",
   "DELETE": "Delete",
   "SAVE": "Save",
   "OK": "OK",

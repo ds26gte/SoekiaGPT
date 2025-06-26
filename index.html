@@ -1444,6 +1444,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     $http.get("i18n/Collections_"+app.currentLanguage+".json?v1").then(function(response) {
       self.predefined = response.data;
       if(self.documents.length != 0) {
+        // console.log('setting noconfirm');
         self.noconfirm = true;
       }
       self.loadPredefined('default');
@@ -2574,6 +2575,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   $interval(self.refreshCoCollection,5000);
 
   self.updateCoCollectionDoc = function(doc,content){
+    // console.log('doing updateCoCollectionDoc');
     self.collectionAPIPost({"action":"update", "code":self.currentCoCollection, "doc":doc, "value":content}).then(function(data){
       if(data.result == "OK"){
         self.refreshCoCollection();
@@ -2771,6 +2773,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   });  
 
   self.updateDocuments = function(){
+    // console.log('doing updateDocuments');
     self.documents.map(function(d){
       // d.words = self.splitWords("❯"+d.text);
       d.words = self.splitWords(d.text);
@@ -2783,6 +2786,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   };  
 
   self.editDocument = function(ev,d){
+    // console.log('doing editDocument');
     self.dialogOpen = true;
     $mdDialog.show({
       onRemoving: function (event, removePromise) {
@@ -2796,6 +2800,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         };
 
         $scope.save = function() {
+          // console.log('doing editDocument/save');
+          // console.log('unsetting noconfirm');
+          self.noconfirm = false;
           $mdDialog.hide($scope.text);
         };
       },
@@ -2819,6 +2826,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   };
 
   self.saveLocalStorage = function(n,v){
+    // console.log('doing saveLocalStorage');
     if(localStorage){
       try{
         localStorage.setItem(n,v);
@@ -3289,6 +3297,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
 
   self.saveCollection = function(ev){
+    // console.log('doing saveCollection');
     var data = {};
     data.documents = JSON.parse(angular.toJson(self.documents));
     for(var i=0; i < data.documents.length; i++){
@@ -3393,8 +3402,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }, 0);
         };
 
-        if(self.documents.length > 0)
+        if(self.documents.length > 0) {
+          // console.log('doing confirm I');
           $mdDialog.show(confirm).then(load,function(){});
+        }
         else 
           load();
 
@@ -3486,12 +3497,14 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     };
 
-    if(self.documents.length > 0 && !self.noconfirm)
+    if(self.documents.length > 0 && !self.noconfirm) {
+      // console.log('doing confirm II');
       $mdDialog.show(confirm).then(load,function(){});
+    }
     else 
       load();
     
-    self.noconfirm = false;
+    self.noconfirm = true;
 
     return deferred.promise;
   };
