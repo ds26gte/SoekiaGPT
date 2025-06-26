@@ -59,7 +59,7 @@
           </div>
 
           <div id="PromptBox" ng-show="self.input.length == 0" style="position:relative;">
-            <button disabled style="background:transparent;border:0;width:100%;position:relative; margin-bottom:1em;border-radius:8px;padding:1em;box-sizing: border-box; width:100%;padding-right:52px" >{{(self.promptDefault == '' ? 'Prompt' : self.promptDefault) + ' ...'}}</button>
+            <button disabled style="background:transparent;border:0;width:100%;position:relative; margin-bottom:1em;border-radius:8px;padding:1em;box-sizing: border-box; width:100%;padding-right:52px;text-align: left;color: black" >{{(self.promptDefault == '' ? 'Prompt' : self.promptDefault) + ' ...'}}</button>
             <md-button ng-click="self.startWithPrompt()" style="background:white;padding:3x;position: absolute;right: 0;top:0;min-width: 3em;" aria-label="start" ><ng-md-icon style="fill:black" icon="send"></ng-md-icon></md-button>
           </div>
           <div id="inputBox" ng-show="self.input.length > 0" style="position:relative; margin-bottom:1em;background:#f0f2fc;border-radius:8px;padding:0.6em;min-height:68px;padding-bottom:2.4em" >
