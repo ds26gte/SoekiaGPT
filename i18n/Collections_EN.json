@@ -55,7 +55,7 @@
       }
     ]},
 
-   {"name":"default2",
+   {"name":"default7",
     "task":"Schreibe mir ein Märchen. ",
     "prompt":"Schreibe mir ein Märchen. ",
     "promptDefault":"Es war einmal",
@@ -348,7 +348,7 @@
     },
 
     {
-      "name": "default7",
+      "name": "default2",
       "task": "Play a chess game",
       "prompt": "Play a chess game",
       "promptDefault": "Play a chess game",

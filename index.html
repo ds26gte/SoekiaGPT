@@ -385,18 +385,18 @@
 
                 <md-fab-actions style="position:absolute;top:16px">
 
-                  <md-button aria-label="Märchen" class="md-fab md-raised md-mini md-accent documentsButton" 
+                  <md-button aria-label="Fairy tales" class="md-fab md-raised md-mini md-accent documentsButton"
                              ng-click="self.loadPredefined('default',$event)" style="background:#17b691;margin-top:42px">
                     <md-tooltip md-direction="left">{{'FAIRYTALES' | trans}}</md-tooltip>
                     <ng-md-icon style="fill:white" icon="book"></ng-md-icon>
                   </md-button>
 
-                  <md-button aria-label="Fairy tales" class="md-fab md-raised md-mini md-accent documentsButton" 
-                             ng-click="self.loadPredefined('default2',$event)" style="background:#17b691">
-                    <md-tooltip md-direction="left">{{'FAIRYTALESOTHERLANG' | trans}}</md-tooltip>
-                    <ng-md-icon style="fill:white" icon="wb_irradescent"></ng-md-icon>
+                  <md-button aria-label="TicTacToe" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default6',$event)" style="background:#17b691;">
+                    <md-tooltip md-direction="left">{{'TICTACTOE' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="grid_on"></ng-md-icon>
                   </md-button>
-                  
+
                   <!--
                   <md-button aria-label="Wettervorhersage" class="md-fab md-raised md-mini md-accent documentsButton" 
                              ng-click="self.loadPredefined('default3',$event)" style="background:#17b691">
@@ -417,11 +417,6 @@
                     <ng-md-icon class="rotate45" style="fill:white" icon="pets"></ng-md-icon>
                   </md-button>
 
-                  <md-button aria-label="TicTacToe" class="md-fab md-raised md-mini md-accent documentsButton"
-                             ng-click="self.loadPredefined('default6',$event)" style="background:#17b691;">
-                    <md-tooltip md-direction="left">{{'TICTACTOE' | trans}}</md-tooltip>
-                    <ng-md-icon style="fill:white" icon="grid_on"></ng-md-icon>
-                  </md-button>
 
                   <md-button aria-label="Chess" class="md-fab md-raised md-mini md-accent documentsButton"
                              ng-click="self.loadPredefined('default7',$event)" style="background:#17b691;">
@@ -429,6 +424,14 @@
                     <img src="./chess_piece.png" style="vertical-align: -6px" alt="Chess" />
                     <!-- <ng-md-icon style="fill:white" icon="grain"></ng-md-icon> -->
                   </md-button>
+
+                  <md-button aria-label="Märchen" class="md-fab md-raised md-mini md-accent documentsButton"
+                    ng-click="self.loadPredefined('default2',$event)" style="background:#17b691">
+                    <md-tooltip md-direction="left">{{'FAIRYTALESOTHERLANG' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="wb_irradescent"></ng-md-icon>
+                  </md-button>
+
+                  <!-- end of collections -->
 
                 </md-fab-actions>
               </md-fab-speed-dial>
