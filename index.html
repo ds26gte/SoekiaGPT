@@ -22,6 +22,18 @@
   <meta name="twitter:description" content="SoekiaGPT is a text generator specifically designed for teaching. With SoekiaGPT, you can take a look behind the scenes and learn some of the basic principles of text generators like ChatGPT.">
   <meta name="twitter:image" content="https://soekia.ch/GPT/soekiaGPT.png">
 
+<style>
+ ::-webkit-scrollbar {
+   -webkit-appearance: none;
+   width: 5px;
+ }
+
+ ::-webkit-scrollbar-thumb {
+   border-radius: 4px;
+   background-color: rgba(0, 0, 0, .5);
+   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+ }
+ </style>
 
 </head>
   <body ng-controller="eduSLMEngineCtl as self" ng-cloak style="overflow:hidden">
@@ -500,7 +512,7 @@
                 <md-button aria-label="Löschen" class="md-icon-button" style="margin: 0;margin-top: -10px;margin-right: -10px;" ng-click="self.removeDocument(d);$event.stopPropagation()"><ng-md-icon style="top:0px;fill:black" icon="delete_forever"></ng-md-icon></md-button>
               </div>
 
-              <div flex style="overflow:hidden;font-size:70%" ng-bind-html="d.content">
+              <div flex style="overflow:scroll;font-size:70%" ng-bind-html="d.content">
               </div>
 
               <!--
