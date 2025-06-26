@@ -16,7 +16,7 @@
   "USESYNONYMS": "Include English synonyms",
   "INCLUDESIMILARWORDS": "Include similar words",
   "ORDERLIST": "Sort list (alphabetically / by frequency)",
-  "EDITSUGGESTIONS": "Customize selection",
+  "EDITSUGGESTIONS": "Customize temperature / number of suggestions",
   "TIMESIN": "x in",
   "DOCUMENT": "Document",
   "DOCUMENTS": "Documents",
