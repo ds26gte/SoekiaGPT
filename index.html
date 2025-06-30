@@ -3276,9 +3276,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
           var upToIndex = 0;
           for(var i=topIndex + 1; i < n.length; i++){
-            if(n[i].matches == n[topIndex].matches && n[i].calc == n[topIndex].calc) upToIndex = i; else break;
+            if(n[i].matches == n[topIndex].matches // && n[i].calc == n[topIndex].calc
+            ) upToIndex = i; else break;
           }
-          if(self.temp > 0){
+          var rnd = Math.random()*100;
+          if(self.temp > rnd){
             picked = n[topIndex + Math.floor(Math.random()*(upToIndex-topIndex+1))];
           }
 
