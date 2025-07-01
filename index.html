@@ -195,9 +195,9 @@
         <div class="seeInside" ng-click="self.showInsideButton = !self.showInsideButton" ng-class="{'leftSide':!self.showInsideButton}"></div>
         
         <md-toolbar class="md-hue-2" style="background:#d33737; height:64px;padding:12px">
-          <span layout="row" style="position:absolute;width:318px">
+          <span layout="row" style="position:absolute;width:342px">
           
-            <span flex style="line-height:40px;white-space:nowrap">{{'SUGESSTIONS' | trans}}</span>
+            <span flex style="line-height:40px;white-space:nowrap">{{'SUGGESTIONS' | trans}}</span>
 
             <md-button class="documentsButton" style="min-width:1em;margin:0;height:38px;margin-right: 8px;" ng-style="{'background':self.useSynonyms ? '':'rgba(0,0,0,0.05)'}" ng-class="{'md-raised':!self.useSynonyms, 'md-sunk':self.useSynonyms}" ng-click="self.setUseSynonyms(!self.useSynonyms)"><md-tooltip md-direction="bottom">{{'USESYNONYMS' | trans}}</md-tooltip><ng-md-icon style="fill:white;" class="rotate270" icon="usb"></ng-md-icon></md-button>
 
@@ -222,7 +222,7 @@
       </div>
 
                       
-      <div layout="column" style="width: 276px; flex-shrink: 0; z-index: 10;position:relative"  md-component-id="right" md-is-locked-open="$mdMedia('gt-xs') ||self.sideNavStayOpen">
+      <div layout="column" style="width: 328px; flex-shrink: 0; z-index: 10;position:relative"  md-component-id="right" md-is-locked-open="$mdMedia('gt-xs') ||self.sideNavStayOpen">
 
         <md-toolbar style="background:#d33737;height:64px;padding:12px;padding-left:0" class="md-hue-2 ">
 
@@ -237,7 +237,7 @@
                   <span style="margin-left: 0.25em;" ng-bind-html="self.getTokenString(item)">
                   </span>
                 </h3>
-                <md-progress-linear style="margin-left:30px;height:3px; overflow:hidden" class="md-accent" md-mode="determinate" ng-value="item.percent"></md-progress-linear>
+                <md-progress-linear style="margin-left:17px;height:3px; overflow:hidden" class="md-accent" md-mode="determinate" ng-value="item.percent"></md-progress-linear>
               </div>
 
               <md-menu class="md-secondary">                            
@@ -2160,6 +2160,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           w.source = self.wordList[i][z].refs;
           w.percent = self.wordList[i][z].percent;
           w.calc = w.percent;
+          /*
           if(self.wordList[i][z].index){
       
             var SOPMatches = currentInput.match(/❯/g);
@@ -2186,6 +2187,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             var avg = (sum / sumcount / totalmatches);
             w.calc = w.calc + avg;
           }
+          */
 
           // lower already existing strings in input
           /*
@@ -2196,10 +2198,12 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }
           */
 
+            /*
           // calculate n of n-gram on top
           w.calc = w.calc * (1 + self.wordList[i][z].n * self.nWeight);
 
           self.wordList[i][z].calc = w.calc;
+          */
 
 
           addWord(w,self.wordList[i][z].matches+1);
