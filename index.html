@@ -444,6 +444,12 @@
                     <!-- <ng-md-icon style="fill:white" icon="grain"></ng-md-icon> -->
                   </md-button>
 
+                  <md-button aria-label="Wettervorhersage" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default3',$event)" style="background:#17b691">
+                    <md-tooltip md-direction="left">{{'WEATHER' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="cloud_circle"></ng-md-icon>
+                  </md-button>
+
                   <md-button aria-label="Märchen" class="md-fab md-raised md-mini md-accent documentsButton"
                     ng-click="self.loadPredefined('default2',$event)" style="background:#17b691">
                     <md-tooltip md-direction="left">{{'FAIRYTALESOTHERLANG' | trans}}</md-tooltip>
