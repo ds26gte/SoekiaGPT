@@ -2871,35 +2871,41 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.sortedNGrams.sorted.push(from[self.showngram][z]);
     }    
     self.sortedNGrams.sorted.sort(function(a,b){
-      let punctRegex = /^[.,:?!0-9]/;
-      let aLowerCase = a.text.toLowerCase(), bLowerCase = b.text.toLowerCase();
-      let aPunctP = false, bPunctP = false;
-      if (aLowerCase.match(punctRegex)) {
-        aPunctP = true; aLowerCase = 'ZZZ' + aLowerCase;
-      }
-      if (bLowerCase.match(punctRegex)) {
-        bPunctP = true; bLowerCase = 'ZZZ' + bLowerCase;
-      }
-      if (self.ngramSort == 'alpha') {
-        if ((aPunctP && bPunctP) || (!aPunctP && !bPunctP)) {
-          if (aLowerCase < bLowerCase) return -1;
-          if (aLowerCase > bLowerCase) return  1;
-          return 0;
-        }
-        if (aPunctP) return 1;
-        if (bPunctP) return -1;
-      }
       if (self.ngramSort != 'alpha') {
         if (a.count > b.count) return -1;
-        if (a.count < b.count) return  1;
-        if ((aPunctP && bPunctP) || (!aPunctP && !bPunctP)) {
+        if (a.count < b.count) return +1;
+      }
+      let punctRegex = /^[-.,:?!0-9]/;
+      let digitRegex = /^[0-9]/;
+      let aLowerCase = a.text.toLowerCase(), bLowerCase = b.text.toLowerCase();
+      let aPunctP = false, aDigitP = false, bPunctP = false, bDigitP = false;
+      if (aLowerCase.match(punctRegex)) {
+        aPunctP = true;
+        if (aLowerCase.match(digitRegex)) aDigitP = true;
+        aLowerCase = 'ZZZ' + aLowerCase;
+      }
+      if (bLowerCase.match(punctRegex)) {
+        bPunctP = true;
+        if (bLowerCase.match(digitRegex)) bDigitP = true;
+        bLowerCase = 'ZZZ' + bLowerCase;
+      }
+      if (!aPunctP && !bPunctP) { // neither is punct
+        if (aLowerCase < bLowerCase) return -1;
+        if (aLowerCase > bLowerCase) return +1;
+        return 0;
+      }
+      if (aPunctP && bPunctP) { // both are punct
+        if ((aDigitP && bDigitP) || (!aDigitP && !bDigitP)) { // both/neither is digit
           if (aLowerCase < bLowerCase) return -1;
-          if (aLowerCase > bLowerCase) return  1;
+          if (aLowerCase > bLowerCase) return +1;
           return 0;
         }
-        if (aPunctP) return 1;
-        if (bPunctP) return -1;
+        if (aDigitP) return -1; // only a is digit
+        if (bDigitP) return  1; // only b is digit
       }
+      // only one of them is punct
+      if (aPunctP) return  1;
+      if (bPunctP) return -1;
     });
   };
 
