@@ -3068,7 +3068,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
       var textlen = d.words.length;
       totalWords += d.words.length;
-      self.generatedWordsMax = totalWords < 80 ? Math.max(3,totalWords) : 80;
+      self.generatedWordsMax = totalWords < 40 ? Math.max(5,totalWords) : 40;
       var numberOfSOP = 0;
       for (var i=0; i < textlen; i++) {
         s = d.words[i].text;
@@ -3228,7 +3228,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.pickedNextWord = null;
   self.lastGeneratingMatchCount = 0;
   self.generatingDelay = 200;
-  self.generatedWordsMax = 80;
+  self.generatedWordsMax = 40;
 
   self.isFastGenerating = false;
   self.isFastGeneratingWait = 0;
