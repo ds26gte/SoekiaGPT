@@ -2104,8 +2104,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
     function randomLastElements(){
       self.nextSuggestions.sort(function(a,b){
-        //if(a.matches < b.matches) return 1;
-        //if(a.matches > b.matches) return -1;
+        // if(a.matches < b.matches) return 1;
+        // if(a.matches > b.matches) return -1;
         if(a.calc < b.calc) return 1;
         if(a.calc > b.calc) return -1;
         if(a.text.toLowerCase() < b.text.toLowerCase()) return -1;
@@ -2145,15 +2145,17 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         }
       }
       self.nextSuggestions = newItems;
+      // console.log('newItems =', newItems);
       self.nextSuggestions.sort(function(a,b){
-        //if(a.matches < b.matches) return 1;
-        //if(a.matches > b.matches) return -1;
+        // if(a.matches < b.matches) return 1;
+        // if(a.matches > b.matches) return -1;
         if(a.calc < b.calc) return 1;
         if(a.calc > b.calc) return -1;
         if(a.text.toLowerCase() < b.text.toLowerCase()) return -1;
         if(a.text.toLowerCase() > b.text.toLowerCase()) return 1;
         return 0;
       });
+      // console.log('nextSuggestions=', self.nextSuggestions);
 
 
     }
@@ -3282,6 +3284,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     if(self.nextSuggestions && self.nextSuggestions.length > 0){   
       var n = JSON.parse(JSON.stringify(self.nextSuggestions));
 
+      // console.log('nextSuggestions = ', self.nextSuggestions);
+
       var bestMatch = -1;
       for(var i=0; i < n.length; i++){
         bestMatch = Math.max(bestMatch, n[i].matches);
@@ -3293,7 +3297,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.wasGenerated = true;
       if(self.wasMark && self.generatedWords > self.generatedWordsMax){
         // good time to make a mark
-        // console.log('pausing I', self.generatedWords, self.generatedWordsMax);
+        // console.log('pausing¹ with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
@@ -3301,7 +3305,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }else
       if(!self.wasMark && ((bestMatch == 0 && self.generatedWords > self.generatedWordsMax) || (lowerMatch && self.generatedWords > self.generatedWordsMax*1.2))) {
         // good time to make a mark
-        // console.log('pausing II', self.generatedWords, self.generatedWordsMax);
+        // console.log('pausing² with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
@@ -3325,7 +3329,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           if (topIndex == 0) { // but not for chess
             var upToIndex = 0;
             for(var i=topIndex + 1; i < n.length; i++){
-              if(n[i].matches == n[topIndex].matches // && n[i].calc == n[topIndex].calc
+              if(n[i].matches == n[topIndex].matches && n[i].calc == n[topIndex].calc
               ) upToIndex = i; else break;
             }
             // var rnd = Math.random()*100;
