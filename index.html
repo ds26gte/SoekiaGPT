@@ -3637,13 +3637,14 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           if (board[i][f1] !== '') return false;
         }
       } else {
-        let finc = 1, rinc = 1;
-        if (f2 < f1) finc = -1;
-        if (r2 < r1) rinc = -1;
-        for (let i = f1 + finc; i !== f2; i += finc) {
-          for (let j = r1 + rinc; j !== r2; j += rinc) {
-            if (board[i][j] !== '') return false;
-          }
+        let finc = (f2 < f1) ? -1 : 1;
+        let rinc = (r2 < r1) ? -1 : 1;
+        let x = f1 + finc, y = r1 + rinc;
+        for (let i = 0; i < 8; i++) {
+          if (x === f2 && y === r2) break;
+          if (x < 0 || y < 0 || x > 7 || y > 7) return false;
+          if (board[x][y] !== '') return false;
+          x += finc; y += rinc;
         }
       }
       return true;
