@@ -2160,7 +2160,6 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           w.source = self.wordList[i][z].refs;
           w.percent = self.wordList[i][z].percent;
           w.calc = w.percent;
-          /*
           if(self.wordList[i][z].index){
       
             var SOPMatches = currentInput.match(/❯/g);
@@ -2187,7 +2186,6 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             var avg = (sum / sumcount / totalmatches);
             w.calc = w.calc + avg;
           }
-          */
 
           // lower already existing strings in input
           /*
@@ -2198,12 +2196,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }
           */
 
-            /*
           // calculate n of n-gram on top
           w.calc = w.calc * (1 + self.wordList[i][z].n * self.nWeight);
 
           self.wordList[i][z].calc = w.calc;
-          */
 
 
           addWord(w,self.wordList[i][z].matches+1);
@@ -3270,6 +3266,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.wasGenerated = true;
       if(self.wasMark && self.generatedWords > self.generatedWordsMax){
         // good time to make a mark
+        // console.log('pausing I', self.generatedWords, self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
@@ -3277,6 +3274,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }else
       if(!self.wasMark && ((bestMatch == 0 && self.generatedWords > self.generatedWordsMax) || (lowerMatch && self.generatedWords > self.generatedWordsMax*1.2))) {
         // good time to make a mark
+        // console.log('pausing II', self.generatedWords, self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
@@ -3297,14 +3295,17 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
           // if there are multiple top items with same percent value, choose random
 
-          var upToIndex = 0;
-          for(var i=topIndex + 1; i < n.length; i++){
-            if(n[i].matches == n[topIndex].matches // && n[i].calc == n[topIndex].calc
-            ) upToIndex = i; else break;
-          }
-          var rnd = Math.random()*100;
-          if(self.temp > rnd){
-            picked = n[topIndex + Math.floor(Math.random()*(upToIndex-topIndex+1))];
+          if (topIndex == 0) { // but not for chess
+            var upToIndex = 0;
+            for(var i=topIndex + 1; i < n.length; i++){
+              if(n[i].matches == n[topIndex].matches // && n[i].calc == n[topIndex].calc
+              ) upToIndex = i; else break;
+            }
+            // var rnd = Math.random()*100;
+            var rnd = -1; // do always, even if temp == 0
+            if(self.temp > rnd){
+              picked = n[topIndex + Math.floor(Math.random()*(upToIndex-topIndex+1))];
+            }
           }
 
           for(var i=0; i < self.sortedMatching.sorted.length; i++){
