@@ -1586,9 +1586,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     // Prepare key hash
     var text = input;
     text = text.replace(/\r/g,"");  // remove line feeds
-    text = text.replace(/\t/g," ");  // remove line feeds
-    // text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
-    // text = text.replace(/\n/g," "); // single newlines to spaces
+    text = text.replace(/\t/g," ");  // convert tab to space
+    if (false) {
+     text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
+     text = text.replace(/\n/g," "); // single newlines to spaces
+    }
     text = text.replace(/\n+/g," "); // newlines to single space
     text = text.replace(/❯+/g,"❯"); // remove double ❯
 
@@ -2147,8 +2149,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.nextSuggestions = newItems;
       // console.log('newItems =', newItems);
       self.nextSuggestions.sort(function(a,b){
-        // if(a.matches < b.matches) return 1;
-        // if(a.matches > b.matches) return -1;
+        if (false) {
+          if(a.matches < b.matches) return 1;
+          if(a.matches > b.matches) return -1;
+        }
         if(a.calc < b.calc) return 1;
         if(a.calc > b.calc) return -1;
         if(a.text.toLowerCase() < b.text.toLowerCase()) return -1;
@@ -2979,8 +2983,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         return 0;
       }
       if(self.matchingSort != 'alpha'){
-        //if(a.matches < b.matches) return 1;
-        //if(a.matches > b.matches) return -1;
+        if (false) {
+          if(a.matches < b.matches) return 1;
+          if(a.matches > b.matches) return -1;
+        }
         if(a.calc < b.calc) return 1;
         if(a.calc > b.calc) return -1;
         if(a.n < b.n) return 1;
