@@ -49,7 +49,7 @@
 
       <div style="padding:1em;padding-bottom:5em;overflow:auto;width:100%;box-sizing: border-box;" fill-layout>
 
-        <div style="text-align:center;user-select:none;-webkit-user-select:none"><img src="../soekiaGPT.png" style="max-width:50%;margin:1em" draggable="false" alt="Soekia GPT"/></div>
+        <div style="text-align:center;user-select:none;-webkit-user-select:none"><img src="Soekia.png" style="max-width:50%;margin:1em" draggable="false" alt="Soekia"/></div>
  
         <div style="max-width: 600px;margin-left: auto;margin-right: auto;">
           <div style="position:relative; margin-bottom:1em;background:#f0f2fc;border-radius:8px;padding:1em;" id="TaskBox" ng-if="!self.firstPrompt">
@@ -71,7 +71,8 @@
               <md-tooltip>{{'COPYTEXTHINT' | trans}}</md-tooltip>
             </md-button>
             <md-button ng-if="self.input.length > 0" class="hideUnselected1" style="position: absolute;bottom:0;right:0; margin: 0; min-width: 1em;" ng-click="self.pauseGenerating();self.deleteWord();">
-              <ng-md-icon style="fill:black" icon="delete_forever"></ng-md-icon>
+              <img src="./replay.png" style="vertical-align: -6px" alt="Restart" />
+              <!-- <ng-md-icon style="fill:black" icon="delete_forever"></ng-md-icon> -->
               <md-tooltip>{{'RESTARTHINT' | trans}}</md-tooltip>
             </md-button>
 
@@ -400,34 +401,10 @@
 
                 <md-fab-actions style="position:absolute;top:16px">
 
-                  <md-button aria-label="Märchen" class="md-fab md-raised md-mini md-accent documentsButton" 
+                  <md-button aria-label="Fairy tales" class="md-fab md-raised md-mini md-accent documentsButton"
                              ng-click="self.loadPredefined('default',$event)" style="background:#17b691;margin-top:42px">
                     <md-tooltip md-direction="left">{{'FAIRYTALES' | trans}}</md-tooltip>
                     <ng-md-icon style="fill:white" icon="book"></ng-md-icon>
-                  </md-button>
-
-                  <md-button aria-label="Fairy tales" class="md-fab md-raised md-mini md-accent documentsButton" 
-                             ng-click="self.loadPredefined('default2',$event)" style="background:#17b691">
-                    <md-tooltip md-direction="left">{{'FAIRYTALESOTHERLANG' | trans}}</md-tooltip>
-                    <ng-md-icon style="fill:white" icon="wb_irradescent"></ng-md-icon>
-                  </md-button>
-                  
-                  <md-button aria-label="Wettervorhersage" class="md-fab md-raised md-mini md-accent documentsButton" 
-                             ng-click="self.loadPredefined('default3',$event)" style="background:#17b691">
-                    <md-tooltip md-direction="left">{{'WEATHER' | trans}}</md-tooltip>
-                    <ng-md-icon style="fill:white" icon="cloud_circle"></ng-md-icon>
-                  </md-button>
-
-                  <md-button aria-label="Affen" class="md-fab md-raised md-mini md-accent documentsButton" 
-                             ng-click="self.loadPredefined('default5',$event)" style="background:#17b691;">
-                    <md-tooltip md-direction="left">{{'INTELLIGENTAPES' | trans}}</md-tooltip>
-                    <ng-md-icon class="rotate45" style="fill:white" icon="pets"></ng-md-icon>
-                  </md-button>
-
-                  <md-button aria-label="ABCMusik" class="md-fab md-raised md-mini md-accent documentsButton" 
-                             ng-click="self.loadPredefined('default4',$event)" style="background:#17b691;">
-                    <md-tooltip md-direction="left">{{'MUSICABC' | trans}}</md-tooltip>
-                    <ng-md-icon style="fill:white" icon="queue_music"></ng-md-icon>
                   </md-button>
 
                   <md-button aria-label="TicTacToe" class="md-fab md-raised md-mini md-accent documentsButton"
@@ -436,12 +413,36 @@
                     <ng-md-icon style="fill:white" icon="grid_on"></ng-md-icon>
                   </md-button>
 
+                  <md-button aria-label="ABCMusik" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default4',$event)" style="background:#17b691;">
+                    <md-tooltip md-direction="left">{{'MUSICABC' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="queue_music"></ng-md-icon>
+                  </md-button>
+
+                  <md-button aria-label="Affen" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default5',$event)" style="background:#17b691;">
+                    <md-tooltip md-direction="left">{{'INTELLIGENTAPES' | trans}}</md-tooltip>
+                    <ng-md-icon class="rotate45" style="fill:white" icon="pets"></ng-md-icon>
+                  </md-button>
+
                   <md-button aria-label="Chess" class="md-fab md-raised md-mini md-accent documentsButton"
                              ng-click="self.loadPredefined('default7',$event)" style="background:#17b691;">
                     <md-tooltip md-direction="left">{{'CHESS' | trans}}</md-tooltip>
                     <ng-md-icon style="fill:white" icon="grain"></ng-md-icon>
                   </md-button>
-          
+
+                  <md-button aria-label="Wettervorhersage" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default3',$event)" style="background:#17b691">
+                    <md-tooltip md-direction="left">{{'WEATHER' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="cloud_circle"></ng-md-icon>
+                  </md-button>
+
+                  <md-button aria-label="Märchen" class="md-fab md-raised md-mini md-accent documentsButton"
+                             ng-click="self.loadPredefined('default2',$event)" style="background:#17b691">
+                    <md-tooltip md-direction="left">{{'FAIRYTALESOTHERLANG' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="wb_irradescent"></ng-md-icon>
+                  </md-button>
+
                 </md-fab-actions>
               </md-fab-speed-dial>
 
@@ -1432,7 +1433,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   $scope.$mdMedia = $mdMedia;
   var self = this;
 
-  app.currentLanguage = "DE";
+  app.currentLanguage = "EN";
   var urlParams = new URLSearchParams(window.location.search);
   var paramLang = urlParams.get('lang');
   if(paramLang && paramLang.toUpperCase) paramLang = paramLang.toUpperCase();
