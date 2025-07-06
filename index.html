@@ -111,7 +111,7 @@
             </div>
 
             <div ng-if="self.showTicTacToePlayer && self.input.length > 0 && !self.isGenerating" style="position: absolute; left: 0px; bottom: 0;">
-              <md-button ng-click="self.playABCTicTacToe($event)" style="text-transform: none;margin:0">
+              <md-button ng-click="self.playTicTacToe($event)" style="text-transform: none;margin:0">
                 <ng-md-icon style="fill:black" icon="videocam"></ng-md-icon>
                 <ng-md-icon style="fill:black" icon="play_arrow"></ng-md-icon>
                 TicTacToe-Player
@@ -119,7 +119,7 @@
             </div>
 
             <div ng-if="self.showChessPlayer && self.input.length > 0 && !self.isGenerating" style="position: absolute; left: 0px; bottom: 0;">
-              <md-button ng-click="self.playABCChess($event)" style="text-transform: none;margin:0">
+              <md-button ng-click="self.playChess($event)" style="text-transform: none;margin:0">
                 <ng-md-icon style="fill:black" icon="videocam"></ng-md-icon>
                 <ng-md-icon style="fill:black" icon="play_arrow"></ng-md-icon>
                 Chess-Player
@@ -424,7 +424,7 @@
                   </md-button>
                   -->
 
-                  <md-button aria-label="ABCMusik" class="md-fab md-raised md-mini md-accent documentsButton" 
+                  <md-button aria-label="ABCMusic" class="md-fab md-raised md-mini md-accent documentsButton"
                              ng-click="self.loadPredefined('default4',$event)" style="background:#17b691;">
                     <md-tooltip md-direction="left">{{'MUSICABC' | trans}}</md-tooltip>
                     <ng-md-icon style="fill:white" icon="queue_music"></ng-md-icon>
@@ -678,7 +678,7 @@
 </script> 
 
 <script type="text/ng-template" id="abcTicTacToePlayer.html">
-<md-dialog aria-label="ABC TicTacToe Player" style="min-width: 50%;max-width:80%;width:800px">
+<md-dialog aria-label="TicTacToe Player" style="min-width: 50%;max-width:80%;width:800px">
   <md-dialog-content style="padding:16px">
     <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
     <div id="abcTicTacToeBoard">
@@ -694,7 +694,7 @@
 </script>
 
 <script type="text/ng-template" id="abcChessPlayer.html">
-<md-dialog aria-label="ABC Chess Player" style="min-width: 50%;max-width:80%;width:800px">
+<md-dialog aria-label="Chess Player" style="min-width: 50%;max-width:80%;width:800px">
   <md-dialog-content style="padding:16px">
     <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
     <div id="abcChessBoard">
@@ -3264,6 +3264,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.pickedNextWord = null;
   self.lastGeneratingMatchCount = 0;
   self.generatingDelay = 200;
+  // self.generatingDelay = .5;
   self.generatedWordsMax = 40;
 
   self.isFastGenerating = false;
@@ -4093,8 +4094,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     $timeout(visualizeOneChessMove, CHESS_TIME_BETWEEN_MOVES);
   };
 
-  self.playABCChess = function(ev){
-    // console.log('doing playABCChess');
+  self.playChess = function(ev){
+    // console.log('doing playChess');
     self.dialogOpen = true;
     $mdDialog.show({
       onRemoving: function (event, removePromise) {
@@ -4170,7 +4171,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     visualizeOneMove();
   };
 
-  self.playABCTicTacToe = function(ev){
+  self.playTicTacToe = function(ev){
     self.dialogOpen = true;
     $mdDialog.show({
       onRemoving: function (event, removePromise) {
