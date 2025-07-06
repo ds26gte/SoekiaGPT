@@ -1592,7 +1592,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
      text = text.replace(/\n/g," "); // single newlines to spaces
     }
     text = text.replace(/\n+/g," "); // newlines to single space
-    text = text.replace(/❯+/g,"❯"); // remove double ❯
+    // text = text.replace(/❯+/g,"❯"); // remove double ❯
+    text = text.replace(/❯+/g," "); // remove double ❯
 
     // special case for Test-Word as one Word
     text = text.replace(/(?<=[^\s\d])-(?=[^\s\d])/g, "\u{f000}"); 
@@ -2106,8 +2107,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
     function randomLastElements(){
       self.nextSuggestions.sort(function(a,b){
-        // if(a.matches < b.matches) return 1;
-        // if(a.matches > b.matches) return -1;
+        if (true) {
+          if(a.matches < b.matches) return 1;
+          if(a.matches > b.matches) return -1;
+        }
         if(a.calc < b.calc) return 1;
         if(a.calc > b.calc) return -1;
         if(a.text.toLowerCase() < b.text.toLowerCase()) return -1;
@@ -2149,7 +2152,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.nextSuggestions = newItems;
       // console.log('newItems =', newItems);
       self.nextSuggestions.sort(function(a,b){
-        if (false) {
+        if (true) {
           if(a.matches < b.matches) return 1;
           if(a.matches > b.matches) return -1;
         }
@@ -2193,7 +2196,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           w.source = self.wordList[i][z].refs;
           w.percent = self.wordList[i][z].percent;
           w.calc = w.percent;
-          if(self.wordList[i][z].index){
+          if(false && self.wordList[i][z].index){ // since we're not using paras
       
             var SOPMatches = currentInput.match(/❯/g);
             var writtenSOPs = SOPMatches && SOPMatches.length ? SOPMatches.length : 0;
@@ -2206,6 +2209,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             w.calc = w.calc * (1+SOPSum/10); // the higher the index the lower the value here
           }
 
+          if (false) {
           // calculate the document context in
           var sum = 0;
           var sumcount = 0;
@@ -2219,6 +2223,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             var avg = (sum / sumcount / totalmatches);
             w.calc = w.calc + avg;
           }
+          }
 
           // lower already existing strings in input
           /*
@@ -2230,7 +2235,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           */
 
           // calculate n of n-gram on top
+          if (false) {
           w.calc = w.calc * (1 + self.wordList[i][z].n * self.nWeight);
+          }
 
           self.wordList[i][z].calc = w.calc;
 
@@ -2944,6 +2951,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     for(var z=0; z < from[self.showngram].length; z++){
       self.sortedNGrams.sorted.push(from[self.showngram][z]);
     }    
+    // if (self.ngramSort == 'alpha') console.log('doing ngramSort by alpha');
     self.sortedNGrams.sorted.sort(ngramLexSort);
   };
 
@@ -2982,13 +2990,14 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
 
     self.sortedMatching.sorted.sort(function(a,b){
-      if(self.matchingSort == 'alpha'){
-        if(a.text < b.text) return -1;
-        if(a.text > b.text) return 1;
-        return 0;
-      }
+      // if(self.matchingSort == 'alpha'){
+      //   // if(a.text < b.text) return -1;
+      //   // if(a.text > b.text) return 1;
+      //   // return 0;
+      //   return lexSort(a.text, b.text);
+      // }
       if(self.matchingSort != 'alpha'){
-        if (false) {
+        if (false || true) {
           if(a.matches < b.matches) return 1;
           if(a.matches > b.matches) return -1;
         }
@@ -3002,11 +3011,17 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         // if(a.text < b.text) return -1;
         // if(a.text > b.text) return 1;
         // return 0;
-        return lexSort(a.tokens[a.tokens.length-1], b.tokens[b.tokens.length-1]);
+        // return lexSort(a.tokens[a.tokens.length-1], b.tokens[b.tokens.length-1]);
+        // return lexSort(a.text, b.text);
       }
+      return lexSort(a.text, b.text);
     });
 
+    // console.log('sortedMatching.sorted=', self.sortedMatching.sorted);
+
     self.rebuildNGramList(self.wordList);
+
+    // console.log('sortedNGrams.sorted=', self.sortedNGrams.sorted);
 
 
 
@@ -3110,6 +3125,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       var textlen = d.words.length;
       totalWords += d.words.length;
       self.generatedWordsMax = totalWords < 40 ? Math.max(5,totalWords) : 40;
+      // console.log('generatedWordsMax=', self.generatedWordsMax);
       var numberOfSOP = 0;
       for (var i=0; i < textlen; i++) {
         s = d.words[i].text;
@@ -3312,7 +3328,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         // good time to make a mark
         // console.log('pausing¹ with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
-        self.addNextWord({text:'❯',token:'❯'});
+        // self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
         self.generatedWords = 0;        
       }else
@@ -3320,13 +3336,14 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         // good time to make a mark
         // console.log('pausing² with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
-        self.addNextWord({text:'❯',token:'❯'});
+        // self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
         self.generatedWords = 0;        
       }else{
         function pickNext(){
           var topIndex = 0;
           var picked = n[topIndex];
+          self.generatedWords++;
 
           if (picked.matches === 0 && CHESS_DONT_LET_SINGLE_MOVE_MONOPOLIZE && n.length >= 1 && self.showChessPlayer) {
             // n[0] is always a wrong pick, at least for chess,
@@ -3339,10 +3356,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
           // if there are multiple top items with same percent value, choose random
 
-          if (topIndex == 0) { // but not for chess
+          if (topIndex == 0) { // not for chess, as it's already doing its thing
             var upToIndex = 0;
             for(var i=topIndex + 1; i < n.length; i++){
-              if(n[i].matches == n[topIndex].matches && n[i].calc == n[topIndex].calc
+              if(n[i].matches == n[topIndex].matches
+                 && n[i].calc == n[topIndex].calc
               ) upToIndex = i; else break;
             }
             // var rnd = Math.random()*100;
@@ -3366,7 +3384,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             self.waitAfterGenerating = 0;
             self.waitSingleStepTimeout = null;
             self.addNextWord(picked);   
-            self.generatedWords++;
+            // self.generatedWords++;
           },(self.isFastGenerating ? 20 : self.generatingDelay)*2);
 
         }
@@ -3389,6 +3407,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     if(self.isSingleGenerating) self.singleSteps = 1;
   };
   self.pauseGenerating = function (){
+    // console.log('pauseGenerating');
     self.isGenerating = false;
     self.isFastGenerating = false;
     self.isSingleGenerating = false;
