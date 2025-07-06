@@ -2897,14 +2897,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     }
   };
   
-  function lexSort (a,b){
-    if (self.ngramSort != 'alpha') {
-      if (a.count > b.count) return -1;
-      if (a.count < b.count) return +1;
-    }
+  function lexSort(atext, btext) {
     let punctRegex = /^[-.,:?!0-9]/;
     let digitRegex = /^[0-9]/;
-    let aLowerCase = a.text.toLowerCase(), bLowerCase = b.text.toLowerCase();
+    let aLowerCase = atext.toLowerCase(), bLowerCase = btext.toLowerCase();
     let aPunctP = false, aDigitP = false, bPunctP = false, bDigitP = false;
     if (aLowerCase.match(punctRegex)) {
       aPunctP = true;
@@ -2930,9 +2926,17 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       if (aDigitP) return -1; // only a is digit
       if (bDigitP) return  1; // only b is digit
     }
-    // only one of them is punct
+    // one of them is punct, the other is non-punct
     if (aPunctP) return  1;
     if (bPunctP) return -1;
+  }
+
+  function ngramLexSort(a, b) {
+    if (self.ngramSort != 'alpha') {
+      if (a.count > b.count) return -1;
+      if (a.count < b.count) return +1;
+    }
+    return lexSort(a.text, b.text);
   }
 
   self.rebuildNGramList = function(from){
@@ -2940,7 +2944,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     for(var z=0; z < from[self.showngram].length; z++){
       self.sortedNGrams.sorted.push(from[self.showngram][z]);
     }    
-    self.sortedNGrams.sorted.sort(lexSort);
+    self.sortedNGrams.sorted.sort(ngramLexSort);
   };
 
   self.rebuildMatchList = function(){
@@ -2995,9 +2999,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
         if(a.percent < b.percent) return 1;
         if(a.percent > b.percent) return -1;
-        if(a.text < b.text) return -1;
-        if(a.text > b.text) return 1;
-        return 0;
+        // if(a.text < b.text) return -1;
+        // if(a.text > b.text) return 1;
+        // return 0;
+        return lexSort(a.tokens[a.tokens.length-1], b.tokens[b.tokens.length-1]);
       }
     });
 
