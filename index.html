@@ -1587,13 +1587,17 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     var text = input;
     text = text.replace(/\r/g,"");  // remove line feeds
     text = text.replace(/\t/g," ");  // convert tab to space
-    if (false) {
+    if (true) {
      text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
      text = text.replace(/\n/g," "); // single newlines to spaces
+     text = text.replace(/❯+/g,"❯"); // remove double ❯
     }
+    if (false) {
     text = text.replace(/\n+/g," "); // newlines to single space
     // text = text.replace(/❯+/g,"❯"); // remove double ❯
-    text = text.replace(/❯+/g," "); // remove double ❯
+    // text = text.replace(/❯+/g," "); // remove double ❯
+    text = text.replace(/❯+/g,""); // remove double ❯
+    }
 
     // special case for Test-Word as one Word
     text = text.replace(/(?<=[^\s\d])-(?=[^\s\d])/g, "\u{f000}"); 
@@ -3336,7 +3340,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         // good time to make a mark
         // console.log('pausing² with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
-        // self.addNextWord({text:'❯',token:'❯'});
+        self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
         self.generatedWords = 0;        
       }else{
@@ -3369,6 +3373,8 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
               picked = n[topIndex + Math.floor(Math.random()*(upToIndex-topIndex+1))];
             }
           }
+
+          // console.log('picked word=', '<' + picked.text + '>');
 
           for(var i=0; i < self.sortedMatching.sorted.length; i++){
             var tn = self.sortedMatching.sorted[i].tokens;
