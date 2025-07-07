@@ -1629,7 +1629,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     self.needRecalculateDocumentContext = true;
     var p = (!self.prompt || self.prompt == "" ? self.promptDefault : self.prompt).replace("...","");
     // match prompt with documents to calculate context value
-    self.promptSplit = self.splitWords("❯"); // with new line at end
+    self.promptSplit = self.splitWords(""); // with new line at end
 //    self.promptSplit = self.splitWords(p+"❯"); // with new line at end
 //    if(p[p.length-1] == "\n") self.promptSplit.push({text:"\n", lc:"\n"});
     for(var i=0; i < self.promptSplit.length; i++){
@@ -3129,7 +3129,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       var textlen = d.words.length;
       totalWords += d.words.length;
       self.generatedWordsMax = totalWords < 40 ? Math.max(5,totalWords) : 40;
-      // console.log('generatedWordsMax=', self.generatedWordsMax);
+      // console.log('setting generatedWordsMax =', self.generatedWordsMax);
       var numberOfSOP = 0;
       for (var i=0; i < textlen; i++) {
         s = d.words[i].text;
@@ -3283,6 +3283,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.isGenerating = false;
   self.wasGenerated = false;
   self.waitAfterGenerating = 0;
+  // console.log('initializing generatedWords =', 0);
   self.generatedWords = 0;
   self.singleSteps = 0;
   self.waitSingleStepTimeout = 0;
@@ -3290,6 +3291,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.lastGeneratingMatchCount = 0;
   self.generatingDelay = 200;
   // self.generatingDelay = .5;
+  // console.log('initializing generatedWordsMax =', 40);
   self.generatedWordsMax = 40;
 
   self.isFastGenerating = false;
@@ -3330,10 +3332,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.wasGenerated = true;
       if(self.wasMark && self.generatedWords > self.generatedWordsMax){
         // good time to make a mark
-        // console.log('pausing¹ with', self.generatedWords, 'target:', self.generatedWordsMax);
+        console.log('pausing¹ with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         // self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
+        // console.log('setting¹ generatedWords = 0');
         self.generatedWords = 0;        
       }else
       if(!self.wasMark && ((bestMatch == 0 && self.generatedWords > self.generatedWordsMax) || (lowerMatch && self.generatedWords > self.generatedWordsMax*1.2))) {
@@ -3342,6 +3345,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         self.addNextWord({text:'\n',token:'\n'});
         self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
+        // console.log('setting² generatedWords = 0');
         self.generatedWords = 0;        
       }else{
         function pickNext(){
