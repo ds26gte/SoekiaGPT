@@ -1615,10 +1615,17 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     var text = input;
     text = text.replace(/\r/g,"");  // remove line feeds
     text = text.replace(/\t/g," ");  // convert tab to space
-    if (true) {
+    if (false) { //original
      text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
      text = text.replace(/\n/g," "); // single newlines to spaces
      text = text.replace(/❯+/g,"❯"); // remove double ❯
+    }
+    if (true) {
+     text = text.replace(/\n\n/g,"❯"); // double newlines to newline chars
+     text = text.replace(/^❯/, "");
+     text = text.replace(/❯$/, "");
+     text = text.replace(/\n/g," "); // single newlines to spaces
+     text = text.replace(/❯+/g," "); // remove double ❯
     }
     if (false) {
     text = text.replace(/\n+/g," "); // newlines to single space
