@@ -161,10 +161,32 @@
             </span>
           </div>
           <div ng-if="self.input.length > 0" layout="row" layout-align="space-between center" style="padding:0.5em;padding-top:0;padding-right: 0;padding-left:0;user-select:none;-webkit-user-select:none">
-            <md-button ng-if="!self.isManualMode" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()"><ng-md-icon icon="{{self.isGenerating ? (self.isSingleGenerating ? 'play_arrow' : 'pause') : 'android'}}"></ng-md-icon> 
+
+            <!--<md-button ng-if="!self.isManualMode" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()"><ng-md-icon icon="{{self.isGenerating ? (self.isSingleGenerating ? 'play_arrow' : 'pause') : 'android'}}"></ng-md-icon> 
               <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
               <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
               <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
+            </md-button> -->
+
+            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isSingleGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()">
+            <img src="./step.png" style="vertical-align: -8px" alt="step" />
+            <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
+            <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
+            <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
+            </md-button>
+
+            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isSingleGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()">
+            <ng-md-icon icon="pause"></ng-md-icon>
+            <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
+            <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
+            <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
+            </md-button>
+
+            <md-button ng-if="!self.isManualMode && !self.isGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()">
+            <ng-md-icon icon="android"></ng-md-icon>
+            <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
+            <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
+            <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
             </md-button>
 
             <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isSingleGenerating" ng-class="{'md-raised md-warn':false}" ng-click="self.isSingleGenerating = !self.isSingleGenerating; self.isFastGenerating = false;" aria-label="Einzelschritt" style="min-width:2em;margin:0;text-transform: none;"><img src="./hdr_strong.png" style="vertical-align: -10px" width="30px" alt="single_step" /></ng-md-icon><md-tooltip md-direction="bottom">{{'CONTINUOUS' | trans}}</md-tooltip></md-button>
