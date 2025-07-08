@@ -2109,6 +2109,13 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     self.needRecalculateDocumentContext = false;
   }
 
+  const tempAlpha = 5000;
+  const tempDenom = Math.log(1 + tempAlpha);
+
+  function boostTemperature(t) {
+    return 100 * Math.log(1 + tempAlpha*t/100) / tempDenom;
+  }
+
   self.getNextWords = function(){
     self.calculateDocumentContext();
     var lastWords = self.getInput().slice(-self.ngram).reverse();
@@ -2144,6 +2151,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.nextSuggestions.push(w);
     }
 
+
     function randomLastElements(){
       self.nextSuggestions.sort(function(a,b){
         if (true) {
@@ -2175,9 +2183,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       */
 
       var newItems = [];
+      // const boostedTemp = (self.temp == 0? self.temp : 101);
+      const boostedTemp = boostTemperature(self.temp);
       while(last.length > 0 && newItems.length < self.maxNext){
         var rnd = Math.random()*100;
-        if(rnd > self.temp){
+        if(rnd > boostedTemp){
           // pick from list 
           var x = last.shift();
           newItems.push(x);
