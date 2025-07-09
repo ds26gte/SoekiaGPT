@@ -189,16 +189,16 @@
             <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
             </md-button>
 
-            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isSingleGenerating" ng-class="{'md-raised md-warn':false}" ng-click="self.isSingleGenerating = !self.isSingleGenerating; self.isFastGenerating = false;" aria-label="Einzelschritt" style="min-width:2em;margin:0;text-transform: none;"><img src="./hdr_strong.png" style="vertical-align: -10px" width="30px" alt="single_step" /></ng-md-icon><md-tooltip md-direction="bottom">{{'CONTINUOUS' | trans}}</md-tooltip></md-button>
+            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isSingleGenerating" ng-class="{'md-raised md-warn':false}" ng-click="self.isSingleGenerating = !self.isSingleGenerating; self.isFastGenerating = false;" aria-label="Einzelschritt" style="min-width:2em;margin:0;text-transform: none;"><img src="./hdr_weak.png" style="vertical-align: -10px" width="30px" alt="continuous" /><md-tooltip md-direction="bottom">{{'SINGLESTEP' | trans}}</md-tooltip></md-button>
 
-            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isSingleGenerating" ng-class="{'md-raised md-warn':false}" ng-click="self.isSingleGenerating = !self.isSingleGenerating; self.isFastGenerating = false;" aria-label="Einzelschritt" style="min-width:2em;margin:0;text-transform: none;"><img src="./hdr_weak.png" style="vertical-align: -10px" width="30px" alt="single_step" /></ng-md-icon><md-tooltip md-direction="bottom">{{'SINGLESTEP' | trans}}</md-tooltip></md-button>
+            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isSingleGenerating" ng-class="{'md-raised md-warn':false}" ng-click="self.isSingleGenerating = !self.isSingleGenerating; self.isFastGenerating = false;" aria-label="Einzelschritt" style="min-width:2em;margin:0;text-transform: none;"><img src="./hdr_strong.png" style="vertical-align: -10px" width="30px" alt="single step" /><md-tooltip md-direction="bottom">{{'CONTINUOUS' | trans}}</md-tooltip></md-button>
 
-            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isFastGenerating" ng-class="{'md-raised md-warn':false}" style="min-width:2em;margin:0;text-transform: none;" ng-click="self.isFastGenerating = !self.isFastGenerating; self.isSingleGenerating = false; self.singleSteps = 0;"><img src="play_arrow.png" style="vertical-align: -8px" alt="standard" />
-              <md-tooltip md-direction="bottom">{{'SLOWER' | trans}}</md-tooltip>
+            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isFastGenerating" ng-class="{'md-raised md-warn':false}" style="min-width:2em;margin:0;text-transform: none;" ng-click="self.isFastGenerating = !self.isFastGenerating; self.isSingleGenerating = false; self.singleSteps = 0;"><img src="fast_forward.png" style="vertical-align: -8px" alt="fast forward" />
+              <md-tooltip md-direction="bottom">{{'FASTER' | trans}}</md-tooltip>
             </md-button>
 
-            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isFastGenerating" ng-class="{'md-raised md-warn':false}" style="min-width:2em;margin:0;text-transform: none;" ng-click="self.isFastGenerating = !self.isFastGenerating; self.isSingleGenerating = false; self.singleSteps = 0;"><img src="fast_forward.png" style="vertical-align: -8px; alt="fast forward"/>
-              <md-tooltip md-direction="bottom">{{'FASTER' | trans}}</md-tooltip>
+            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isFastGenerating" ng-class="{'md-raised md-warn':false}" style="min-width:2em;margin:0;text-transform: none;" ng-click="self.isFastGenerating = !self.isFastGenerating; self.isSingleGenerating = false; self.singleSteps = 0;"><img src="play_arrow.png" style="vertical-align: -8px; alt="standard"/>
+              <md-tooltip md-direction="bottom">{{'SLOWER' | trans}}</md-tooltip>
             </md-button>
 
             <span flex></span>
