@@ -84,7 +84,7 @@
               <ng-md-icon style="fill:black" icon="content_copy"></ng-md-icon>
               <md-tooltip>{{'COPYTEXTHINT' | trans}}</md-tooltip>
             </md-button>
-            <md-button ng-if="self.input.length > 0" class="hideUnselected1" style="position: absolute;bottom:0;right:0; margin: 0; min-width: 1em;" ng-click="self.pauseGenerating();self.generatedWords = 0;self.deleteWord();">
+            <md-button ng-if="self.input.length > 0" class="hideUnselected1" style="position: absolute;bottom:0;right:0; margin: 0; min-width: 1em;" ng-click="self.pauseGenerating();self.generatedWords = 0;self.deleteWord();self.needRecalculateDocumentContext = true;self.getNextWords();self.rebuildMatchList();">
               <img src="./replay.png" style="vertical-align: -6px" alt="Restart" />
               <!-- <ng-md-icon style="fill:black" icon="delete_forever"></ng-md-icon> -->
               <md-tooltip>{{'RESTARTHINT' | trans}}</md-tooltip>
@@ -2119,6 +2119,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.getNextWords = function(){
     self.calculateDocumentContext();
     var lastWords = self.getInput().slice(-self.ngram).reverse();
+    if (lastWords.length === 0) {
+      lastWords = [{text: '', token: ''}];
+    }
 
     // gibt an, ob das letzte Zeichen ein Satzzeichen oder ähnliches war.
     self.wasMark = lastWords.length == 0 || (lastWords.length > 0 && (
