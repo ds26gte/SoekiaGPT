@@ -3173,7 +3173,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
       var textlen = d.words.length;
       totalWords += d.words.length;
-      self.generatedWordsMax = totalWords < 40 ? Math.max(5,totalWords) : 40;
+      self.generatedWordsMax = totalWords < 36 ? Math.max(10,totalWords) : 36;
       // console.log('setting generatedWordsMax =', self.generatedWordsMax);
       var numberOfSOP = 0;
       for (var i=0; i < textlen; i++) {
@@ -3377,7 +3377,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       self.wasGenerated = true;
       if(self.wasMark && self.generatedWords > self.generatedWordsMax){
         // good time to make a mark
-        console.log('pausing¹ with', self.generatedWords, 'target:', self.generatedWordsMax);
+        // console.log('stopping¹ with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         // self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
@@ -3386,7 +3386,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }else
       if(!self.wasMark && ((bestMatch == 0 && self.generatedWords > self.generatedWordsMax) || (lowerMatch && self.generatedWords > self.generatedWordsMax*1.2))) {
         // good time to make a mark
-        // console.log('pausing² with', self.generatedWords, 'target:', self.generatedWordsMax);
+        // console.log('stopping² with', self.generatedWords, 'target:', self.generatedWordsMax);
         self.addNextWord({text:'\n',token:'\n'});
         self.addNextWord({text:'❯',token:'❯'});
         self.pauseGenerating();
@@ -3396,7 +3396,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         function pickNext(){
           var topIndex = 0;
           var picked = n[topIndex];
-          self.generatedWords++;
+          // self.generatedWords++;
 
           if (picked.matches === 0 && CHESS_DONT_LET_SINGLE_MOVE_MONOPOLIZE && n.length >= 1 && self.showChessPlayer) {
             // n[0] is always a wrong pick, at least for chess,
@@ -3439,7 +3439,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
             self.waitAfterGenerating = 0;
             self.waitSingleStepTimeout = null;
             self.addNextWord(picked);   
-            // self.generatedWords++;
+            self.generatedWords++;
+            // if (self.generatedWords > self.generatedWordsMax) {
+            //   console.log('overshoot!');
+            // }
           },(self.isFastGenerating ? 20 : self.generatingDelay)*2);
 
         }
