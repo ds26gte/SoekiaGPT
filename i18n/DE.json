@@ -5,6 +5,7 @@
 	"BACKTOTEXT":"Zurück zum Text",
 	"SHOWSOURCESHINT":"Quellen anzeigen (wenn Quelle eindeutig)",
 	"COPYTEXTHINT":"Text in die Zwischenablage kopieren",
+        "STARTGEN": "Schreiben anfangen",
 	"RESTARTHINT":"Text löschen und neu beginnen",
 	"SELECTMANUAL":"selbst auswählen",
 	"NEXT":"weiter",

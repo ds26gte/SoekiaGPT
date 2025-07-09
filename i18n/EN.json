@@ -5,6 +5,7 @@
   "BACKTOTEXT": "Return to text",
   "SHOWSOURCESHINT": "Show sources (if source is unique)",
   "COPYTEXTHINT": "Copy text to the clipboard",
+  "STARTGEN": "Start writing",
   "RESTARTHINT": "Delete text and start over",
   "SELECTMANUAL": "Manually select",
   "NEXT": "Next word",
