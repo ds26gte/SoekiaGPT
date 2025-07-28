@@ -631,7 +631,7 @@
 
           <div layout="column">
             <md-slider-container style="margin-top:-0.5em;margin-bottom:-0.5em">
-              <md-slider min="0" max="100" ng-model="self.temp" ng-change="self.getNextWords()" aria-label="Temperatur" class="md-warn">
+              <md-slider id="temperatureSlider" min="0" max="100" ng-model="self.temp" ng-change="self.getNextWords();self.attachTemperatureLabel()" aria-label="Temperatur" class="md-warn">
             </md-slider-container>       
           </div>  
 
@@ -2114,6 +2114,23 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
 
   function boostTemperature(t) {
     return 100 * Math.log(1 + tempAlpha*t/100) / tempDenom;
+  }
+
+  self.attachTemperatureLabel = function() {
+    let b = document.getElementById('temperatureBubble');
+    if (!b) {
+      let x = document.getElementById('temperatureSlider');
+      let y = x.getElementsByClassName('md-focus-thumb');
+      let y0 = y[0];
+      y0.style.position = 'relative';
+      b = document.createElement('div');
+      b.setAttribute('id', 'temperatureBubble');
+      b.style.position = 'absolute';
+      b.style.left = '10px';
+      b.style.right = '-10px';
+      y0.appendChild(b);
+    }
+    b.innerText = Number(self.temp).toString();
   }
 
   self.getNextWords = function(){
