@@ -637,7 +637,7 @@
 
           <div layout="row" layout-align="space-between center" style="user-select:none;-webkit-user-select:none;margin-left: 0.2em; margin-right: 0.2em; font-size: 80%; margin-top: -0.5em;">
             <span>{{'LOW' | trans}}</span>
-            <span>{{self.temp}}</span>
+            <span>{{self.attachTemperatureLabel();self.temp}}</span>
             <span>{{'HIGH' | trans}}</span>
           </div>
           <p>
