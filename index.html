@@ -2126,10 +2126,11 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       b = document.createElement('div');
       b.setAttribute('id', 'temperatureBubble');
       b.style.position = 'absolute';
-      b.style.left = '10px';
+      // b.style.left = '10px';
       b.style.top = '-10px';
       y0.appendChild(b);
     }
+    b.style.left = (self.temp >= 100) ? '-2px' : '10px';
     b.innerText = Number(self.temp).toString();
   }
 
