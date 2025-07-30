@@ -231,7 +231,7 @@
 
             <md-button class="documentsButton" style="min-width:1em;margin:0;height:38px;margin-right: 8px;" ng-style="{'background':self.useDistance ? '':'rgba(0,0,0,0.05)'}" ng-class="{'md-raised':!self.useDistance, 'md-sunk':self.useDistance}" ng-click="self.setUseDistance(!self.useDistance)"><md-tooltip md-direction="bottom">{{'INCLUDESIMILARWORDS' | trans}}</md-tooltip><ng-md-icon style="fill:white;" icon="select_all"></ng-md-icon></md-button>
 
-            <md-button class="md-raised documentsButton" style="background:rgba(0,0,0,0.05);min-width:1em;margin:0;height:38px" ng-click="self.setMatchingSort(self.matchingSort == 'alpha' ? 'value':'alpha')"><md-tooltip md-direction="bottom">{{'ORDERLIST' | trans}}</md-tooltip><ng-md-icon style="fill:white;" icon="sort_by_alpha" ng-if="self.matchingSort == 'alpha'"></ng-md-icon><ng-md-icon style="fill:white" icon="sort" ng-if="self.matchingSort == 'value'"></ng-md-icon></md-button>
+            <md-button class="md-raised documentsButton" style="background:rgba(0,0,0,0.05);min-width:1em;margin:0;height:38px" ng-click="self.setMatchingSort(self.matchingSort == 'alpha' ? 'rev_alpha':(self.matchingSort == 'value' ? 'alpha' : 'value'))"><md-tooltip md-direction="bottom">{{'ORDERLIST' | trans}}</md-tooltip><ng-md-icon style="fill:white;" icon="sort_by_alpha" ng-if="self.matchingSort == 'alpha'"></ng-md-icon><ng-md-icon style="fill:white" icon="sort" ng-if="self.matchingSort == 'value'"></ng-md-icon><ng-md-icon style="fill:white" icon="arrow_upwards" ng-if="self.matchingSort == 'rev_alpha'"></ng-md-icon></md-button>
                       
           </span>
 
@@ -331,7 +331,7 @@
             <md-button class="md-raised documentsButton" style="background:rgba(0,0,0,0.05);min-width:2em;margin:0;height:38px;margin-right: 8px;" ng-click="self.ngram = self.ngram + 1; self.showngram = self.ngram; self.rebuildMatchList(); self.getNextWords()" ng-disabled="self.ngram >= 6" aria-label="+1"><ng-md-icon style="fill:white" icon="exposure_plus_1"></ng-md-icon></md-button>
 
 
-            <md-button class="md-raised documentsButton" style="background:rgba(0,0,0,0.05);min-width:1em;margin:0;height:38px" ng-click="self.setNgramSort(self.ngramSort == 'alpha' ? 'value':'alpha')"><md-tooltip md-direction="bottom">{{'ORDERLIST' | trans}}</md-tooltip><ng-md-icon style="fill:white;" icon="sort_by_alpha" ng-if="self.ngramSort == 'alpha'"></ng-md-icon><ng-md-icon style="fill:white" icon="sort" ng-if="self.ngramSort == 'value'"></ng-md-icon></md-button>
+            <md-button class="md-raised documentsButton" style="background:rgba(0,0,0,0.05);min-width:1em;margin:0;height:38px" ng-click="self.setNgramSort(self.ngramSort == 'alpha' ? 'rev_alpha' : (self.ngramSort == 'value' ? 'alpha':'value'))"><md-tooltip md-direction="bottom">{{'ORDERLIST' | trans}}</md-tooltip><ng-md-icon style="fill:white;" icon="sort_by_alpha" ng-if="self.ngramSort == 'alpha'"></ng-md-icon><ng-md-icon style="fill:white" icon="sort" ng-if="self.ngramSort == 'value'"></ng-md-icon><ng-md-icon style="fill:white" icon="arrow_upwards" ng-if="self.ngramSort == 'rev_alpha'"></ng-md-icon></md-button>
                       
           </span>
 
@@ -3008,12 +3008,19 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     if (bPunctP) return -1;
   }
 
+  function lexSortReverse(atext, btext) {
+    return 0 - lexSort(atext, btext);
+  }
+
   function ngramLexSort(a, b) {
-    if (self.ngramSort != 'alpha') {
+    if (self.ngramSort === 'value') {
       if (a.count > b.count) return -1;
       if (a.count < b.count) return +1;
+      return lexSort(a.text, b.text);
     }
-    return lexSort(a.text, b.text);
+    let n = lexSort(a.text, b.text);
+    if (self.ngramSort === 'rev_alpha') return -n;
+    return n;
   }
 
   self.rebuildNGramList = function(from){
@@ -3066,7 +3073,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       //   // return 0;
       //   return lexSort(a.text, b.text);
       // }
-      if(self.matchingSort != 'alpha'){
+      if(self.matchingSort === 'value'){
         if (false || true) {
           if(a.matches < b.matches) return 1;
           if(a.matches > b.matches) return -1;
@@ -3084,7 +3091,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         // return lexSort(a.tokens[a.tokens.length-1], b.tokens[b.tokens.length-1]);
         // return lexSort(a.text, b.text);
       }
-      return lexSort(a.text, b.text);
+      let n = lexSort(a.text, b.text);
+      if (self.matchingSort === 'rev_alpha') return -n;
+      return n;
     });
 
     // console.log('sortedMatching.sorted=', self.sortedMatching.sorted);

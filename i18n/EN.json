@@ -18,7 +18,7 @@
   "SUGGESTIONS": "Suggested words",
   "USESYNONYMS": "Include English synonyms",
   "INCLUDESIMILARWORDS": "Include similar words",
-  "ORDERLIST": "Sort list (alphabetically / by frequency)",
+  "ORDERLIST": "Sort list (alphabetically / reverse alphabetically / by frequency)",
   "EDITSUGGESTIONS": "Customize temperature / number of suggestions",
   "TIMESIN": "x in",
   "DOCUMENT": "Document",
