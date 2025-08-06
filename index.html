@@ -168,21 +168,21 @@
               <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
             </md-button> -->
 
-            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isSingleGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()">
+            <md-button ng-if="!self.isManualMode && self.isGenerating && self.isSingleGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()" aria-label="toggle pause">
             <img src="./step.png" style="vertical-align: -8px" alt="step" />
             <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
             <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
             <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
             </md-button>
 
-            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isSingleGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()">
+            <md-button ng-if="!self.isManualMode && self.isGenerating && !self.isSingleGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()" aria-label="toggle pause">
             <ng-md-icon icon="pause"></ng-md-icon>
             <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
             <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
             <span ng-if="self.isGenerating && !self.isSingleGenerating">{{'PAUSE' | trans}}</span>
             </md-button>
 
-            <md-button ng-if="!self.isManualMode && !self.isGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()">
+            <md-button ng-if="!self.isManualMode && !self.isGenerating" style="margin:0;text-transform: none;" ng-click="self.isGenerating && !self.isSingleGenerating ? self.pauseGenerating() : self.startGenerating()" aria-label="toggle pause">
             <ng-md-icon icon="android"></ng-md-icon>
             <span ng-if="self.isGenerating && self.isSingleGenerating">{{'NEXT' | trans}}</span>
             <span ng-if="!self.isGenerating && !self.isSingleGenerating">{{'AUTOCONTINUE' | trans}}</span>
@@ -203,7 +203,7 @@
 
             <span flex></span>
 
-            <md-button ng-if="!self.isManualMode" ng-click="self.pauseGenerating();self.isManualMode = !self.isManualMode" style="margin:0;text-transform: none;"><ng-md-icon icon="face"></ng-md-icon> {{'SELECTMANUAL' | trans}}</md-button>              
+            <md-button ng-if="!self.isManualMode" ng-click="self.pauseGenerating();self.isManualMode = !self.isManualMode" aria-label="select manual" style="margin:0;text-transform: none;"><ng-md-icon icon="face"></ng-md-icon> {{'SELECTMANUAL' | trans}}</md-button>
 
           </div>
         </div>
@@ -705,11 +705,11 @@
 </md-dialog>
 </script> 
 
-<script type="text/ng-template" id="abcTicTacToePlayer.html">
+<script type="text/ng-template" id="TicTacToePlayer.html">
 <md-dialog aria-label="TicTacToe Player" style="min-width: 50%;max-width:80%;width:800px">
   <md-dialog-content style="padding:16px">
     <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
-    <div id="abcTicTacToeBoard">
+    <div id="TicTacToeBoard">
     <table>
       <tr><td>{{board[0][0]}}</td><td>{{board[1][0]}}</td><td>{{board[2][0]}}</td></tr>
       <tr><td>{{board[0][1]}}</td><td>{{board[1][1]}}</td><td>{{board[2][1]}}</td></tr>
@@ -721,11 +721,11 @@
 </md-dialog>
 </script>
 
-<script type="text/ng-template" id="abcChessPlayer.html">
+<script type="text/ng-template" id="ChessPlayer.html">
 <md-dialog aria-label="Chess Player" style="min-width: 50%;max-width:80%;width:800px">
   <md-dialog-content style="padding:16px">
     <ng-md-icon ng-click="cancel()" style="cursor:pointer;outline:none;float:right;fill:black" icon="close"></ng-md-icon>
-    <div id="abcChessBoard">
+    <div id="ChessBoard">
     <table>
       <tr><td>{{board[0][7]}}</td><td>{{board[1][7]}}</td><td>{{board[2][7]}}</td><td>{{board[3][7]}}</td><td>{{board[4][7]}}<td>{{board[5][7]}}</td><td>{{board[6][7]}}</td><td>{{board[7][7]}}</td></tr>
       <tr><td>{{board[0][6]}}</td><td>{{board[1][6]}}</td><td>{{board[2][6]}}</td><td>{{board[3][6]}}</td><td>{{board[4][6]}}<td>{{board[5][6]}}</td><td>{{board[6][6]}}</td><td>{{board[7][6]}}</td></tr>
@@ -1407,15 +1407,15 @@ body.smallScreen .seeInsideBtn2 {
 .document_CY {background: #9932CCCC !important; }
 .document_CZ {background: #FF6347CC !important; }
 
-#abcTicTacToeBoard table { border: 1px solid black; }
-#abcTicTacToeBoard td {
+#TicTacToeBoard table { border: 1px solid black; }
+#TicTacToeBoard td {
   border: 1px solid black;
   width: 4em;
   height: 2ex;
 }
 
-#abcChessBoard table { border: 1px solid black; }
-#abcChessBoard td {
+#ChessBoard table { border: 1px solid black; }
+#ChessBoard td {
   border: 1px solid black;
   width: 4em;
   height: 2ex;
@@ -3742,7 +3742,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   const blackPieces = [ black_k, black_q, black_b, black_n, black_r, black_p ];
 
   self.visualizeChessGame = function(board) {
-    let abcContent = document.getElementById('inputBox').innerText;
+    let gameContent = document.getElementById('inputBox').innerText;
 
     function integerizePos(s) {
       let charCodeA = 97;
@@ -3836,10 +3836,10 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     }
 
-    function parseAllMoves(abcContent) {
-      // console.log('doing parseAllMoves', abcContent);
-      abcContent = abcContent.replace(/\.\s+$/, '');
-      let listOfMovesOG = abcContent.trim().split(/\s+/);
+    function parseAllMoves(gameContent) {
+      // console.log('doing parseAllMoves', gameContent);
+      gameContent = gameContent.replace(/\.\s+$/, '');
+      let listOfMovesOG = gameContent.trim().split(/\s+/);
       let listOfMoves = [];
       let player = 'w';
       while (listOfMovesOG.length > 0) {
@@ -4202,7 +4202,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
       }
     }
 
-    let gameMoves = parseAllMoves(abcContent);
+    let gameMoves = parseAllMoves(gameContent);
     $timeout(visualizeOneChessMove, CHESS_TIME_BETWEEN_MOVES);
   };
 
@@ -4258,7 +4258,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         };
         $timeout($scope.replay, 1000);
       },
-      templateUrl: 'abcChessPlayer.html',
+      templateUrl: 'ChessPlayer.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true
@@ -4266,9 +4266,9 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   };
 
   self.visualizeTicTacToeGame = function(board) {
-    let abcContent = document.getElementById('inputBox').innerText;
+    let gameContent = document.getElementById('inputBox').innerText;
     let TIMEBETWEENPLAYS = 1000;
-    let gameMoves = abcContent.trim().split(/\s+/);
+    let gameMoves = gameContent.trim().split(/\s+/);
     function visualizeOneMove() {
       let turn = gameMoves.shift();
       let player = turn[0];
@@ -4309,7 +4309,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         };
         $timeout($scope.replay, 1000);
       },
-      templateUrl: 'abcTicTacToePlayer.html',
+      templateUrl: 'TicTacToePlayer.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true
