@@ -37,6 +37,15 @@
 
 </head>
   <body ng-controller="eduSLMEngineCtl as self" ng-cloak style="overflow:hidden">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCKK7WY2YQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SCKK7WY2YQ');
+  </script>
   <div id="wrapper" style="overflow:auto;width:100%;height:100%;position: absolute;left: 0;" ng-style="{'overflow':self.showInsideButton ? 'hidden':'auto'}">
     <div layout="row" style="height:100%">
     <div id="inputPanel" class="inputPanel" ng-class="{'hideInside':self.showInsideButton}" layout="column" layout-align="start start">
