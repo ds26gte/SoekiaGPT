@@ -1481,6 +1481,28 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   if(paramLang == "EN" || paramLang == "IT" || paramLang == "FR" || paramLang == "DE")
   app.currentLanguage = paramLang;
 
+  var collectionNames = {
+    fairytale: 'default',
+    maerchen: 'default2',
+    weather: 'default3',
+    song: 'default4',
+    monkeys: 'default5',
+    tictactoe: 'default6',
+    chess: 'default7',
+  };
+
+  app.defaultCollection = 'default';
+  var defaultCollectionName = urlParams.get('name');
+  if (defaultCollectionName) {
+    app.defaultCollection = collectionNames[defaultCollectionName] || defaultCollectionName;
+  }
+  app.defaultTemperature = 60;
+  var defaultTemperature = urlParams.get('temp');
+  if (defaultTemperature) {
+    app.defaultTemperature = Number(defaultTemperature);
+  }
+
+
   // https://www.soekia.ch/GPT/?lang=EN
 
   app.translations = {};
@@ -1541,7 +1563,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
         // console.log('setting noconfirm');
         self.noconfirm = true;
       }
-      self.loadPredefined('default');
+      self.loadPredefined(app.defaultCollection);
     });
 
   }
@@ -1566,7 +1588,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
   self.ngramSort = 'value';
 
   self.maxNext = 12;
-  self.temp = 70;
+  self.temp = app.defaultTemperature;
   self.context = 1.0;
   self.nWeight = 1.0;
   self.ngram = 5;
@@ -3595,7 +3617,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }else self.maxNext = 12;
           if(data.temp){
             self.temp = data.temp;
-          }else self.temp = 60;
+          }else self.temp = app.defaultTemperature;
           if(data.context){
             self.context = data.context;
           }else self.context = 1.0;
@@ -3684,7 +3706,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
           }else self.maxNext = 12;
           if(self.predefined[i].temp){
             self.temp = self.predefined[i].temp;
-          }else self.temp = 60;
+          }else self.temp = app.defaultTemperature;
           if(self.predefined[i].context){
             self.context = self.predefined[i].context;
           }else self.context = 1.0;
