@@ -493,6 +493,12 @@
                     <ng-md-icon style="fill:white" icon="wb_irradescent"></ng-md-icon>
                   </md-button>
 
+                  <md-button aria-label="Oldlady" class="md-fab md-raised md-mini md-accent documentsButton"
+                    ng-click="self.loadPredefined('default8',$event)" style="background:#17b691">
+                    <md-tooltip md-direction="left">{{'OLDLADY' | trans}}</md-tooltip>
+                    <ng-md-icon style="fill:white" icon="accessible"></ng-md-icon>
+                  </md-button>
+
                   <!-- end of collections -->
 
                 </md-fab-actions>
@@ -1489,6 +1495,7 @@ function($scope, $mdBottomSheet, $mdSidenav, $mdMedia, $mdDialog, $timeout,$inte
     monkeys: 'default5',
     tictactoe: 'default6',
     chess: 'default7',
+    oldlady: 'default8',
   };
 
   app.defaultCollection = 'default';

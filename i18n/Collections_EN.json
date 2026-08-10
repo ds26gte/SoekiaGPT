@@ -515,6 +515,19 @@
         }
       ]
 
-    }
+    },
 
+    {
+      "name": "default8",
+      "task": "There as an old lady who",
+      "prompt": "There as an old lady who",
+      "promptDefault": "There was an old lady who",
+      "documents": [
+        {
+          "id": "1",
+          "text": "There was an Old Lady who Swallowed a Fly\n\nThere was an old lady who swallowed a fly,\nI don't know why she swallowed a fly - perhaps she'll die!\n\nThere was an old lady who swallowed a spider\nThat wriggled and jiggled and tickled inside her;\nShe swallowed the spider to catch the fly;\nI don't know why she swallowed a fly - perhaps she'll die!\n\nThere was an old lady who swallowed a bird;\nHow absurd to swallow a bird!\nShe swallowed the bird to catch the spider\nThat wriggled and jiggled and tickled inside her,\nShe swallowed the spider to catch the fly;\nI don't know why she swallowed a fly - perhaps she'll die!\n\nThere was an old lady who swallowed a cat;\nWell, fancy that, she swallowed a cat!\nShe swallowed the cat to catch the bird,\nShe swallowed the bird to catch the spider\nThat wriggled and jiggled and tickled inside her,\nShe swallowed the spider to catch the fly;\nI don't know why she swallowed a fly - perhaps she'll die!"
+        }
+      ]
+
+    }
   ]
